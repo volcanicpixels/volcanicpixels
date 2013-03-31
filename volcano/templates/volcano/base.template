@@ -1,0 +1,14 @@
+{% extends 'html5.template' %}
+
+{%- block scripts -%}
+	{{ super() }}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/{{ jquery_version | default('1.9.1') }}/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{ asset_domain() }}/js/jquery-{{ jquery_version | default('1.9.1') }}.min.js"><\/script>')</script>
+	<script src="{{ asset_domain() }}/js/modernizr-{{ modernizr_version | default('2.6.2') }}.min.js"></script>
+{%- endblock scripts -%}
+
+
+{%- block footer_scripts -%}
+	{{ super() }}
+	<script src="{{ asset_domain() }}/js/common.js"></script>
+{%- endblock footer_scripts -%}

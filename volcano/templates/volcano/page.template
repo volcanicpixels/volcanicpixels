@@ -1,0 +1,24 @@
+{% extends 'base.template' %}
+
+{% block content %}
+	<section class="section section-content">
+		<div class="container">
+			{% block page_heading_cntr %}
+				<h1 class="align-center">
+					{% block page_heading %}
+					{% endblock page_heading %}
+					{% block page_anchor %}
+						<a class="anchor page-anchor" href="{{ request.path }}"><i class="ss-icon">link</i></a>
+					{% endblock page_anchor %}
+				</h1>
+			{% endblock page_heading_cntr %}
+			
+			{% block content_inner %}
+			{% endblock content_inner %}
+
+			{% block service_info %}
+				<h2 class="service-info">If you are having issues or want more information regarding this service please <a href="mailto:{{ admin_email | default('chatfielddaniel@gmail.com') }}">shoot me an email</a>.</h2>
+			{% endblock service_info %}
+		</div>
+	</section>
+{% endblock content %}

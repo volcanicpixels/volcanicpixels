@@ -1,0 +1,7 @@
+{% extends '/errors/error.template' %}
+
+{% block title %}Method Not Allowed | {{ super() }}{% endblock title %}
+
+{% block page_heading %}
+	405. <br/>The method {{ request.method }} is not allowed for the requested URL.
+{% endblock page_heading %}

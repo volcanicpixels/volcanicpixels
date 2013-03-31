@@ -1,0 +1,55 @@
+{% extends '/volcano/base.template' %}
+
+{%- block stylesheets -%}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ asset_domain() }}/css/reset.css">
+	<link rel="stylesheet" href="{{ asset_domain() }}/css/common.css">
+	<link rel="stylesheet" href="{{ asset_domain() }}/css/landing.css">
+{%- endblock stylesheets -%}
+
+{% block scripts %}
+	{{ super() }}
+	<script type="text/javascript" src="//use.typekit.net/xds7tli.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+{% endblock scripts %}
+
+{%- block header -%}
+	<section class="section section-header" id="top">
+		<div class="container">
+			{%- block parent_link_cntr -%}
+				<a class="vp-btn-header button-left" href="/">Homepage</a>
+			{%- endblock parent_link_cntr -%}
+			{%- if request.path != '/' -%}
+			<a href="/" rel="home">
+			{%- endif -%}
+				<div class="vp-logo">
+					<span>VP</span><span> Server</span>
+				</div>
+			{%- if request.path != '/' -%}
+			</a>
+			{%- endif -%}
+		</div>
+	</section>
+{%- endblock header -%}
+
+
+{% block content %}
+	<section class="section section-content">
+		<div class="container">
+			{% block page_heading_cntr %}
+				<h1 class="align-left error-title vp-large-heading">
+					{% block page_heading %}
+						An error has occurred.
+					{% endblock %}
+				</h1>
+			{% endblock page_heading_cntr %}
+			
+			{% block content_inner %}
+			{% endblock content_inner %}
+
+			{% block service_info %}
+				<h2 class="service-info tk-freight-sans-pro">If you are having issues or want more information regarding this service please <a href="mailto:{{ admin_email | default('chatfielddaniel@gmail.com') }}">shoot me an email</a>.</h2>
+			{% endblock service_info %}
+		</div>
+	</section>
+{% endblock content %}

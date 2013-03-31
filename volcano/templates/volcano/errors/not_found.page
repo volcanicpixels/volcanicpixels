@@ -1,0 +1,7 @@
+{% extends '/errors/error.template' %}
+
+{% block title %}Not found | {{ super() }}{% endblock title %}
+
+{% block page_heading %}
+	404. <br/>Nothing here, sorry about that.
+{% endblock page_heading %}

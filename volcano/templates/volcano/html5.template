@@ -1,0 +1,104 @@
+{%- block html_cntr -%}
+	<!DOCTYPE html>
+		<!--
+		This website is using the volcano python package by Daniel Chatfield.
+		-->
+		{%- block html -%}
+		<!--[if lt IE 7]>	<html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+		<!--[if IE 7]>	 <html class="no-js lt-ie9 lt-ie8" xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+		<!--[if IE 8]>	 <html class="no-js lt-ie9" xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+		<!--[if gt IE 8]><!--> <html class="no-js" xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml"> <!--<![endif]-->
+			{%- block head_cntr -%}
+				<head>
+					{%- block head -%}
+						{%- block meta -%}
+							<meta charset="utf-8">
+							<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+							<title>{%- block title -%}{{ site_title | default('Volcanic Pixels Server') }}{%- endblock title -%}</title>
+							<meta name="description" content="{%- block description -%}{{ site_title }}{%- endblock description -%}">
+							{%- if author is defined -%}
+								<meta name="author" content="{{ author }}">
+							{%- endif -%}
+							{%- if config.GOOGLE_SITE_VERIFICATION is defined -%}
+								<meta name="google-site-verification" content="{{ config.GOOGLE_SITE_VERIFICATION }}" />
+							{%- endif -%}
+
+							<link rel="canonical" href="{{ canonical_url() }}"/>
+    						<meta property="og:url" content="{{ canonical_url() }}"/>
+
+							{%- if config.FB_ADMINS is defined -%}
+    							<meta property="fb:admins" content="{{ config.FB_ADMINS }}" />
+    						{%- endif -%}	
+						{%- endblock meta -%}
+
+						{%- block stylesheets -%}
+						{%- endblock stylesheets -%}
+
+						<style type="text/css">
+							{%- block inline_styles -%}
+							{%- endblock inline_styles -%}
+						</style>
+
+						{%- block scripts -%}
+						{%- endblock scripts -%}
+					{%- endblock head -%}
+				</head>
+			{%- endblock head_cntr -%}
+			{% block body_cntr %}
+				<body class="{% block body_class %}{% endblock %}">
+					{%- block body -%}
+						{%- block chromeframe -%}
+							<!--[if lte IE 8]>
+									<div class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</div>
+							<![endif]-->
+						{%- endblock chromeframe -%}
+
+						{%- block flash_message -%}
+							{%- include 'includes/flash_message.template' -%} {# page-level feedback notices #}
+						{%- endblock flash_message -%}
+
+						{%- block page -%}
+							{%- block header -%}
+							{%- endblock header -%}
+
+							{%- block content -%}
+							{%- endblock content -%}
+
+							{%- block footer -%}
+							{%- endblock footer -%}
+						{%- endblock page -%}
+						{%- block footer_scripts -%}
+						{%- endblock footer_scripts -%}
+
+						<script type="text/javascript">
+							{%- block inline_scripts -%}
+							{%- endblock inline_scripts -%}
+						</script>
+
+						{%- block google_analytics -%}
+							{%- if config.GOOGLE_ANALYTICS_ID is defined -%}
+								<script type="text/javascript">
+
+									var _gaq = _gaq || [];
+									_gaq.push(['_setAccount', '{{ config.GOOGLE_ANALYTICS_ID }}']);
+									_gaq.push(['_trackPageview']);
+
+									(function() {
+										var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+										ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+										var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+									})();
+
+								</script>
+							{%- endif -%}
+						{%- endblock google_analytics -%}
+					{%- endblock body -%}
+				</body>
+			{% endblock body_cntr %}
+		{%- endblock html -%}
+	</html>
+{%- endblock html_cntr -%}
