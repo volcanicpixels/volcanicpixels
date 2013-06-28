@@ -1,7 +1,0 @@
-{% extends '/errors/error.template' %}
-
-{% block title %}Internal Error | {{ super() }}{% endblock title %}
-
-{% block page_heading %}
-	500. <br/>An error has occurred - try refreshing the page.
-{% endblock page_heading %}
