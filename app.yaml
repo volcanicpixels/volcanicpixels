@@ -1,4 +1,9 @@
 application: volcanicpixels
-versio: www
+version: www
 runtime: python27
+threadsafe: yes
 api_version: 1
+
+handlers:
+ - url: /assets
+   static_dir: assets
