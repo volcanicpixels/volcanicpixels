@@ -8,3 +8,5 @@ if 'LOCAL_SERVER_NAME' in os.environ:
 
 cache_enabled = False
 profiler_enabled = True
+
+SECURE_ASSET_DOMAIN = ASSET_DOMAIN = '//localhost:12087'

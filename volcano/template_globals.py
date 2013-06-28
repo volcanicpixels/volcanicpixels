@@ -1,5 +1,5 @@
 from . import app
-from .template_tests import https
+from .template_tests import https, is_development
 from flask import request
 from gae_mini_profiler.templatetags import profiler_includes
 import logging

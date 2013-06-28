@@ -1,11 +1,12 @@
 from flask import Flask
 import os
 import logging
+from template_tests import is_development
 
 
 app = Flask(__name__, template_folder='../application/templates/')
 app.config.from_object('volcano.default_settings')
-if 'SERVER_SOFTWARE' in os.environ and os.environ['SERVER_SOFTWARE'].startswith('Dev'):
+if is_development():
 	app.config.from_object('volcano.development_settings')
 	app.config.from_object('development_settings')
 else:
