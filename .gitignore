@@ -2,6 +2,8 @@
 ## This Project
 #################
 secret_keys.py
+libs/*
+!libs/__init__.py
 
 #################
 ## Eclipse
