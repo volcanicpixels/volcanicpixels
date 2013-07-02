@@ -27,3 +27,8 @@ def register_blueprints(app, package_name, package_path):
                 app.register_blueprint(item)
             rv.append(item)
     return rv
+
+
+def should_start_sentry(app):
+    """ Determines whether to initialize sentry for the given app. """
+    return True

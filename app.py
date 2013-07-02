@@ -7,7 +7,6 @@
 """
 
 import libs
-
 import volcanicpixels.www
 
 www = volcanicpixels.www.create_app()

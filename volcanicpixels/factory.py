@@ -5,9 +5,11 @@
 """
 
 from flask import Flask
-#import newrelic.agent
 
-from .helpers import register_blueprints
+from .core import sentry
+from .helpers import register_blueprints, should_start_sentry
+
+
 
 def create_app(package_name, package_path, settings_override=None):
     """ Returns a :class:`Flask` application instance configured with common extensions.
@@ -20,7 +22,9 @@ def create_app(package_name, package_path, settings_override=None):
 
     app = Flask(package_name, instance_relative_config=True)
 
-    #app = newrelic.agent.WSGIApplicationWrapper(app)
+    if should_start_sentry(app):
+        sentry.init_app(app)
+
 
     app.config.from_object('volcanicpixels.settings')
     app.config.from_pyfile('settings.cfg', silent=True)
