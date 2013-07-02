@@ -1,0 +1,2 @@
+pylint==0.28.0
+pyflakes==0.7.2
