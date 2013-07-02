@@ -13,5 +13,4 @@ install:
  - pip install coveralls --use-mirrors
 
 script:
- - pyflakes volcanicpixels
  - py.test
