@@ -2,6 +2,8 @@ This repository contains all the code for the Volcanic Pixels website.
 
 [![Build Status](https://travis-ci.org/volcanicpixels/volcanicpixels.png)](https://travis-ci.org/volcanicpixels/volcanicpixels)
 [![Build Status](https://drone.io/github.com/volcanicpixels/volcanicpixels/status.png)](https://drone.io/github.com/volcanicpixels/volcanicpixels/latest)
+[![Codeship Status](https://www.codeship.io/projects/a1e2a830-c54e-0130-e747-523cfa1ad0da/status?branch=new)](https://www.codeship.io/projects/4696)
+
 
 ## Installation requirements
 
