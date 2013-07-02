@@ -31,7 +31,7 @@ def main():
 		f.write(libs_module_init)
 		f.close()
 
-	Popen('pip install -r requirements.txt --target=libs', cwd=base_dir)
+	#Popen('pip install -r requirements.txt --target=libs', cwd=base_dir)
 
 
 
