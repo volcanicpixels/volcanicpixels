@@ -6,6 +6,8 @@
     Volcanic Pixels frontend application package
 """
 
+from functools import wraps
+
 from .. import factory
 
 def create_app(settings_override=None):
