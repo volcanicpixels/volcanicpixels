@@ -4,6 +4,7 @@
 secret_keys.py
 libs/*
 newrelic.ini
+*.egg-info
 
 #################
 ## Eclipse

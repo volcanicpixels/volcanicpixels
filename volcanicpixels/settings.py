@@ -6,7 +6,11 @@
     Volcanic Pixels settings module
 """
 
-from .secret_keys import SENTRY_DSN
+try:
+	from .secret_keys import SENTRY_DSN
+except ImportError:
+	pass
+
 
 DEBUG = True
 SECRET_KEY = 'super-secret-key'
