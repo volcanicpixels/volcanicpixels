@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
     volcanicpixels.www
-    ~~~~~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~
 
     Volcanic Pixels frontend application package
 """
 
 from functools import wraps
+
+import libs
 
 from .. import factory
 
@@ -20,12 +22,11 @@ def create_app(settings_override=None):
 
 def route(bp, *args, **kwargs):
 
-	def decorator(f):
-		@bp.route(*args, **kwargs)
-		@wraps(f)
-		def wrapper(*args, **kwargs):
-			return f(*args, **kwargs)
-		return f
+    def decorator(f):
+        @bp.route(*args, **kwargs)
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            return f(*args, **kwargs)
+        return f
 
-	return decorator
-
+    return decorator

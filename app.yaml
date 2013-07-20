@@ -9,4 +9,4 @@ handlers:
    static_dir: assets
 
  - url: .*
-   script: app.www
+   script: volcanicpixels.www
