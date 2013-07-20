@@ -7,9 +7,9 @@
 """
 
 try:
-	from .secret_keys import SENTRY_DSN
+    from .secret_keys import SENTRY_DSN
 except ImportError:
-	pass
+    pass
 
 
 DEBUG = True

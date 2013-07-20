@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-	volcanicpixels.core
-	~~~~~~~~~~~~~~~~~~~
+    volcanicpixels.core
+    ~~~~~~~~~~~~~~~~~~~
 """
 
 
@@ -11,7 +11,7 @@ from .secret_keys import SENTRY_DSN
 
 sentry = Sentry(dsn=SENTRY_DSN)
 
-class VolcanicPixelsException(Exception):
-	""" Base application error class."""
-	pass
 
+class VolcanicPixelsException(Exception):
+    """ Base application error class."""
+    pass

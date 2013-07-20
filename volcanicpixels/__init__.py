@@ -8,6 +8,7 @@
 
 import libs
 
+from . import core
 from . import www
 
-www_app = www.create_app()
+WWW = www.create_app()

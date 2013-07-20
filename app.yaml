@@ -12,4 +12,4 @@ handlers:
    static_dir: assets
 
  - url: .*
-   script: volcanicpixels.www_app
+   script: volcanicpixels.WWW

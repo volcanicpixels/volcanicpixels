@@ -12,6 +12,7 @@ import libs
 
 from .. import factory
 
+
 def create_app(settings_override=None):
     """ Returns the Volcanic Pixels Flask application. """
 

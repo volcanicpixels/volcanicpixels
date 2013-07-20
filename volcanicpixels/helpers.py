@@ -9,8 +9,10 @@ import importlib
 
 from flask import Blueprint
 
+
 def register_blueprints(app, package_name, package_path):
-    """ Register all Blueprint instances on the specified Flask application found in all child modules for the specified package.
+    """Register all Blueprint instances on the specified Flask
+    application found in all child modules for the specified package.
 
     :param app: the Flask application
     :param package_name:

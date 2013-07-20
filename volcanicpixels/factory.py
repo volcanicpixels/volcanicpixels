@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-	volcanicpixels.factory
+    volcanicpixels.factory
     ~~~~~~~~~~~~~~~~~~~~~~
 """
 
@@ -10,9 +10,9 @@ from .core import sentry
 from .helpers import register_blueprints, should_start_sentry
 
 
-
 def create_app(package_name, package_path, settings_override=None):
-    """ Returns a :class:`Flask` application instance configured with common extensions.
+    """Returns a :class:`Flask` application instance configured with
+    common extensions.
 
     :param package_name: application package name
     :param package_path:
@@ -25,7 +25,6 @@ def create_app(package_name, package_path, settings_override=None):
     if should_start_sentry(app):
         sentry.init_app(app)
 
-
     app.config.from_object('volcanicpixels.settings')
     app.config.from_pyfile('settings.cfg', silent=True)
     app.config.from_object(settings_override)
@@ -33,4 +32,3 @@ def create_app(package_name, package_path, settings_override=None):
     register_blueprints(app, package_name, package_path)
 
     return app
-
