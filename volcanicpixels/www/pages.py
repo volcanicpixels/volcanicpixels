@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-	volcanicpixels.www.pages
+    volcanicpixels.www.pages
     ~~~~~~~~~~~~~~~~~~~~~~~~
 """
 

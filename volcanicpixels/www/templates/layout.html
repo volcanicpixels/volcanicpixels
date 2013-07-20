@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-	<html class="no-js"  lang="en-gb"> <!--<![endif]-->
-		{%- block head_cntr -%}
-			<head>
-				{%- block head -%}
-					{%- block head_meta -%}
-						<meta charset="utf-8">
-						<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-						<title>{% block title %}Welcome{% endblock title %} | Volcanic Pixels</title>
-						<meta name="description" content="{%- block description -%}{%- endblock description -%}">
-					{%- endblock head_meta -%}
-				{%- endblock head -%}
-			</head>
-		{%- endblock head_cntr -%}
-		<body class="">
-		</body>
+    <html class="no-js"  lang="en-gb"> <!--<![endif]-->
+        {%- block head_cntr -%}
+            <head>
+                {%- block head -%}
+                    {%- block head_meta -%}
+                        <meta charset="utf-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                        <title>{% block title %}Welcome{% endblock title %} | Volcanic Pixels</title>
+                        <meta name="description" content="{%- block description -%}{%- endblock description -%}">
+                    {%- endblock head_meta -%}
+                {%- endblock head -%}
+            </head>
+        {%- endblock head_cntr -%}
+        <body class="">
+            {% block body %}
+            <header>
+
+            </header>
+            {% endblock body %}
+        </body>
 </html>
