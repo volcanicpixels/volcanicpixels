@@ -1,5 +1,8 @@
 application: volcanicpixels
 version: www
+
+module: www
+
 runtime: python27
 threadsafe: yes
 api_version: 1
@@ -9,4 +12,4 @@ handlers:
    static_dir: assets
 
  - url: .*
-   script: volcanicpixels.www
+   script: volcanicpixels.www_app

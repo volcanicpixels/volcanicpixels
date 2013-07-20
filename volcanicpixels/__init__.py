@@ -8,7 +8,6 @@
 
 import libs
 
-from .www import create_app as create_www_app
+from . import www
 
-www = create_www_app()
-
+www_app = www.create_app()
