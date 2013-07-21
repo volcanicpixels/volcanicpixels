@@ -38,4 +38,9 @@ dev_appserver.py [path_to_project]
 
 # TODO
 
- - Setup grunt with assets
+ - [x] Update readme
+ - [ ] Setup grunt with assets
+
+# Goals
+
+ - [x] Cross-platform development support
