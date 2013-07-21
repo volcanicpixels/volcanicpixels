@@ -1,36 +1,41 @@
 This repository contains all the code for the Volcanic Pixels website.
 
 [![Build Status](https://travis-ci.org/volcanicpixels/volcanicpixels.png)](https://travis-ci.org/volcanicpixels/volcanicpixels)
-[![Build Status](https://drone.io/github.com/volcanicpixels/volcanicpixels/status.png)](https://drone.io/github.com/volcanicpixels/volcanicpixels/latest)
-[![Codeship Status](https://www.codeship.io/projects/a1e2a830-c54e-0130-e747-523cfa1ad0da/status?branch=new)](https://www.codeship.io/projects/4696)
 
 
-## Installation requirements
-
-To install the application you will need the following (other dependencies are installed automatically)
-
- - Python 2.7
- - PIP 1.3 or newer
- - Git
- - Google App Engine SDK
+# Running application locally
 
 
-## How to run application locally
+## Requirements
 
-Download the source.
+To install the application locally you will need the following (other dependencies are installed automatically)
 
-### Install Dependencies
+ - Python == 2.7.5
+ - Google App Engine SDK >= 1.8.2
 
-```
-pip install -r requirements.txt --target=libs
-```
 
-This will install the required dependencies in the 'libs' folder (app engine provides no dependency management system so all libraries must be pushed with the code).
+## Launching
 
-### Launch application using App Engine SDK
 
-Either add the application folder to the GUI and click 'start' or do it from the command line using:
+Using the 'App Engine Launcher':
+
+ - add the project folder as a new project
+ - Select the application and click run
+
+Using the Command line:
 
 ```
-dev_appserver.py [path to project]
+dev_appserver.py [path_to_project]
 ```
+
+# Contributing
+
+## Requirements
+
+ - pip >= 1.3
+ - GIT 
+ - Grunt
+
+# TODO
+
+ - Setup grunt with assets
