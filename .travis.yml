@@ -10,4 +10,5 @@ install:
  - pip install -r requirements_dev.txt --use-mirrors
 
 script:
+ - pep8 volcanicpixels
  - python run_tests.py
