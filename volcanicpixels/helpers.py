@@ -4,13 +4,17 @@
     ~~~~~~~~~~~~~~~~~~~~~~
 """
 
-import pkgutil
 import importlib
+import logging
+import pkgutil
+import os
 
 from flask import Blueprint
+from raven.contrib.flask import Sentry
+from raven_appengine import register_transport
 
 
-def register_blueprints(app, package_name, package_path):
+def load_blueprints(app, package_name, package_path):
     """Register all Blueprint instances on the specified Flask
     application found in all child modules for the specified package.
 
@@ -31,6 +35,23 @@ def register_blueprints(app, package_name, package_path):
     return rv
 
 
+def is_dev_server():
+    return os.environ.get('SERVER_SOFTWARE', '').startswith('Development')
+
+
 def should_start_sentry(app):
-    """ Determines whether to initialize sentry for the given app. """
-    return True
+    """Determines whether to initialize sentry for the given app."""
+    if is_dev_server():
+        return False
+    else:
+        return True
+
+
+def load_sentry(app, dsn=None):
+    """Loads `sentry` onto the given flask app."""
+    try:
+        register_transport()
+        Sentry(app=app, dsn=dsn)
+    except:
+        logging.exception("Failed to load sentry")
+    return app

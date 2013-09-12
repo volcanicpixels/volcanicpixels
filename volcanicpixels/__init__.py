@@ -6,9 +6,6 @@
     Volcanic Pixels application package
 """
 
-import libs
+from libs import fix_path
 
-from . import core
-from . import www
-
-WWW = www.create_app()
+fix_path()

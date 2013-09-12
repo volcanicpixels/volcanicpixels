@@ -1,7 +1,7 @@
 application: volcanicpixels
-version: www
+version: new
 
-module: www
+module: web
 
 runtime: python27
 threadsafe: yes
@@ -12,4 +12,7 @@ handlers:
    static_dir: assets
 
  - url: .*
-   script: volcanicpixels.WWW
+   script: volcanicpixels.frontend.app
+
+builtins:
+ - deferred: on

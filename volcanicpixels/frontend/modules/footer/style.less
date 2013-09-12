@@ -1,0 +1,43 @@
+/**
+ * modules/footer
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/helpers/style";
+
+@import "modules/navigation/style";
+
+@footer-height: 5em;
+
+.page-footer {
+    height: @footer-height;
+    .container;
+    
+    .page-nav {
+        .pull-right;
+    }
+}
+
+.footer-text {
+    .pull-left;
+    .small-caps;
+    .vertical-center-outer;
+    height: 100%;
+
+    p {
+        .vertical-center-inner;
+    }
+}
+
+
+// Sticky footer see: http://ryanfait.com/html5-sticky-footer/
+
+.wrapper {
+    margin-bottom: -@footer-height;
+    &::after {
+        display: block;
+        content: " ";
+        height: @footer-height;
+    }
+}

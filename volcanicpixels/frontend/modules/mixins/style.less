@@ -1,0 +1,20 @@
+/**
+ * utils/mixins
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+
+.box-sizing(@box-sizing) {
+    -webkit-box-sizing: @box-sizing;
+       -moz-box-sizing: @box-sizing;
+        -ms-box-sizing: @box-sizing;
+            box-sizing: @box-sizing;
+}
+
+.font-feature-settings(@settings) {
+    -webkit-font-feature-settings: @settings;
+       -moz-font-feature-settings: @settings;
+        -ms-font-feature-settings: @settings;
+         -o-font-feature-settings: @settings;
+            font-feature-settings: @settings;
+}

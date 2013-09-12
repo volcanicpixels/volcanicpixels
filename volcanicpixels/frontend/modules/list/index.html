@@ -1,0 +1,38 @@
+{#
+    modules/list
+
+    Copyright (c) Daniel Chatfield
+#}
+
+{% macro list(items=[], heading=false, type=false, center=false) %}
+  {% if center %}
+    {% set center = "align-center" %}
+  {% else %}
+    {% set center = "not-center" %}
+  {% endif%}
+
+  <div class="list {{ center }}">
+    {% if heading %}
+      <h1 class="list-heading">{{ heading }}</h1>
+    {% endif %}
+    <ul class="list-body">
+      {% for item in items %}
+        <li class="list-item">
+          <a class="list-item-link">
+            <article class="list-item-body">
+              <header class="list-item-header">
+                {% if item.icon %}
+                  <i class="list-item-icon {{ item.icon }}"></i>
+                {% endif %}
+                <h1 class="list-item-title">
+                  {{ item.title or item.heading or item.name }}
+                </h1>
+              </header>
+              <p class="list-item-teaser">{{ item.teaser or item.description }}</p>
+            </article>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}

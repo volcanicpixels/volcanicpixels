@@ -1,0 +1,42 @@
+/**
+ * modules/navigation
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/constants/style";
+@import (reference) "modules/helpers/typography";
+
+.page-nav {
+    height: 100%;
+
+    ul {
+        height: 100%;
+        display: table;
+        margin: 0;
+        pdding: 0;
+
+        li {
+
+            display: table-cell;
+            vertical-align: middle;
+
+            a {
+                .small-caps;
+                font-size: @font-size-small;
+                font-weight: @font-weight-medium;
+                opacity: 0.7;
+                margin-right: 1.5em;
+
+                &:hover,
+                &:focus,
+                &.selected {
+                    color: @primary-color;
+                    opacity: 1;
+                    //border-bottom: 3px solid @primary-color;
+                }
+            }
+
+        }
+    }
+}

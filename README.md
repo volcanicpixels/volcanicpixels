@@ -10,7 +10,7 @@ This repository contains all the code for the Volcanic Pixels website.
 
 To install the application locally you will need the following (other dependencies are installed automatically)
 
- - Python == 2.7.5
+ - Python == 2.7
  - Google App Engine SDK >= 1.8.2
 
 

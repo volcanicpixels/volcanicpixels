@@ -1,0 +1,5 @@
+name: flask-modular-template-loader
+dependencies:
+ - jinja2: "~2.7"
+ - flask: "~0.10"
+ - jinja2-proxy-loader: "~0.0.0"

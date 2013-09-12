@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Volcanic Pixels{% endblock %}</title>
+    <link rel="stylesheet" href="/assets/frontend.css" />
+    <script type="text/javascript" src="//use.typekit.net/kbx8hcc.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="page-header">
+          <nav class="page-nav">
+            <ul>
+              <li><a class="selected" href="/">Home</a></li>
+              <li><a href="/customers">Customers</a></li>
+              <li><a href="/premium">Premium</a></li>
+              <li><a href="/support">Support</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+      </header>
+      <div class="page-content">
+        {% block page %}
+        {% endblock %}
+      </div>
+    </div>
+    <footer class="page-footer">
+      <div class="footer-text"><p>Volcanic Pixels is a trading name of Platinum Mirror LTD</p></div>
+      <nav class="page-nav">
+        <ul>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
+</html>

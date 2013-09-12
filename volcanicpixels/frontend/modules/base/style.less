@@ -1,0 +1,48 @@
+/**
+ * modules/base
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/constants/style";
+@import (reference) "modules/mixins/style";
+
+html {
+    font-size: 20px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+* {
+    .box-sizing(border-box);
+    -webkit-font-smoothing: antialiased;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font: @font-size-medium/normal "freight-sans-pro", "Verdana", sans-serif;
+    color: @primary-text;
+}
+
+a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    outline: 0;
+
+    &:focus {
+        outline: 0
+    }
+}

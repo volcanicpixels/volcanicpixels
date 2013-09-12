@@ -4,31 +4,45 @@
     ~~~~~~~~~~~~~~~~~~~~~~
 """
 
-from flask import Flask
+from flask import Flask, Blueprint
+from flask_modular_template_loader import load_loader
 
-from .core import sentry
-from .helpers import register_blueprints, should_start_sentry
+from .helpers import load_blueprints, should_start_sentry, load_sentry
 
 
-def create_app(package_name, package_path, settings_override=None):
+def create_app(package_name, package_path, config=None, **kwargs):
     """Returns a :class:`Flask` application instance configured with
     common extensions.
-
-    :param package_name: application package name
-    :param package_path:
-    :param settings_override:
-
     """
 
-    app = Flask(package_name, instance_relative_config=True)
+    default_kwargs = {
+        'instance_relative_config': True,
+        'template_folder': package_path[0]
+    }
 
-    if should_start_sentry(app):
-        sentry.init_app(app)
+    # Merge the kwargs with the defaults
+    kwargs = dict(default_kwargs.items() + kwargs.items())
+
+    app = Flask(package_name, **kwargs)
 
     app.config.from_object('volcanicpixels.settings')
     app.config.from_pyfile('settings.cfg', silent=True)
-    app.config.from_object(settings_override)
+    app.config.from_object(config)
 
-    register_blueprints(app, package_name, package_path)
+    load_blueprints(app, package_name, package_path)
+
+    if should_start_sentry(app):
+        load_sentry(app)
+
+    load_loader(app)
+
+    @app.teardown_request
+    def sleep(exception=None):
+        import time
+        #time.sleep(5)
 
     return app
+
+
+def create_blueprint(*args, **kwargs):
+    return Blueprint(*args, **kwargs)

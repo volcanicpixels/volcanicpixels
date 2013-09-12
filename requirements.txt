@@ -1,3 +1,0 @@
-Flask==0.10.1
-raven==3.3.12
-blinker==1.2

@@ -13,4 +13,5 @@ except ImportError:
 
 
 DEBUG = True
+TESTING = True
 SECRET_KEY = 'super-secret-key'

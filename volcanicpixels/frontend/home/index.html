@@ -1,0 +1,8 @@
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block page %}
+  <section class="container-tight pad-medium">
+    {{ list(projects, "Our Projects", "project", true) }}
+  </section>
+{% endblock %}

@@ -3,11 +3,8 @@ python:
  - "2.7"
 
 
-before_install:
- - git submodule update --init --recursive
-
 install:
- - pip install -r requirements_dev.txt --use-mirrors
+ - pip install pep8
 
 script:
  - pep8 volcanicpixels
