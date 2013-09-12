@@ -514,7 +514,7 @@ a:focus {
   text-transform: lowercase;
   font-size: 0.9rem;
   font-weight: 500;
-  opacity: 0.7;
+  color: #7f7f76;
   margin-right: 1.5em;
 }
 .page-nav ul li a:hover,
@@ -547,6 +547,7 @@ a:focus {
  */
 .page-footer {
   height: 5em;
+  color: #7f7f76;
   max-width: 1000px;
   margin-right: auto;
   margin-left: auto;
