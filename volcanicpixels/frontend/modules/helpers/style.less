@@ -1,5 +1,5 @@
 /**
- * utils/helpers
+ * modules/helpers
  *
  * Provides some base classes to use with all frontend projects
  *
@@ -49,18 +49,24 @@
 
 // Layout
 // ~~~~~~
-.container {
+.container,
+.container-tight,
+.container-very-tight {
     .clearfix;
-    max-width: @container-width;
     margin-right: auto;
     margin-left: auto;
+
+}
+.container {
+    max-width: @container-width;
 }
 
 .container-tight {
-    .clearfix;
     max-width: @container-tight-width;
-    margin-right: auto;
-    margin-left: auto;
+}
+
+.container-very-tight {
+    max-width: @container-very-tight-width;
 }
 
 .align-center {

@@ -21,6 +21,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      fonts: {
+        files: [{
+          expand: true,
+          cwd: "volcanicpixels/frontend/modules/fonts/",
+          src: ['**', '!**.less'],
+          dest: 'assets/fonts/'
+        }]
+      }
+    },
     shell: {
       pep8: {
         command: 'pep8 volcanicpixels',
@@ -43,6 +53,10 @@ module.exports = function(grunt) {
       less: {
         files: ['volcanicpixels/**/*.less'],
         tasks: ['less']
+      },
+      fonts: {
+        files: ['volcanicpixels/frontend/modules/fonts/**'],
+        tasks: ['copy:fonts']
       }
     }
   });
@@ -51,10 +65,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task(s).
-  grunt.registerTask('default', ['pep8','jshint', 'less']);
+  grunt.registerTask('default', ['pep8','jshint', 'less', 'copy']);
   grunt.registerTask('pep8', ['shell:pep8']);
+  grunt.registerTask('test', ['pep8']);
 
 };

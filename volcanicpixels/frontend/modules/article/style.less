@@ -1,0 +1,52 @@
+/**
+ * modules/articles
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import "modules/constants/typography";
+@import "modules/constants/colors";
+@import "modules/fonts/droid-serif/style";
+@import "modules/fonts/essays-1743/normal";
+
+@article-body-font: 'Droid Serif', serif;
+@article-title-font: "Essays 1743", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+
+@article-padding: 2em;
+
+.article {
+    padding: 0 @article-padding;
+
+    p {
+        font-family: @article-body-font;
+        line-height: 1.6em;
+        text-align: justify;
+    }
+}
+
+.highlight-first {
+    p:first-of-type {
+        .article-highlight;
+        text-align: center;
+    }
+}
+
+.article-highlight {
+    .article-bleed;
+    font-size: @font-size-large;
+    font-weight: @font-weight-semibold;
+}
+
+.article-bleed {
+    margin-left: -@article-padding;
+    margin-right: -@article-padding;
+}
+
+
+.article h1,
+.article-title {
+    font-family: @article-title-font;
+    text-align: center;
+    font-size: 3em;
+    color: @black;
+}

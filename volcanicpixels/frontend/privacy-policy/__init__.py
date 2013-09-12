@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    volcanicpixels.frontend.privacy-policy
+    volcanicpixels.frontend.privacy
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 

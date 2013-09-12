@@ -8,6 +8,8 @@
 
 from functools import wraps
 
+from flask.ext.markdown import markdown
+
 from .. import factory
 
 
@@ -15,6 +17,8 @@ def create_app(settings_override=None):
     """ Returns the Volcanic Pixels Flask application. """
 
     app = factory.create_app(__name__, __path__, settings_override)
+
+    markdown(app)
 
     return app
 

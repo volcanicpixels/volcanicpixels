@@ -27,20 +27,3 @@ Using the Command line:
 ```
 dev_appserver.py [path_to_project]
 ```
-
-# Contributing
-
-## Requirements
-
- - pip >= 1.3
- - GIT 
- - Grunt
-
-# TODO
-
- - [x] Update readme
- - [ ] Setup grunt with assets
-
-# Goals
-
- - [x] Cross-platform development support

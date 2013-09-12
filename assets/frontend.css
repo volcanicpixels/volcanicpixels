@@ -1,3 +1,4 @@
+@import url(//fonts.googleapis.com/css?family=Droid+Serif);
 /**
  * Stylesheet for Volcanic Pixels
  *
@@ -346,7 +347,7 @@ table {
   border-spacing: 0;
 }
 /**
- * utils/helpers
+ * modules/helpers
  *
  * Provides some base classes to use with all frontend projects
  *
@@ -377,31 +378,34 @@ table {
 .invisible {
   visibility: hidden;
 }
-.container {
-  max-width: 1000px;
+.container,
+.container-tight,
+.container-very-tight {
   margin-right: auto;
   margin-left: auto;
 }
 .container:before,
-.container:after {
+.container-tight:before,
+.container-very-tight:before,
+.container:after,
+.container-tight:after,
+.container-very-tight:after {
   content: " ";
   display: table;
 }
-.container:after {
+.container:after,
+.container-tight:after,
+.container-very-tight:after {
   clear: both;
+}
+.container {
+  max-width: 1000px;
 }
 .container-tight {
   max-width: 900px;
-  margin-right: auto;
-  margin-left: auto;
 }
-.container-tight:before,
-.container-tight:after {
-  content: " ";
-  display: table;
-}
-.container-tight:after {
-  clear: both;
+.container-very-tight {
+  max-width: 800px;
 }
 .align-center {
   text-align: center;
@@ -467,6 +471,10 @@ a {
 a:focus {
   outline: 0;
 }
+p a:not(.button) {
+  color: #f43f20;
+  text-decoration: underline;
+}
 /**
  * pages
  *
@@ -524,9 +532,9 @@ a:focus {
   opacity: 1;
 }
 .page-header {
-  max-width: 1000px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 1000px;
   height: 5em;
 }
 .page-header:before,
@@ -548,9 +556,9 @@ a:focus {
 .page-footer {
   height: 5em;
   color: #7f7f76;
-  max-width: 1000px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 1000px;
 }
 .page-footer:before,
 .page-footer:after {
@@ -819,5 +827,71 @@ a:focus {
 }
 .list-heading {
   text-align: center;
+}
+/**
+ * privacy-policy
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * modules/articles
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * modules/fonts/droid-serif
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * modules/fonts/essays-1743/normal
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * modules/fonts/essays-1743/font
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * modules/fonts/constants
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+@font-face {
+  font-family: "Essays 1743";
+  src: url("fonts/essays-1743/normal.eot?") format("eot"), url("fonts/essays-1743/normal.woff") format("woff"), url("fonts/essays-1743/normal.ttf") format("truetype");
+}
+.article {
+  padding: 0 2em;
+}
+.article p {
+  font-family: 'Droid Serif', serif;
+  line-height: 1.6em;
+  text-align: justify;
+}
+.highlight-first p:first-of-type {
+  margin-left: -2em;
+  margin-right: -2em;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+.article-highlight {
+  margin-left: -2em;
+  margin-right: -2em;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.article-bleed {
+  margin-left: -2em;
+  margin-right: -2em;
+}
+.article h1,
+.article-title {
+  font-family: "Essays 1743", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+  text-align: center;
+  font-size: 3em;
+  color: #2a2b24;
 }
 /*# sourceMappingURL=frontend.css.map */

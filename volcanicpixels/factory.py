@@ -5,7 +5,7 @@
 """
 
 from flask import Flask, Blueprint
-from flask_modular_template_loader import load_loader
+from flask.ext.modular_template_loader import load_loader
 
 from .helpers import load_blueprints, should_start_sentry, load_sentry
 
@@ -35,11 +35,6 @@ def create_app(package_name, package_path, config=None, **kwargs):
         load_sentry(app)
 
     load_loader(app)
-
-    @app.teardown_request
-    def sleep(exception=None):
-        import time
-        #time.sleep(5)
 
     return app
 

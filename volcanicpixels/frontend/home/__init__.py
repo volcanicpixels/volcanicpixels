@@ -23,7 +23,7 @@ def render():
         },
         {
             "name": "WordPress Backup Service",
-            "teaser": "Keeping your data backed-up is an arduous task. "
+            "teaser": "Keeping your data backed-up can be an arduous task. "
                       "Our plugin makes the task completely painless. Packed "
                       "full of features and at an incredible price you'd be "
                       "mad not to!",
