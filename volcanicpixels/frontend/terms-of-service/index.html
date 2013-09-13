@@ -1,0 +1,34 @@
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Privacy Policy | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight pad-medium highlight-first">
+    {% markdown %}
+        Terms of Service
+        ================
+
+        In short, we run this website called Volcanic Pixels and you are more 
+        than welcome to use it and the products contained on it. Don't use 
+        it for things which are illegal or harmful.
+
+
+        The long version
+        ----------------
+
+        ### 1. Introduction
+
+
+        The following terms and conditions govern use of the Volcanic 
+        Pixels website or the products distributed on it (the "Service"). The 
+        website is wholly owned and operated by Platinum Mirror LTD ("Platinum 
+        Mirror", "We", "Us"). By using the Service You agree to these terms in 
+        full. If you disagree with these terms, You must not use this service.
+         
+
+        If you have any questions about the information contained within this 
+        document please contact us at <contact@platinummirror.com>.
+    {% endmarkdown %}
+  </article>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Privacy Policy | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight pad-medium highlight-first">
+    {% markdown %}
+        Happy Customers
+        ================
+
+        Our Software and Services are used by thousands of businesses and 
+        individuals around the world. We will list some of the more notable 
+        ones here.
+
+
+         - United States Navy
+         - Google
+         - EA games
+         - NASA
+         - UK Department for Transport
+         - Bayer Pharmaceuticals
+         - data.gov
+         - Fiji Elections Office
+
+        ---
+
+        If you would like to be removed from this list then please contact us 
+        at <contact@volcanicpixels.com>.
+    {% endmarkdown %}
+  </article>
+{% endblock %}

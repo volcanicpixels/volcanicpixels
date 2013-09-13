@@ -18,7 +18,7 @@ class MarkdownExtension(Extension):
     def __init__(self, environment):
         super(MarkdownExtension, self).__init__(environment)
         environment.extend(
-            markdowner=markdown.Markdown()
+            markdowner=markdown.Markdown(extensions=['extra'])
         )   
 
     def parse(self, parser):
@@ -40,6 +40,8 @@ class MarkdownExtension(Extension):
         return self._render_markdown(block)
 
     def _strip_whitespace(self, block):
+        import logging
+        logging.info(block)
         lines = block.split('\n')
         whitespace = ''
         output = ''
@@ -52,7 +54,7 @@ class MarkdownExtension(Extension):
                     break
 
         for line in lines:
-            output += line.replace(whitespace, '', 1) + '\n'
+            output += line.replace(whitespace, '', 1) + '\r\n'
 
         return output
 

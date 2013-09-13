@@ -1,3 +1,8 @@
+{#
+   modules/layout
+
+   Copyright (c) Daniel Chatfield
+#}
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,30 +13,12 @@
   </head>
   <body>
     <div class="wrapper">
-      <header class="page-header">
-          <nav class="page-nav">
-            <ul>
-              <li><a class="selected" href="/">Home</a></li>
-              <li><a href="/customers">Customers</a></li>
-              <li><a href="/premium">Premium</a></li>
-              <li><a href="/support">Support</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </nav>
-      </header>
+      {% include "modules/header" %}
       <div class="page-content">
         {% block page %}
         {% endblock %}
       </div>
     </div>
-    <footer class="page-footer">
-      <div class="footer-text"><p>Volcanic Pixels is a trading name of Platinum Mirror LTD</p></div>
-      <nav class="page-nav">
-        <ul>
-          <li><a href="/terms-of-service">Terms of Service</a></li>
-          <li><a href="/privacy-policy">Privacy Policy</a></li>
-        </ul>
-      </nav>
-    </footer>
+    {% include "modules/footer" %}
   </body>
 </html>

@@ -12,7 +12,7 @@ bp = create_blueprint('home', __name__)
 
 
 @route(bp, '/')
-def render():
+def index():
     """Renders the homepage"""
     projects = [
         {

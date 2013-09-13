@@ -865,7 +865,9 @@ p a:not(.button) {
 .article {
   padding: 0 2em;
 }
-.article p {
+.article p,
+.article li,
+.article blockquote {
   font-family: 'Droid Serif', serif;
   line-height: 1.6em;
   text-align: justify;
@@ -873,14 +875,15 @@ p a:not(.button) {
 .highlight-first p:first-of-type {
   margin-left: -2em;
   margin-right: -2em;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
+  margin-bottom: 2em;
 }
 .article-highlight {
   margin-left: -2em;
   margin-right: -2em;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 .article-bleed {
@@ -893,5 +896,12 @@ p a:not(.button) {
   text-align: center;
   font-size: 3em;
   color: #2a2b24;
+}
+.article hr,
+.article-hr {
+  display: block;
+  width: 20%;
+  margin: 50px auto 40px auto;
+  border: 1px solid #b9bab3;
 }
 /*# sourceMappingURL=frontend.css.map */

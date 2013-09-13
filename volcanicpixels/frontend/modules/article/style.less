@@ -17,7 +17,9 @@
 .article {
     padding: 0 @article-padding;
 
-    p {
+    p,
+    li,
+    blockquote {
         font-family: @article-body-font;
         line-height: 1.6em;
         text-align: justify;
@@ -28,12 +30,13 @@
     p:first-of-type {
         .article-highlight;
         text-align: center;
+        margin-bottom: 2em;
     }
 }
 
 .article-highlight {
     .article-bleed;
-    font-size: @font-size-large;
+    font-size: @font-size-xlarge;
     font-weight: @font-weight-semibold;
 }
 
@@ -49,4 +52,12 @@
     text-align: center;
     font-size: 3em;
     color: @black;
+}
+
+.article hr,
+.article-hr {
+    display: block;
+    width: 20%;
+    margin: 50px auto 40px auto;
+    border: 1px solid @light-gray;
 }

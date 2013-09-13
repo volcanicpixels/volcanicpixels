@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    volcanicpixels.frontend.privacy
+    volcanicpixels.frontend.privacy-policy
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
@@ -12,5 +12,5 @@ bp = create_blueprint('privacy-policy', __name__)
 
 
 @route(bp, '/privacy-policy')
-def render():
+def index():
     return render_template('privacy-policy')
