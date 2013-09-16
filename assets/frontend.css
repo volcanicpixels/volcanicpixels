@@ -481,12 +481,7 @@ p a:not(.button) {
   text-decoration: underline;
 }
 /**
- * pages
- *
- * Copyright (c) Daniel Chatfield
- */
-/**
- * pages/home
+ * home
  *
  * Copyright (c) Daniel Chatfield
  */
@@ -849,7 +844,12 @@ p a:not(.button) {
   text-align: center;
 }
 /**
- * pages/privacy-policy
+ * privacy-policy
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * privacy-policy
  *
  * Copyright (c) Daniel Chatfield
  */
@@ -920,12 +920,12 @@ p a:not(.button) {
   border: 1px solid #b9bab3;
 }
 /**
- * pages/security
+ * security
  *
  * Copyright (c) Daniel Chatfield
  */
 /**
- * pages/terms-of-service
+ * terms-of-service
  *
  * Copyright (c) Daniel Chatfield
  */
