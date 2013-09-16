@@ -8,9 +8,14 @@
   <nav class="page-nav">
     <ul>
       {% for item in items %}
+        {% if item.selected %}
+          {% set selected = 'selected' %}
+        {% else %}
+          {% set selected = '' %}
+        {% endif%}
         <li>
-          <a class="{{ item.selected }}" href="{{ item.link }}">
-            {{ item.link_title or item.title or item.name }}
+          <a class="{{ selected }}" href="{{ item.url }}">
+            {{ item.link_title or item.title or item.name or item.text }}
           </a>
         </li>
       {% endfor %}

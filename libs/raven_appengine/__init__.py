@@ -10,6 +10,7 @@
 """
 from libs import fix_path
 
+from raven.contrib.flask import Sentry
 from raven.transport import AsyncTransport, HTTPTransport
 
 from google.appengine.api.taskqueue import UnknownQueueError
@@ -51,3 +52,14 @@ class AppEngineTransport(AsyncTransport, HTTPTransport):
 def register_transport():
     from raven import Client
     Client.register_scheme('appengine+http', AppEngineTransport)
+
+
+def register_sentry(app, dsn=None):
+    """Loads `sentry` onto the given flask app."""
+    try:
+        register_transport()
+        Sentry(app=app, dsn=dsn)
+    except:
+        import logging
+        logging.exception("Failed to load sentry")
+    return app

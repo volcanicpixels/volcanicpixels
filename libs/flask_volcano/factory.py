@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-    volcanicpixels.factory
-    ~~~~~~~~~~~~~~~~~~~~~~
+    flask_volcano.factory
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    :copyright: (c) 2013 by Daniel Chatfield
 """
 
 from flask import Flask, Blueprint
-from flask.ext.modular_template_loader import load_loader
+from flask.ext.modular_template_loader import register_loader
 
-from .helpers import (
-    load_blueprints, should_start_sentry, load_sentry)
+from .helpers import register_blueprints, url_build_handler
 
 
 def create_app(package_name, package_path, config=None, **kwargs):
@@ -30,12 +31,10 @@ def create_app(package_name, package_path, config=None, **kwargs):
     app.config.from_pyfile('settings.cfg', silent=True)
     app.config.from_object(config)
 
-    load_blueprints(app, package_name, package_path)
+    app.url_build_error_handlers.append(url_build_handler)
 
-    if should_start_sentry(app):
-        load_sentry(app)
-
-    load_loader(app)
+    register_blueprints(app, package_name, package_path)
+    register_loader(app)
 
     return app
 

@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-    volcanicpixels.frontend.pages.home
+    volcanicpixels.frontend.home
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
-from flask.ext.links import get_link
+from flask import render_template
 
-from .. import route, render_template
+from flask.ext.volcano import create_blueprint
+
+bp = create_blueprint("home", __name__)
 
 
-@route('/', text="Home")
+@bp.route('/')
 def render():
     """Renders the homepage"""
     projects = [
@@ -34,4 +36,4 @@ def render():
             "icon": "li_cloud"
         }
     ]
-    return render_template('pages/home', projects=projects)
+    return render_template('home', projects=projects)

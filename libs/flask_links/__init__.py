@@ -8,12 +8,24 @@
     :copyright: (c) 2013 by Daniel Chatfield
 """
 
-from flask import current_app, url_for
+from flask import current_app, url_for, request
 from werkzeug.routing import BuildError
 
 
 def links(app=None):
     return Links(app)
+
+def link(f, endpoint=None, **kwargs):
+    """A decorator around a function for registering a link"""
+    if endpoint is None:
+        if not f.hasattr('endpoint'):
+            raise NoEndpointError(f)
+        else:
+            endpoint = f.endpoint
+
+    register_link(endpoint, **kwargs)
+
+    return f
 
 
 def register_link(*args, **kwargs):
@@ -36,7 +48,7 @@ class Links(object):
         if app is not None:
             self.init_app(app, **options)
 
-    def init_app(self, app, auto_register=True):
+    def init_app(self, app):
         """Initializes links onto an app. If `auto_register` is true then it
         will monkey patch the flask `add_url_rule` method to register links
         using it.
@@ -48,15 +60,23 @@ class Links(object):
         app.add_template_global(get_link)
         app.add_template_global(get_links)
 
-        # Monkey patch
-
     def parse_link(self, link):
         if 'text' not in link:
             if 'endpoint' in link:
                 link['text'] = link['endpoint']
-            if 'endpoint' in link:
-                link['text'] = link['endpoint']
+        if 'selected' not in link:
+            if 'endpoint' in link and request is not None:
+                link['selected'] = self.is_selected(link['endpoint'])
         return link
+
+    def is_selected(self, endpoint):
+        return (self._is_selected(endpoint) or 
+            self._is_selected(endpoint + '.render') or 
+            self._is_selected(endpoint + '.index'))
+
+    def _is_selected(self, endpoint):
+        return endpoint == request.endpoint
+
 
     def _register_link(self, endpoint, link):
         """Registers a link"""
@@ -92,15 +112,17 @@ class Links(object):
         else:
             raise LinkNotFoundError(endpoint)
 
-    def get_links(self, endpoints, ignore_mising=False):
+    def get_links(self, endpoints, ignore_mising=True):
         rv = []
         for endpoint in endpoints:
             try:
-                link = self.get_link(endpoint)
-                rv.appnd(link)
+                link = self.get_link(endpoint, False)
+                rv.append(link)
             except LinkNotFoundError:
                 if not ignore_mising:
                     raise
+                else:
+                    continue
         return rv
 
 
@@ -110,9 +132,13 @@ class LinksError(Exception):
 
 class LinkNotFoundError(LinksError):
     def __init__(self, endpoint):
-        self.msg = "Endpoint `%s` has not been registered" & endpoint
+        self.msg = "Endpoint `%s` has not been registered" % endpoint
 
 
 class LinkAlreadyExistsError(LinksError):
     def __init__(self, endpoint):
         self.msg = "Endpoint `%s` has already been registered" % endpoint
+
+class NoEndpointError(LinksError):
+    def __init__(self, func):
+        self.msg = "No endpoint was specified"

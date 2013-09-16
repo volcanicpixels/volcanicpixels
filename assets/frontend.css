@@ -500,28 +500,6 @@ p a:not(.button) {
  * 
  * Copyright (c) Daniel Chatfield
  */
-.page-header {
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 1000px;
-  height: 5em;
-}
-.page-header:before,
-.page-header:after {
-  content: " ";
-  display: table;
-}
-.page-header:after {
-  clear: both;
-}
-.page-header .page-nav {
-  float: right !important;
-}
-/**
- * modules/footer
- * 
- * Copyright (c) Daniel Chatfield
- */
 /**
  * modules/navigation
  * 
@@ -558,6 +536,28 @@ p a:not(.button) {
   color: #f43f20;
   opacity: 1;
 }
+.page-header {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1000px;
+  height: 5em;
+}
+.page-header:before,
+.page-header:after {
+  content: " ";
+  display: table;
+}
+.page-header:after {
+  clear: both;
+}
+.page-header .page-nav {
+  float: right !important;
+}
+/**
+ * modules/footer
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
 .page-footer {
   height: 5em;
   color: #7f7f76;
@@ -611,6 +611,11 @@ p a:not(.button) {
  */
 /**
  * modules/fonts/linecons/font
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * modules/fonts/constants
  * 
  * Copyright (c) Daniel Chatfield
  */
@@ -849,16 +854,6 @@ p a:not(.button) {
  * Copyright (c) Daniel Chatfield
  */
 /**
- * pages/security
- *
- * Copyright (c) Daniel Chatfield
- */
-/**
- * pages/terms-of-service
- *
- * Copyright (c) Daniel Chatfield
- */
-/**
  * modules/articles
  * 
  * Copyright (c) Daniel Chatfield
@@ -875,11 +870,6 @@ p a:not(.button) {
  */
 /**
  * modules/fonts/essays-1743/font
- * 
- * Copyright (c) Daniel Chatfield
- */
-/**
- * modules/fonts/constants
  * 
  * Copyright (c) Daniel Chatfield
  */
@@ -929,4 +919,14 @@ p a:not(.button) {
   margin: 50px auto 40px auto;
   border: 1px solid #b9bab3;
 }
+/**
+ * pages/security
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+/**
+ * pages/terms-of-service
+ *
+ * Copyright (c) Daniel Chatfield
+ */
 /*# sourceMappingURL=frontend.css.map */

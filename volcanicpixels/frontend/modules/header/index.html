@@ -3,15 +3,12 @@
 
    Copyright (c) Daniel Chatfield
 #}
+
+{% from "modules/navigation" import navigation %}
+
+{% set links = get_links(
+  ['home', 'customers', 'premium', 'support', 'contact']) %}
+
 <header class="page-header">
-  <nav class="page-nav">
-    <ul>
-      {% set home = get_link('pages.home') %}
-      <li><a class="selected" href="/">{{ home.text }}</a></li>
-      <li><a href="/customers">Customers</a></li>
-      <li><a href="/premium">Premium</a></li>
-      <li><a href="/support">Support</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </nav>
+  {{ navigation(links) }}
 </header>
