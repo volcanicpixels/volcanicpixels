@@ -12,6 +12,7 @@ import markdown
 from jinja2.nodes import CallBlock
 from jinja2.ext import Extension
 
+
 class MarkdownExtension(Extension):
     tags = set(['markdown'])
 
@@ -19,7 +20,7 @@ class MarkdownExtension(Extension):
         super(MarkdownExtension, self).__init__(environment)
         environment.extend(
             markdowner=markdown.Markdown(extensions=['extra'])
-        )   
+        )
 
     def parse(self, parser):
         lineno = parser.stream.next().lineno
@@ -40,8 +41,6 @@ class MarkdownExtension(Extension):
         return self._render_markdown(block)
 
     def _strip_whitespace(self, block):
-        import logging
-        logging.info(block)
         lines = block.split('\n')
         whitespace = ''
         output = ''
@@ -56,9 +55,8 @@ class MarkdownExtension(Extension):
         for line in lines:
             output += line.replace(whitespace, '', 1) + '\r\n'
 
-        return output
+        return output.strip()
 
     def _render_markdown(self, block):
-        import logging
-        logging.info(block)
-        return self.environment.markdowner.convert(block).strip()
+        block = self.environment.markdowner.convert(block)
+        return '<!-- MARKDOWN -->\n' + block + '\n<!-- ENDMARKDOWN -->'

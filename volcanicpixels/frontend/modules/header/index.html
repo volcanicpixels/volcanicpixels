@@ -6,7 +6,8 @@
 <header class="page-header">
   <nav class="page-nav">
     <ul>
-      <li><a class="selected" href="/">Home</a></li>
+      {% set home = get_link('pages.home') %}
+      <li><a class="selected" href="/">{{ home.text }}</a></li>
       <li><a href="/customers">Customers</a></li>
       <li><a href="/premium">Premium</a></li>
       <li><a href="/support">Support</a></li>

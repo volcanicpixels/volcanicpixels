@@ -7,12 +7,13 @@
 from flask import Flask, Blueprint
 from flask.ext.modular_template_loader import load_loader
 
-from .helpers import load_blueprints, should_start_sentry, load_sentry
+from .helpers import (
+    load_blueprints, should_start_sentry, load_sentry)
 
 
 def create_app(package_name, package_path, config=None, **kwargs):
-    """Returns a :class:`Flask` application instance configured with
-    common extensions.
+    """Returns a :class:`Flask` application instance configured with common
+    extensions.
     """
 
     default_kwargs = {
@@ -39,5 +40,5 @@ def create_app(package_name, package_path, config=None, **kwargs):
     return app
 
 
-def create_blueprint(*args, **kwargs):
-    return Blueprint(*args, **kwargs)
+def create_blueprint(name, import_name, *args, **kwargs):
+    return Blueprint(name, import_name, *args, **kwargs)

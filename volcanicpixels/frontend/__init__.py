@@ -9,8 +9,10 @@
 from functools import wraps
 
 from flask.ext.markdown import markdown
+from flask.ext.links import links, register_link
 
 from .. import factory
+from ..factory import create_blueprint
 
 
 def create_app(settings_override=None):
@@ -19,21 +21,18 @@ def create_app(settings_override=None):
     app = factory.create_app(__name__, __path__, settings_override)
 
     markdown(app)
+    links(app)
 
     return app
 
 
-def create_blueprint(*args, **kwargs):
-    return factory.create_blueprint(*args, **kwargs)
-
-
 def route(bp, *args, **kwargs):
-
     def decorator(f):
         @bp.route(*args, **kwargs)
         @wraps(f)
         def wrapper(*args, **kwargs):
             return f(*args, **kwargs)
+
         return f
 
     return decorator

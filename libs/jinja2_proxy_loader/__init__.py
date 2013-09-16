@@ -12,7 +12,8 @@ from jinja2 import BaseLoader, TemplateNotFound
 
 
 def create_extension_proxy(loader, extension):
-    """Creates a proxy loader that adds the given extensionto the template name.
+    """Creates a proxy loader that adds the given extensionto the template
+    name.
     """
     return ExtensionProxyLoader(loader, extension)
 

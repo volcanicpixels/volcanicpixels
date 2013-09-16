@@ -10,5 +10,6 @@
 
 from jinja2_markdown_extension import MarkdownExtension
 
+
 def markdown(app):
     app.jinja_env.add_extension(MarkdownExtension)
