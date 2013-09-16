@@ -1,14 +1,24 @@
 /**
- * modules/fonts/essays-1743/style
+ * modules/fonts/linecons/style
  * 
  * Copyright (c) Daniel Chatfield
  */
 
-@import "./font.less";
+@import (reference) "modules/fonts/linecons/font.less";
+
+@font-url: "@{font-root}/linecons";
 
 @font-face {
     font-family: 'linecons';
-    src:url('@{font-url}/linecons.eot');
+    src: url("@{font-url}/linecons.eot") format("eot"),
+         url("@{font-url}/linecons.eot?#iefix") format("embedded-opentype"),
+         url("@{font-url}/linecons.woff") format("woff"),
+         url("@{font-url}/linecons.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'linecons';
+    src:url('@{font-url}/linecons.eot') format('embedded-opentype');
 }
 
 @font-face {
