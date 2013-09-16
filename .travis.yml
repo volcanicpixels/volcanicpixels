@@ -7,5 +7,4 @@ install:
  - pip install pep8
 
 script:
- - pep8 volcanicpixels
- - python run_tests.py
+ - grunt test
