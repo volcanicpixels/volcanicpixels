@@ -169,7 +169,7 @@ p a:not(.button){color:#f23e2f;text-decoration:underline}
 @font-face{font-family:"Essays 1743";src:url("fonts/essays-1743/normal.eot?") format("eot"),url("fonts/essays-1743/normal.woff") format("woff"),url("fonts/essays-1743/normal.ttf") format("truetype")}
 .article{padding:0 2em}
 .article p,.article a:not(.button),.article li,.article blockquote{font-family:'Droid Serif',serif;line-height:1.6em;text-align:justify}
-.article a:not(.button){color:#f23e2f;border-bottom:1px solid #f0eee8;border-bottom:1px solid #e9e9e8}
+.article a:not(.button){color:#f23e2f;border-bottom:1px solid #e9e9e8;text-decoration:none;font-style:italic}
 .article a:not(.button):hover,.article a:not(.button):focus{color:#e01e0e;border-bottom-color:#f23e2f}
 .article-highlight{margin-left:-1.5em;margin-right:-1.5em;font-size:1.3em;font-weight:600}
 .highlight-first>section:first-child>p:first-of-type,.highlight-first>p:first-of-type{margin-left:-1.5em;margin-right:-1.5em;font-size:1.3em;font-weight:600;text-align:center;margin-bottom:2em}
