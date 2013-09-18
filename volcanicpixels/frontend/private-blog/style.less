@@ -10,10 +10,11 @@
 @import "modules/layout/style";
 @import "modules/buttons/style";
 @import "modules/helpers/typography";
+@import "modules/fonts/ss-standard/style";
 
 .screenshot {
     height: 600px;
-    width: 600px;
+    width: 100%;
     background: @off-white;
     .box-shadow(0 1px 4px rgba(0,0,0,0.3));
     overflow: hidden;
@@ -35,10 +36,23 @@
 
 .feature-description {
     padding: 1em;
+    width: 45%;
 
     h1 {
         color: @black;
         font-family: "Essays 1743";
         .font-weight-medium;
     }
+
+    a {
+        .font-size-small;
+    }
+}
+
+.feature > .feature-description:first-child {
+    padding-right: 3em;
+}
+
+.feature > .feature-description:nth-child(2) {
+    padding-left: 3em;
 }

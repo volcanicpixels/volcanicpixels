@@ -20,7 +20,7 @@
     line-height: 1em;
     cursor: pointer;
     padding: 0.5em 1em 0.5em 1em;
-    margin: 0 0.5em;
+    margin-right: 0.5em;
     opacity: 0.9;
 
     position: relative;
@@ -35,6 +35,10 @@
         top: 0;
         .transform(translateY(0));
     }
+}
+
+.small-button {
+    padding: 0.2em 0.5em;
 }
 
 .button-helper(@button-color, @text-color: white) {
@@ -56,7 +60,7 @@
 }
 
 .regular-button {
-    background-color: @lighter-gray;
+    .button-helper(#bcb5ad, @emphasis-text);
 }
 
 .primary-button {

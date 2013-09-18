@@ -57,14 +57,14 @@ table{border-collapse:collapse;border-spacing:0}
 .pad-heavy{padding-top:4em;padding-bottom:3em}
 .no-list-style{list-style:none;padding:0;margin:0}
 .background-highlight-radial{background:-webkit-radial-gradient(center, ellipse contain, transparent 50%, #fff 100%),#f8efe8}
-.font-size-tiny{font-size:.723em}
-.font-size-xsmall{font-size:.823em}
-.font-size-small{font-size:.923em}
-.font-size-medium{font-size:1.023em}
-.font-size-large{font-size:1.123em}
-.font-size-xlarge{font-size:1.323em}
-.font-size-obese{font-size:1.623em}
-.font-size-american{font-size:2.523em}
+.font-size-tiny{font-size:.7em}
+.font-size-xsmall{font-size:.8em}
+.font-size-small{font-size:.9em}
+.font-size-medium{font-size:1em}
+.font-size-large{font-size:1.1em}
+.font-size-xlarge{font-size:1.3em}
+.font-size-obese{font-size:1.6em}
+.font-size-american{font-size:2.5em}
 .font-weight-light{font-weight:300}
 .font-weight-regular{font-weight:400}
 .font-weight-medium{font-weight:500}
@@ -80,7 +80,7 @@ html,body{height:100%}
 .wrapper{min-height:100%;height:auto !important;height:100%}
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;-webkit-font-smoothing:antialiased}
 ::selection{background:#2a2b24;color:white;text-shadow:none}
-body,button,input,select,textarea{font:1.023em normal 'Open Sans',sans-serif;color:#3e3f3a}
+body,button,input,select,textarea{font:1em normal 'Open Sans',sans-serif;color:#3e3f3a}
 a{cursor:pointer;color:inherit;text-decoration:none;outline:0}
 a:focus{outline:0}
 p a:not(.button){color:#f23e2f;text-decoration:underline}
@@ -90,7 +90,7 @@ p a:not(.button){color:#f23e2f;text-decoration:underline}
 .page-header .page-nav{float:right !important}
 .page-nav{height:100%}
 .page-nav ul{height:100%;display:table;margin:0;pdding:0}
-.page-nav ul li{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.823em;display:table-cell;vertical-align:middle}
+.page-nav ul li{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;display:table-cell;vertical-align:middle}
 .page-nav ul li a{color:#7f7f76;margin-right:1.5em}
 .page-nav ul li a:hover,.page-nav ul li a:focus,.page-nav ul li a.selected{color:#f23e2f;opacity:1}
 .page-footer{height:5em;color:#7f7f76;margin-right:auto;margin-left:auto;max-width:1000px}
@@ -155,7 +155,7 @@ p a:not(.button){color:#f23e2f;text-decoration:underline}
 .li_truck:before{content:"\e02e"}
 .li_world:before{content:"\e02f"}
 .list{padding-bottom:0.5em}
-.list-heading{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.823em;font-weight:500;color:#b9bab3}
+.list-heading{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;font-weight:500;color:#b9bab3}
 .list-body{list-style:none;padding:0;margin:0}
 .list-item{margin:1em 0em}
 .list-item-link{display:block;position:relative}
@@ -164,27 +164,225 @@ p a:not(.button){color:#f23e2f;text-decoration:underline}
 .list-item-header{position:relative;margin-bottom:0.3em}
 .list-item-icon{font-size:3em;color:#f23e2f}
 .list-item-title{font-weight:bold;font-size:1.2em;padding:0;margin:0}
-.list-item-teaser{margin:0;padding:0 0 0.5em 0;line-height:1.4;font-size:.923em}
+.list-item-teaser{margin:0;padding:0 0 0.5em 0;line-height:1.4;font-size:.9em}
 .list-heading{text-align:center}
 @font-face{font-family:"Essays 1743";src:url("fonts/essays-1743/normal.eot?") format("eot"),url("fonts/essays-1743/normal.woff") format("woff"),url("fonts/essays-1743/normal.ttf") format("truetype")}
 .article{padding:0 2em}
-.article p,.article li,.article blockquote{font-family:'Droid Serif',serif;line-height:1.6em;text-align:justify}
-.article-highlight{margin-left:-2em;margin-right:-2em;font-size:1.323em;font-weight:600}
-.highlight-first>section:first-child>p:first-of-type,.highlight-first>p:first-of-type{margin-left:-2em;margin-right:-2em;font-size:1.323em;font-weight:600;text-align:center;margin-bottom:2em}
+.article p,.article a:not(.button),.article li,.article blockquote{font-family:'Droid Serif',serif;line-height:1.6em;text-align:justify}
+.article a:not(.button){color:#f23e2f;border-bottom:1px solid #f0eee8;border-bottom:1px solid #e9e9e8}
+.article a:not(.button):hover,.article a:not(.button):focus{color:#e01e0e;border-bottom-color:#f23e2f}
+.article-highlight{margin-left:-1.5em;margin-right:-1.5em;font-size:1.3em;font-weight:600}
+.highlight-first>section:first-child>p:first-of-type,.highlight-first>p:first-of-type{margin-left:-1.5em;margin-right:-1.5em;font-size:1.3em;font-weight:600;text-align:center;margin-bottom:2em}
 .article-bleed{margin-left:-2em;margin-right:-2em}
 .article-title{font-family:"Essays 1743",Palatino,"Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;text-align:center;font-size:3em;color:#2a2b24}
 .article>section:first-child>h1:first-of-type,.article>h1:first-of-type{font-family:"Essays 1743",Palatino,"Palatino Linotype","Book Antiqua",Georgia,"Times New Roman",serif;text-align:center;font-size:3em;color:#2a2b24;margin-top:0.2em}
 .article hr,.article-hr{display:block;width:20%;margin:50px auto 40px auto;border:1px solid #d3d3cf}
-.button{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.923em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-border-radius:.2em;-mox-border-radius:.2em;-ms-border-radius:.2em;-o-border-radius:.2em;border-radius:.2em;display:inline-block;line-height:1em;cursor:pointer;padding:0.5em 1em 0.5em 1em;margin:0 0.5em;opacity:0.9;position:relative;top:-.2em}
+.button{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.9em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-border-radius:.2em;-mox-border-radius:.2em;-ms-border-radius:.2em;-o-border-radius:.2em;border-radius:.2em;display:inline-block;line-height:1em;cursor:pointer;padding:0.5em 1em 0.5em 1em;margin-right:0.5em;opacity:0.9;position:relative;top:-.2em}
 .button:hover,.button:focus{opacity:1}
 .button:active{top:0;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}
-.regular-button{background-color:#d3d3cf}
+.small-button{padding:0.2em 0.5em}
+.regular-button{background-color:#bcb5ad;-webkit-box-shadow:0 .2em 0 #8e8275;-mox-box-shadow:0 .2em 0 #8e8275;-ms-box-shadow:0 .2em 0 #8e8275;-o-box-shadow:0 .2em 0 #8e8275;box-shadow:0 .2em 0 #8e8275;color:#fff}
+.regular-button:hover,.regular-button:focus{-webkit-box-shadow:0 .2em 0 #817669;-mox-box-shadow:0 .2em 0 #817669;-ms-box-shadow:0 .2em 0 #817669;-o-box-shadow:0 .2em 0 #817669;box-shadow:0 .2em 0 #817669}
+.regular-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
 .primary-button{background-color:#f23e2f;-webkit-box-shadow:0 .2em 0 #b0180b;-mox-box-shadow:0 .2em 0 #b0180b;-ms-box-shadow:0 .2em 0 #b0180b;-o-box-shadow:0 .2em 0 #b0180b;box-shadow:0 .2em 0 #b0180b;color:#fff}
 .primary-button:hover,.primary-button:focus{-webkit-box-shadow:0 .2em 0 #981409;-mox-box-shadow:0 .2em 0 #981409;-ms-box-shadow:0 .2em 0 #981409;-o-box-shadow:0 .2em 0 #981409;box-shadow:0 .2em 0 #981409}
 .primary-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
-.screenshot{height:600px;width:600px;background:#f9f9f9;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);-mox-box-shadow:0 1px 4px rgba(0,0,0,0.3);-ms-box-shadow:0 1px 4px rgba(0,0,0,0.3);-o-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden}
+@charset "UTF-8";
+@font-face{font-family:"SSStandard";src:url('fonts/ss-standard/ss-standard.eot');src:url('fonts/ss-standard/ss-standard.eot?#iefix') format('embedded-opentype'),url('fonts/ss-standard/ss-standard.woff') format('woff'),url('fonts/ss-standard/ss-standard.ttf') format('truetype'),url('fonts/ss-standard/ss-standard.svg#SSStandard') format('svg');font-weight:normal;font-style:normal}
+html:hover [class^="ss-"]{-ms-zoom:1}
+.ss-icon,.ss-icon.ss-standard,[class^="ss-"]:before,[class*=" ss-"]:before,[class^="ss-"].ss-standard:before,[class*=" ss-"].ss-standard:before,[class^="ss-"].right:after,[class*=" ss-"].right:after,[class^="ss-"].ss-standard.right:after,[class*=" ss-"].ss-standard.right:after{font-family:"SSStandard";font-style:normal;font-weight:normal;text-decoration:none;text-rendering:optimizeLegibility;white-space:nowrap;-moz-font-feature-settings:"liga=1";-moz-font-feature-settings:"liga";-ms-font-feature-settings:"liga" 1;-o-font-feature-settings:"liga";font-feature-settings:"liga";-webkit-font-smoothing:antialiased;font-size:0.6em}
+[class*="ss-"].right::after,[class^="ss-"].right::after{padding-left:0.7em}
+[class^="ss-"].right:before,[class*=" ss-"].right:before{display:none;content:''}
+.ss-right:before,.ss-right.right:after{content:'➡'}
+.ss-cursor:before,.ss-cursor.right:after{content:''}
+.ss-crosshair:before,.ss-crosshair.right:after{content:'⌖'}
+.ss-search:before,.ss-search.right:after{content:'🔎'}
+.ss-zoomin:before,.ss-zoomin.right:after{content:''}
+.ss-zoomout:before,.ss-zoomout.right:after{content:''}
+.ss-view:before,.ss-view.right:after{content:'👀'}
+.ss-attach:before,.ss-attach.right:after{content:'📎'}
+.ss-link:before,.ss-link.right:after{content:'🔗'}
+.ss-move:before,.ss-move.right:after{content:''}
+.ss-write:before,.ss-write.right:after{content:'✎'}
+.ss-writingdisabled:before,.ss-writingdisabled.right:after{content:''}
+.ss-erase:before,.ss-erase.right:after{content:'✐'}
+.ss-compose:before,.ss-compose.right:after{content:'📝'}
+.ss-lock:before,.ss-lock.right:after{content:'🔒'}
+.ss-unlock:before,.ss-unlock.right:after{content:'🔓'}
+.ss-key:before,.ss-key.right:after{content:'🔑'}
+.ss-backspace:before,.ss-backspace.right:after{content:'⌫'}
+.ss-ban:before,.ss-ban.right:after{content:'🚫'}
+.ss-trash:before,.ss-trash.right:after{content:''}
+.ss-target:before,.ss-target.right:after{content:'◎'}
+.ss-tag:before,.ss-tag.right:after{content:''}
+.ss-bookmark:before,.ss-bookmark.right:after{content:'🔖'}
+.ss-flag:before,.ss-flag.right:after{content:'⚑'}
+.ss-like:before,.ss-like.right:after{content:'👍'}
+.ss-dislike:before,.ss-dislike.right:after{content:'👎'}
+.ss-heart:before,.ss-heart.right:after{content:'♥'}
+.ss-halfheart:before,.ss-halfheart.right:after{content:''}
+.ss-star:before,.ss-star.right:after{content:'⋆'}
+.ss-halfstar:before,.ss-halfstar.right:after{content:''}
+.ss-sample:before,.ss-sample.right:after{content:''}
+.ss-crop:before,.ss-crop.right:after{content:''}
+.ss-layers:before,.ss-layers.right:after{content:''}
+.ss-fill:before,.ss-fill.right:after{content:''}
+.ss-stroke:before,.ss-stroke.right:after{content:''}
+.ss-phone:before,.ss-phone.right:after{content:'📞'}
+.ss-phonedisabled:before,.ss-phonedisabled.right:after{content:''}
+.ss-rss:before,.ss-rss.right:after{content:''}
+.ss-facetime:before,.ss-facetime.right:after{content:''}
+.ss-reply:before,.ss-reply.right:after{content:'↩'}
+.ss-send:before,.ss-send.right:after{content:''}
+.ss-mail:before,.ss-mail.right:after{content:'✉'}
+.ss-inbox:before,.ss-inbox.right:after{content:'📥'}
+.ss-chat:before,.ss-chat.right:after{content:'💬'}
+.ss-ellipsischat:before,.ss-ellipsischat.right:after{content:''}
+.ss-ellipsis:before,.ss-ellipsis.right:after{content:'…'}
+.ss-user:before,.ss-user.right:after{content:'👤'}
+.ss-femaleuser:before,.ss-femaleuser.right:after{content:'👧'}
+.ss-users:before,.ss-users.right:after{content:'👥'}
+.ss-cart:before,.ss-cart.right:after{content:''}
+.ss-creditcard:before,.ss-creditcard.right:after{content:'💳'}
+.ss-dollarsign:before,.ss-dollarsign.right:after{content:'💲'}
+.ss-barchart:before,.ss-barchart.right:after{content:'📊'}
+.ss-piechart:before,.ss-piechart.right:after{content:''}
+.ss-box:before,.ss-box.right:after{content:'📦'}
+.ss-home:before,.ss-home.right:after{content:'⌂'}
+.ss-buildings:before,.ss-buildings.right:after{content:'🏢'}
+.ss-warehouse:before,.ss-warehouse.right:after{content:''}
+.ss-globe:before,.ss-globe.right:after{content:'🌎'}
+.ss-navigate:before,.ss-navigate.right:after{content:''}
+.ss-compass:before,.ss-compass.right:after{content:''}
+.ss-signpost:before,.ss-signpost.right:after{content:''}
+.ss-map:before,.ss-map.right:after{content:''}
+.ss-location:before,.ss-location.right:after{content:''}
+.ss-pin:before,.ss-pin.right:after{content:'📍'}
+.ss-database:before,.ss-database.right:after{content:''}
+.ss-hdd:before,.ss-hdd.right:after{content:''}
+.ss-music:before,.ss-music.right:after{content:'♫'}
+.ss-mic:before,.ss-mic.right:after{content:'🎤'}
+.ss-volume:before,.ss-volume.right:after{content:'🔈'}
+.ss-lowvolume:before,.ss-lowvolume.right:after{content:'🔉'}
+.ss-highvolume:before,.ss-highvolume.right:after{content:'🔊'}
+.ss-airplay:before,.ss-airplay.right:after{content:''}
+.ss-camera:before,.ss-camera.right:after{content:'📷'}
+.ss-picture:before,.ss-picture.right:after{content:'🌄'}
+.ss-video:before,.ss-video.right:after{content:'📹'}
+.ss-play:before,.ss-play.right:after{content:'▶'}
+.ss-pause:before,.ss-pause.right:after{content:''}
+.ss-stop:before,.ss-stop.right:after{content:'■'}
+.ss-record:before,.ss-record.right:after{content:'●'}
+.ss-rewind:before,.ss-rewind.right:after{content:'⏪'}
+.ss-fastforward:before,.ss-fastforward.right:after{content:'⏩'}
+.ss-skipback:before,.ss-skipback.right:after{content:'⏮'}
+.ss-skipforward:before,.ss-skipforward.right:after{content:'⏭'}
+.ss-eject:before,.ss-eject.right:after{content:'⏏'}
+.ss-repeat:before,.ss-repeat.right:after{content:'🔁'}
+.ss-replay:before,.ss-replay.right:after{content:'↺'}
+.ss-shuffle:before,.ss-shuffle.right:after{content:'🔀'}
+.ss-book:before,.ss-book.right:after{content:'📕'}
+.ss-openbook:before,.ss-openbook.right:after{content:'📖'}
+.ss-notebook:before,.ss-notebook.right:after{content:'📓'}
+.ss-newspaper:before,.ss-newspaper.right:after{content:'📰'}
+.ss-grid:before,.ss-grid.right:after{content:''}
+.ss-rows:before,.ss-rows.right:after{content:''}
+.ss-columns:before,.ss-columns.right:after{content:''}
+.ss-thumbnails:before,.ss-thumbnails.right:after{content:''}
+.ss-filter:before,.ss-filter.right:after{content:''}
+.ss-desktop:before,.ss-desktop.right:after{content:'💻'}
+.ss-laptop:before,.ss-laptop.right:after{content:''}
+.ss-tablet:before,.ss-tablet.right:after{content:''}
+.ss-cell:before,.ss-cell.right:after{content:'📱'}
+.ss-battery:before,.ss-battery.right:after{content:'🔋'}
+.ss-highbattery:before,.ss-highbattery.right:after{content:''}
+.ss-mediumbattery:before,.ss-mediumbattery.right:after{content:''}
+.ss-lowbattery:before,.ss-lowbattery.right:after{content:''}
+.ss-emptybattery:before,.ss-emptybattery.right:after{content:''}
+.ss-lightbulb:before,.ss-lightbulb.right:after{content:'💡'}
+.ss-downloadcloud:before,.ss-downloadcloud.right:after{content:''}
+.ss-download:before,.ss-download.right:after{content:''}
+.ss-uploadcloud:before,.ss-uploadcloud.right:after{content:''}
+.ss-upload:before,.ss-upload.right:after{content:''}
+.ss-fork:before,.ss-fork.right:after{content:''}
+.ss-merge:before,.ss-merge.right:after{content:''}
+.ss-transfer:before,.ss-transfer.right:after{content:'⇆'}
+.ss-refresh:before,.ss-refresh.right:after{content:'↻'}
+.ss-sync:before,.ss-sync.right:after{content:''}
+.ss-loading:before,.ss-loading.right:after{content:''}
+.ss-wifi:before,.ss-wifi.right:after{content:''}
+.ss-connection:before,.ss-connection.right:after{content:''}
+.ss-file:before,.ss-file.right:after{content:'📄'}
+.ss-folder:before,.ss-folder.right:after{content:'📁'}
+.ss-quote:before,.ss-quote.right:after{content:'“'}
+.ss-text:before,.ss-text.right:after{content:''}
+.ss-font:before,.ss-font.right:after{content:''}
+.ss-print:before,.ss-print.right:after{content:'⎙'}
+.ss-fax:before,.ss-fax.right:after{content:'📠'}
+.ss-list:before,.ss-list.right:after{content:''}
+.ss-layout:before,.ss-layout.right:after{content:''}
+.ss-action:before,.ss-action.right:after{content:''}
+.ss-redirect:before,.ss-redirect.right:after{content:'↪'}
+.ss-expand:before,.ss-expand.right:after{content:'⤢'}
+.ss-contract:before,.ss-contract.right:after{content:''}
+.ss-help:before,.ss-help.right:after{content:'❓'}
+.ss-info:before,.ss-info.right:after{content:'ℹ'}
+.ss-alert:before,.ss-alert.right:after{content:'⚠'}
+.ss-caution:before,.ss-caution.right:after{content:'⛔'}
+.ss-logout:before,.ss-logout.right:after{content:''}
+.ss-plus:before,.ss-plus.right:after{content:'+'}
+.ss-hyphen:before,.ss-hyphen.right:after{content:'-'}
+.ss-check:before,.ss-check.right:after{content:'✓'}
+.ss-delete:before,.ss-delete.right:after{content:'␡'}
+.ss-settings:before,.ss-settings.right:after{content:'⚙'}
+.ss-dashboard:before,.ss-dashboard.right:after{content:''}
+.ss-notifications:before,.ss-notifications.right:after{content:'🔔'}
+.ss-notificationsdisabled:before,.ss-notificationsdisabled.right:after{content:'🔕'}
+.ss-clock:before,.ss-clock.right:after{content:'⏲'}
+.ss-stopwatch:before,.ss-stopwatch.right:after{content:'⏱'}
+.ss-calendar:before,.ss-calendar.right:after{content:'📅'}
+.ss-addcalendar:before,.ss-addcalendar.right:after{content:''}
+.ss-removecalendar:before,.ss-removecalendar.right:after{content:''}
+.ss-checkcalendar:before,.ss-checkcalendar.right:after{content:''}
+.ss-deletecalendar:before,.ss-deletecalendar.right:after{content:''}
+.ss-briefcase:before,.ss-briefcase.right:after{content:'💼'}
+.ss-cloud:before,.ss-cloud.right:after{content:'☁'}
+.ss-droplet:before,.ss-droplet.right:after{content:'💧'}
+.ss-flask:before,.ss-flask.right:after{content:''}
+.ss-up:before,.ss-up.right:after{content:'⬆'}
+.ss-upright:before,.ss-upright.right:after{content:'⬈'}
+.ss-downright:before,.ss-downright.right:after{content:'⬊'}
+.ss-down:before,.ss-down.right:after{content:'⬇'}
+.ss-downleft:before,.ss-downleft.right:after{content:'⬋'}
+.ss-left:before,.ss-left.right:after{content:'⬅'}
+.ss-upleft:before,.ss-upleft.right:after{content:'⬉'}
+.ss-navigateup:before,.ss-navigateup.right:after{content:''}
+.ss-navigateright:before,.ss-navigateright.right:after{content:'▻'}
+.ss-navigatedown:before,.ss-navigatedown.right:after{content:''}
+.ss-navigateleft:before,.ss-navigateleft.right:after{content:'◅'}
+.ss-directup:before,.ss-directup.right:after{content:'▴'}
+.ss-directright:before,.ss-directright.right:after{content:'▹'}
+.ss-dropdown:before,.ss-dropdown.right:after{content:'▾'}
+.ss-directleft:before,.ss-directleft.right:after{content:'◃'}
+.ss-retweet:before,.ss-retweet.right:after{content:''}
+.ss-volumelow:before,.ss-volumelow.right:after{content:'🔉'}
+.ss-volumehigh:before,.ss-volumehigh.right:after{content:'🔊'}
+.ss-batteryhigh:before,.ss-batteryhigh.right:after{content:''}
+.ss-batterymedium:before,.ss-batterymedium.right:after{content:''}
+.ss-batterylow:before,.ss-batterylow.right:after{content:''}
+.ss-batteryempty:before,.ss-batteryempty.right:after{content:''}
+.ss-clouddownload:before,.ss-clouddownload.right:after{content:''}
+.ss-cloudupload:before,.ss-cloudupload.right:after{content:''}
+.ss-calendaradd:before,.ss-calendaradd.right:after{content:''}
+.ss-calendarremove:before,.ss-calendarremove.right:after{content:''}
+.ss-calendarcheck:before,.ss-calendarcheck.right:after{content:''}
+.ss-calendardelete:before,.ss-calendardelete.right:after{content:''}
+.screenshot{height:600px;width:100%;background:#f9f9f9;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);-mox-box-shadow:0 1px 4px rgba(0,0,0,0.3);-ms-box-shadow:0 1px 4px rgba(0,0,0,0.3);-o-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden}
 .screenshot img{width:100%}
 .feature{display:table;margin-top:2em}
 .feature-item{display:table-cell;vertical-align:middle}
-.feature-description{padding:1em}
-.feature-description h1{color:#2a2b24;font-family:"Essays 1743";font-weight:500}/*# sourceMappingURL=frontend.css.map */
+.feature-description{padding:1em;width:45%}
+.feature-description h1{color:#2a2b24;font-family:"Essays 1743";font-weight:500}
+.feature-description a{font-size:.9em}
+.feature>.feature-description:first-child{padding-right:3em}
+.feature>.feature-description:nth-child(2){padding-left:3em}/*# sourceMappingURL=frontend.css.map */

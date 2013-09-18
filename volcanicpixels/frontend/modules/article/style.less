@@ -17,16 +17,30 @@
     padding: 0 @article-padding;
 
     p,
+    a:not(.button),
     li,
     blockquote {
         font-family: @article-body-font;
         line-height: 1.6em;
         text-align: justify;
     }
+
+    a:not(.button) {
+        color: @link-text;
+        border-bottom: 1px solid #f0eee8;
+        border-bottom: 1px solid @lightest-gray;
+
+        &:hover,
+        &:focus {
+            color: darken(@link-text, 10%);
+            border-bottom-color: @link-text;
+        }
+    }
 }
 
 .article-highlight {
-    .article-bleed;
+    margin-left: -1.5em;
+    margin-right: -1.5em;
     font-size: @font-size-xlarge;
     font-weight: @font-weight-semibold;
 }
