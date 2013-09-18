@@ -1,5 +1,12 @@
+{#
+   home
+
+   Copyright (c) Daniel Chatfield
+#}
 {% extends "modules/layout" %}
 {% from "modules/list" import list %}
+
+{% block title %}Home | {{ super() }}{% endblock %}
 
 {% block page %}
   <section class="container-tight pad-medium">

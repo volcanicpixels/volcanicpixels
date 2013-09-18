@@ -1,0 +1,70 @@
+{#
+   private-blog
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}Private Blog WordPress Plugin | {{ super() }}{% endblock %}
+
+{% block page %}
+    <article class="article highlight-first">
+        <section class="intro container-tight">
+            <h1>Private Blog</h1>
+            <p>
+                Want to make all or part of your WordPress website private? With support for; multiple passwords, upload protection, RSS feed protection, access logs and much more, we've got you covered.
+            </p>
+            <div class="align-center font-size-large"><a class="button primary-button">Download</a><a class="button primary-button">Purchase</a></div>
+            <hr />
+        </section>
+
+
+        <h2 class="list-heading">Features</h2>
+
+
+        <section class="feature container">
+            <div class="feature-item">
+                <figure class="screenshot">
+                    <img src="http://graphics8.nytimes.com/marketing/prototypeSignUp/media/header850.jpg" />
+                </figure>
+            </div>
+            <div class="feature-item feature-description">
+                <h1>Intuitive interface</h1>
+                <p>We've made it easy to get started straight away.</p>
+            </div>
+        </section>
+
+        <hr />
+
+        <section class="feature container">
+            <div class="feature-item feature-description">
+                <h1>Multiple passwords</h1>
+                <p>Define as many passwords as you want. This makes tracking logins, removing people's access easy.</p>
+            </div>
+            <div class="feature-item">
+                <figure class="screenshot">
+                    <img src="http://graphics8.nytimes.com/marketing/prototypeSignUp/media/header850.jpg" />
+                </figure>
+            </div>
+        </section>
+
+        <hr />
+
+        <section class="feature container">
+            <div class="feature-item">
+                <figure class="screenshot">
+                    <img src="http://graphics8.nytimes.com/marketing/prototypeSignUp/media/header850.jpg" />
+                </figure>
+            </div>
+            <div class="feature-item feature-description">
+                <h1>Choose what to protect</h1>
+                <p>You can choose individual pages or posts, categories, tags, post-types or url patterns to protect.</p>
+            </div>
+        </section>
+
+        <hr />
+        
+        <div class="align-center font-size-large"><a class="button primary-button">Download</a><a class="button primary-button">Purchase</a></div>
+
+    </article>
+{% endblock %}

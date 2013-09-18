@@ -4,7 +4,7 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
-from flask import render_template
+from flask import render_template, url_for
 
 from flask.ext.volcano import create_blueprint
 
@@ -19,7 +19,8 @@ def render():
             "name": "Private Blog WordPress Plugin",
             "teaser": "This plugin makes it easy to make all or part of your "
                       "WordPress blog private.",
-            "icon": "li_key"
+            "icon": "li_key",
+            "url": url_for('private-blog')
         },
         {
             "name": "WordPress Backup Service",

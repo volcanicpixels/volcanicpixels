@@ -63,11 +63,14 @@ class Links(object):
     def parse_link(self, link):
         if 'text' not in link:
             if 'endpoint' in link:
-                link['text'] = link['endpoint']
+                link['text'] = self.make_title(link['endpoint'])
         if 'selected' not in link:
             if 'endpoint' in link and request is not None:
                 link['selected'] = self.is_selected(link['endpoint'])
         return link
+
+    def make_title(self, text):
+        return " ".join(w.capitalize() for w in text.split('-'))
 
     def is_selected(self, endpoint):
         return (self._is_selected(endpoint) or 

@@ -1,0 +1,64 @@
+/**
+ * modules/buttons
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/constants/colors";
+@import (reference) "modules/helpers/typography";
+@import (reference) "modules/helpers/interaction";
+@import (reference) "modules/mixins/style";
+
+@shadow-depth: 0.2em;
+
+.button {
+    .alternate-font;
+    .font-size-small;
+    .no-user-select;
+    .border-radius(0.2em);
+    display: inline-block;
+    line-height: 1em;
+    cursor: pointer;
+    padding: 0.5em 1em 0.5em 1em;
+    margin: 0 0.5em;
+    opacity: 0.9;
+
+    position: relative;
+    top: -@shadow-depth;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+    }
+
+    &:active {
+        top: 0;
+        .transform(translateY(0));
+    }
+}
+
+.button-helper(@button-color, @text-color: white) {
+    @button-color-dark: darken(@button-color, 20%);
+    @button-color-darker: darken(@button-color, 25%);
+
+    background-color: @button-color;
+    .box-shadow(0 @shadow-depth 0 @button-color-dark);
+    color: @text-color;
+
+    &:hover,
+    &:focus {
+        .box-shadow(0 @shadow-depth 0 @button-color-darker);
+    }
+
+    &:active {
+        .box-shadow(none);
+    }
+}
+
+.regular-button {
+    background-color: @lighter-gray;
+}
+
+.primary-button {
+    .button-helper(@emphasis-color, @emphasis-text);
+}

@@ -17,21 +17,19 @@
         pdding: 0;
 
         li {
-
+            .alternate-font;
+            .font-size-xsmall;
             display: table-cell;
             vertical-align: middle;
 
             a {
-                .small-caps;
-                font-size: @font-size-small;
-                font-weight: @font-weight-medium;
                 color: @secondary-text;
                 margin-right: 1.5em;
 
                 &:hover,
                 &:focus,
                 &.selected {
-                    color: @primary-color;
+                    color: @link-text;
                     opacity: 1;
                 }
             }

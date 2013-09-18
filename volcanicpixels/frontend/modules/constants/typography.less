@@ -1,18 +1,40 @@
 /**
- * utils/constants/typography
+ * modules/constants/typography
  * 
  * Copyright (c) Daniel Chatfield
  */
 
- // ## Font sizes
-@font-size-tiny   : .8rem;
-@font-size-small  : .9rem;
-@font-size-medium : 1rem;
-@font-size-large  : 1.1rem;
-@font-size-xlarge : 1.3rem;
-@font-size-obese  : 1.6rem;
+@import (reference) "modules/fonts/open-sans/style";
+@import (reference) "modules/fonts/droid-serif/style";
+
+// Fonts
+// ~~~~~
+
+@courier: 'Courier', 'monospace';
+
+@body-font         : @open-sans;
+@article-body-font : @droid-serif;
+@alternate-font    : @courier;
+
+// Font sizes
+// ~~~~~~~~~~
+// 
+// The extra digits are a hack that forces chrome on windows to render
+// small-caps properly.
+
+@font-size-tiny     : 0.723em;
+@font-size-xsmall   : 0.823em;
+@font-size-small    : 0.923em;
+@font-size-medium   : 1.023em;
+@font-size-large    : 1.123em;
+@font-size-xlarge   : 1.323em;
+@font-size-obese    : 1.623em;
+@font-size-american : 2.523em;
+
 
 // Font weights
+// ~~~~~~~~~~~~
+
 @font-weight-light    : 300;
 @font-weight-regular  : 400;
 @font-weight-medium   : 500;

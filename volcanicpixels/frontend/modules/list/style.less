@@ -6,8 +6,6 @@
 
 @import (reference) "modules/constants/style";
 @import (reference) "modules/helpers/style";
-@import (reference) "modules/helpers/typography";
-
 @import "modules/fonts/linecons/style";
 
 .list {
@@ -15,10 +13,10 @@
 }
 
 .list-heading {
-    .small-caps;
-    color: @tertiary-text;
-    font-size: @font-size-medium;
+    .alternate-font;
+    .font-size-xsmall;
     font-weight: @font-weight-medium;
+    color: @tertiary-text;
 }
 
 .list-body {
@@ -31,9 +29,11 @@
 
 .list-item-link {
     display: block;
+    position: relative;
 
     &:hover {
         background: @subtle-highlight;
+        .background-highlight-radial;
     }
 }
 
@@ -51,7 +51,7 @@
 
 .list-item-icon {
     font-size: 3em;
-    color: @primary-color;
+    color: @emphasis-color;
 }
 
 .list-item-title {
@@ -65,6 +65,7 @@
     margin: 0;
     padding: 0 0 0.5em 0;
     line-height: 1.4;
+    font-size: @font-size-small;
 }
 
 .list-heading {

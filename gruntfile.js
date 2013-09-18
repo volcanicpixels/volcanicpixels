@@ -14,7 +14,8 @@ module.exports = function(grunt) {
           paths: ['volcanicpixels', 'volcanicpixels/frontend', 'bower_components', 'bower_components/*/'],
           sourceMap: true,
           outputSourceFiles: true,
-          strictMath: true
+          strictMath: true,
+          compress: true
         },
         files: {
           "assets/frontend.css": "volcanicpixels/frontend/styles.less"

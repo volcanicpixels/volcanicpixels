@@ -1,0 +1,44 @@
+/**
+ * private-blog
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/mixins/style";
+@import (reference) "modules/constants/colors";
+
+@import "modules/layout/style";
+@import "modules/buttons/style";
+@import "modules/helpers/typography";
+
+.screenshot {
+    height: 600px;
+    width: 600px;
+    background: @off-white;
+    .box-shadow(0 1px 4px rgba(0,0,0,0.3));
+    overflow: hidden;
+
+    img {
+        width: 100%;
+    }
+}
+
+.feature {
+    display: table;
+    margin-top: 2em;
+}
+
+.feature-item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.feature-description {
+    padding: 1em;
+
+    h1 {
+        color: @black;
+        font-family: "Essays 1743";
+        .font-weight-medium;
+    }
+}

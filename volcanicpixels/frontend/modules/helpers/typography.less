@@ -5,8 +5,73 @@
  */
 
 @import (reference) "modules/mixins/style";
+@import (reference) "modules/constants/typography";
+
+.font-size-tiny {
+    font-size: @font-size-tiny;
+}
+.font-size-xsmall {
+    font-size: @font-size-xsmall;
+}
+.font-size-small {
+    font-size: @font-size-small;
+}
+.font-size-medium {
+    font-size: @font-size-medium;
+}
+.font-size-large {
+    font-size: @font-size-large;
+}
+.font-size-xlarge {
+    font-size: @font-size-xlarge;
+}
+.font-size-obese {
+    font-size: @font-size-obese;
+}
+.font-size-american {
+    font-size: @font-size-american;
+}
+
+.font-weight-light {
+    font-weight: @font-weight-light;
+}
+.font-weight-regular {
+    font-weight: @font-weight-regular;
+}
+.font-weight-medium {
+    font-weight: @font-weight-medium;
+}
+.font-weight-semibold {
+    font-weight: @font-weight-semibold;
+}
+.font-weight-bold {
+    font-weight: @font-weight-bold;
+}
+
+.body-font {
+    font-family: @body-font;
+}
+
+.article-body-font {
+    font-family: @article-body-font;
+}
+
+/**
+ * Meant to stand out a bit (look a bit odd).
+ *
+ * Not good for large pieces of text.
+ */
+
+.alternate-font {
+    text-transform: uppercase;
+    word-spacing: -0.3em;
+    font-family: @alternate-font;
+}
+
+
 
 .small-caps {
     .font-feature-settings("smcp");
+    .deprecated;
     text-transform: lowercase;
 }

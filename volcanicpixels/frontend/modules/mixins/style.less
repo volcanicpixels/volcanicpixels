@@ -4,17 +4,57 @@
  * Copyright (c) Daniel Chatfield
  */
 
-.box-sizing(@box-sizing) {
-    -webkit-box-sizing: @box-sizing;
-       -moz-box-sizing: @box-sizing;
-        -ms-box-sizing: @box-sizing;
-            box-sizing: @box-sizing;
-}
-
 .font-feature-settings(@settings) {
     -webkit-font-feature-settings: @settings;
        -moz-font-feature-settings: @settings;
         -ms-font-feature-settings: @settings;
          -o-font-feature-settings: @settings;
             font-feature-settings: @settings;
+}
+
+.deprecated {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: pink;
+}
+
+.box-sizing(@sizing: border-box) {
+  -webkit-box-sizing: @sizing;
+     -moz-box-sizing: @sizing;
+      -ms-box-sizing: @sizing;
+          box-sizing: @sizing;
+}
+
+.user-select(@argument: none) {
+  -webkit-user-select: @argument;
+     -moz-user-select: @argument;
+      -ms-user-select: @argument;
+          user-select: @argument;
+}
+
+.transform(@transform) {
+  -webkit-transform: @transform;
+     -moz-transform: @transform;
+      -ms-transform: @transform;
+       -o-transform: @transform;
+          transform: @transform;
+}
+
+.border-radius(@border-radius) {
+  -webkit-border-radius: @border-radius;
+     -mox-border-radius: @border-radius;
+      -ms-border-radius: @border-radius;
+       -o-border-radius: @border-radius;
+          border-radius: @border-radius;
+}
+
+.box-shadow(@box-shadow) {
+  -webkit-box-shadow: @box-shadow;
+     -mox-box-shadow: @box-shadow;
+      -ms-box-shadow: @box-shadow;
+       -o-box-shadow: @box-shadow;
+          box-shadow: @box-shadow;
 }
