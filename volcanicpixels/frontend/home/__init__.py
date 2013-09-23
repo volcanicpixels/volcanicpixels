@@ -28,7 +28,8 @@ def render():
                       "Our plugin makes the task completely painless. Packed "
                       "full of features and at an incredible price you'd be "
                       "mad not to!",
-            "icon": "li_data"
+            "icon": "li_data",
+            "url": url_for('wordpress-backup')
         },
         {
             "name": "WordPress plugin Update Service",

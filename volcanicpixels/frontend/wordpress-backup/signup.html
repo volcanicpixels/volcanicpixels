@@ -1,0 +1,31 @@
+{#
+   wordpress-backup/signup
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}WordPress Backup Service| {{ super() }}{% endblock %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <form class="align-center block-form">
+            <header>
+                <h1>Sign up for WordPress Backup</h1>
+            </header>
+            <fieldset class="name">
+
+            </fieldset>
+            <fieldset class="email">
+            </fieldset>
+            <fieldset class="password">
+            </fieldset>
+            <p class="highlight">
+                You will not be charged until you make your first backup.
+            <p>
+            <fieldset>
+                <input type="submit" class="button primary-button" />
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

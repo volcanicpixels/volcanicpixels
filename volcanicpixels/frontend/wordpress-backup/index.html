@@ -1,0 +1,44 @@
+{#
+   wordpress-backup
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}WordPress Backup Service| {{ super() }}{% endblock %}
+
+{% block page %}
+    <article class="article highlight-first container">
+        <section class="intro container-tight">
+            <h1>WordPress Backup</h1>
+            <p>
+                You've put countless hours into creating your website, don't let it go to waste! Our affordable backup service will protect your site against data-loss.
+            </p>
+            <div class="align-center font-size-large"><a href="{{ url_for("wordpress-backup.signup") }}" class="button primary-button">Get Started</a></div>
+            <hr />
+        </section>
+
+
+        <h2 class="list-heading">Features</h2>
+
+        <div class="container article-bleed">
+
+            <section class="feature">
+                <div class="feature-item">
+                    <figure class="screenshot">
+                        <img src="http://graphics8.nytimes.com/marketing/prototypeSignUp/media/header850.jpg" />
+                    </figure>
+                </div>
+                <div class="feature-item feature-description">
+                    <h1>Intuitive interface</h1>
+                    <p>We've built the easiest to use backup plugin! Don't believe us? Download it now and check out the demo.</p>
+                </div>
+            </section>
+
+            <hr />
+
+            <div class="align-center font-size-large"><a class="button primary-button">Get Started</a></div>
+        </div>
+
+    </article>
+{% endblock %}
