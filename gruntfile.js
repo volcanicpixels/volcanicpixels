@@ -53,7 +53,10 @@ module.exports = function(grunt) {
       },
       less: {
         files: ['volcanicpixels/**/*.less'],
-        tasks: ['less']
+        tasks: ['less'],
+        options: {
+          livereload: true
+        }
       },
       fonts: {
         files: ['volcanicpixels/frontend/modules/fonts/**'],

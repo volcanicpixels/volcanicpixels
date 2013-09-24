@@ -84,15 +84,16 @@ body,button,input,select,textarea{font:1em normal 'Open Sans',sans-serif;color:#
 a{cursor:pointer;color:inherit;text-decoration:none;outline:0}
 a:focus{outline:0}
 p a:not(.button){color:#f23e2f;text-decoration:underline}
-.page-nav{height:100%}
-.page-nav ul{height:100%;display:table;margin:0;pdding:0}
-.page-nav ul li{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;display:table-cell;vertical-align:middle}
-.page-nav ul li a{color:#7f7f76;margin-right:1.5em}
-.page-nav ul li a:hover,.page-nav ul li a:focus,.page-nav ul li a.selected{color:#f23e2f;opacity:1}
+fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .page-header{margin-right:auto;margin-left:auto;max-width:1000px;height:5em}
 .page-header:before,.page-header:after{content:" ";display:table}
 .page-header:after{clear:both}
 .page-header .page-nav{float:left !important}
+.page-nav{height:100%}
+.page-nav ul{height:100%;display:table;margin:0;pdding:0}
+.page-nav ul li{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;display:table-cell;vertical-align:middle}
+.page-nav ul li a{color:#b9bab3;margin-right:1.5em}
+.page-nav ul li a:hover,.page-nav ul li a:focus,.page-nav ul li a.selected{color:#f23e2f;opacity:1}
 .page-footer{height:5em;color:#7f7f76;margin-right:auto;margin-left:auto;max-width:1000px}
 .page-footer:before,.page-footer:after{content:" ";display:table}
 .page-footer:after{clear:both}
@@ -159,7 +160,7 @@ p a:not(.button){color:#f23e2f;text-decoration:underline}
 .list-body{list-style:none;padding:0;margin:0}
 .list-item{margin:1em 0em}
 .list-item-link{display:block;position:relative}
-.list-item-link:hover{background:#faf6f3;background:-webkit-radial-gradient(center, ellipse contain, transparent 50%, #fff 100%),#f8efe8}
+.list-item-link:hover{background:#f8f5f0;background:-webkit-radial-gradient(center, ellipse contain, transparent 50%, #fff 100%),#f8efe8}
 .list-item-body{padding:1em;max-width:640px;margin-right:auto;margin-left:auto}
 .list-item-header{position:relative;margin-bottom:0.3em}
 .list-item-icon{font-size:3em;color:#f23e2f}
@@ -187,6 +188,20 @@ p a:not(.button){color:#f23e2f;text-decoration:underline}
 .primary-button{background-color:#f23e2f;-webkit-box-shadow:0 .2em 0 #b0180b;-mox-box-shadow:0 .2em 0 #b0180b;-ms-box-shadow:0 .2em 0 #b0180b;-o-box-shadow:0 .2em 0 #b0180b;box-shadow:0 .2em 0 #b0180b;color:#fff}
 .primary-button:hover,.primary-button:focus{-webkit-box-shadow:0 .2em 0 #981409;-mox-box-shadow:0 .2em 0 #981409;-ms-box-shadow:0 .2em 0 #981409;-o-box-shadow:0 .2em 0 #981409;box-shadow:0 .2em 0 #981409}
 .primary-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
+.block-form{max-width:25em;margin:0 auto;padding:0 1.5em}
+.block-form h1{font-size:1.3em}
+.block-form input:not([type="submit"]),.block-form-input:not([type="submit"]){background:#f8f5f0;border:none;width:100%;padding:0.5em 0.9em;border-left:.5em solid #f8f5f0}
+.block-form input:not([type="submit"]) .placeholder,.block-form-input:not([type="submit"]) .placeholder{color:#dfd7c9;font-weight:500}
+.block-form input:not([type="submit"])::-webkit-input-placeholder,.block-form-input:not([type="submit"])::-webkit-input-placeholder{color:#dfd7c9;font-weight:500}
+.block-form input:not([type="submit"])::-moz-placeholder,.block-form-input:not([type="submit"])::-moz-placeholder{color:#dfd7c9;font-weight:500}
+.block-form input:not([type="submit"]):focus,.block-form-input:not([type="submit"]):focus{-webkit-animation:"block-form-focus" 1s infinite;outline:none}
+.block-form input,.block-form-input{width:100%}
+.block-form-focus{-webkit-animation:"block-form-focus" 1s infinite}
+@keyframes "block-form-focus"{50%{border-left-color:#f23e2f}}
+@-moz-keyframes "block-form-focus"{50%{border-left-color:#f23e2f}}
+@-webkit-keyframes "block-form-focus"{50%{border-left-color:#f23e2f}}
+@-ms-keyframes "block-form-focus"{50%{border-left-color:#f23e2f}}
+@-o-keyframes "block-form-focus"{50%{border-left-color:#f23e2f}}
 .screenshot{height:600px;width:100%;background:#f9f9f9;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);-mox-box-shadow:0 1px 4px rgba(0,0,0,0.3);-ms-box-shadow:0 1px 4px rgba(0,0,0,0.3);-o-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden}
 .screenshot img{width:100%}
 .feature{display:table;margin-top:2em}

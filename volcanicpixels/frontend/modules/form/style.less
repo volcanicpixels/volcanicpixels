@@ -3,3 +3,85 @@
  * 
  * Copyright (c) 2013 Daniel Chatfield
  */
+
+@import (reference) "modules/constants/colors";
+
+.block-form {
+    max-width: 25em;
+    margin: 0 auto;
+    padding: 0 1.5em;
+
+    h1 {
+        font-size: 1.3em;
+    }
+}
+
+.block-form input:not([type="submit"]),
+.block-form-input:not([type="submit"]) {
+    background: @subtle-highlight;
+    border: none;
+    width: 100%;
+    padding: 0.5em 0.9em;
+    border-left: 0.5em solid @subtle-highlight;
+
+    .placeholder {
+        color: @subtle-highlight-text;
+        font-weight: @font-weight-medium;
+    }
+
+    /**
+     * Do not combine placeholder definitions otherwise they will not work.
+     */
+
+    &::-webkit-input-placeholder {
+        .placeholder;
+    }
+
+    &::-moz-placeholder {
+        .placeholder;
+    }
+
+    &:focus {
+        .block-form-focus;
+        outline: none;
+    }
+}
+
+.block-form input,
+.block-form-input {
+    width: 100%;
+}
+
+.block-form-focus {
+    -webkit-animation: "block-form-focus" 1s infinite;
+}
+
+@keyframes "block-form-focus" {
+ 50% {
+    border-left-color: @emphasis-color;
+ }
+}
+
+@-moz-keyframes "block-form-focus" {
+ 50% {
+   border-left-color: @emphasis-color;
+ }
+}
+
+@-webkit-keyframes "block-form-focus" {
+ 50% {
+   border-left-color: @emphasis-color;
+ }
+}
+
+@-ms-keyframes "block-form-focus" {
+ 50% {
+   border-left-color: @emphasis-color;
+ }
+}
+
+@-o-keyframes "block-form-focus" {
+ 50% {
+   border-left-color: @emphasis-color;
+ }
+}

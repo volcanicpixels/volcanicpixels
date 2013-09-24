@@ -1,57 +1,13 @@
 /**
  * private-blog
  *
- * Copyright (c) Daniel Chatfield
+ * Copyright (c) 2013 Daniel Chatfield
  */
 
-@import (reference) "modules/mixins/style";
 @import (reference) "modules/constants/colors";
+@import (reference) "modules/mixins/style";
 
-@import "modules/layout/style";
 @import "modules/buttons/style";
 @import "modules/helpers/typography";
-
-.screenshot {
-    height: 600px;
-    width: 100%;
-    background: @off-white;
-    .box-shadow(0 1px 4px rgba(0,0,0,0.3));
-    overflow: hidden;
-
-    img {
-        width: 100%;
-    }
-}
-
-.feature {
-    display: table;
-    margin-top: 2em;
-}
-
-.feature-item {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.feature-description {
-    padding: 1em;
-    width: 45%;
-
-    h1 {
-        color: @black;
-        font-family: "Essays 1743";
-        .font-weight-medium;
-    }
-
-    a {
-        .font-size-small;
-    }
-}
-
-.feature > .feature-description:first-child {
-    padding-right: 3em;
-}
-
-.feature > .feature-description:nth-child(2) {
-    padding-left: 3em;
-}
+@import "modules/layout/style";
+@import "modules/product-page/style";
