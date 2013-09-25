@@ -4,6 +4,7 @@ python:
 
 
 install:
+ - npm install -g grunt
  - pip install pep8
 
 script:
