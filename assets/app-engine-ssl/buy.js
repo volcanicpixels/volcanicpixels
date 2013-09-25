@@ -1,6 +1,8 @@
 define("app-engine-ssl/buy",
-  [],
-  function() {
+  ["jquery"],
+  function($) {
     "use strict";
+
+
 
   });

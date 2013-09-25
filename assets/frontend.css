@@ -58,6 +58,23 @@ table{border-collapse:collapse;border-spacing:0}
 .no-list-style{list-style:none;padding:0;margin:0}
 .background-highlight-radial{background:-webkit-radial-gradient(center, ellipse contain, transparent 50%, #fff 100%),#f8efe8}
 .highlight{background-color:rgba(255,255,0,0.6)}
+.font-size-tiny{font-size:.7em}
+.font-size-xsmall{font-size:.8em}
+.font-size-small{font-size:.9em}
+.font-size-medium{font-size:1em}
+.font-size-large{font-size:1.1em}
+.font-size-xlarge{font-size:1.3em}
+.font-size-obese{font-size:1.6em}
+.font-size-american{font-size:2.5em}
+.font-weight-light{font-weight:300}
+.font-weight-regular{font-weight:400}
+.font-weight-medium{font-weight:500}
+.font-weight-semibold{font-weight:600}
+.font-weight-bold{font-weight:700}
+.body-font{font-family:'Open Sans',sans-serif}
+.article-body-font{font-family:'Droid Serif',serif}
+.alternate-font{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace'}
+.small-caps{-webkit-font-feature-settings:"smcp";-moz-font-feature-settings:"smcp";-ms-font-feature-settings:"smcp";-o-font-feature-settings:"smcp";font-feature-settings:"smcp";position:fixed;top:0px;bottom:0px;left:0px;right:0px;background:pink;text-transform:lowercase}
 .no-user-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}
 html{font-size:20px}
 html,body{height:100%}
@@ -162,23 +179,6 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .primary-button{background-color:#f23e2f;-webkit-box-shadow:0 .2em 0 #b0180b;-mox-box-shadow:0 .2em 0 #b0180b;-ms-box-shadow:0 .2em 0 #b0180b;-o-box-shadow:0 .2em 0 #b0180b;box-shadow:0 .2em 0 #b0180b;color:#fff}
 .primary-button:hover,.primary-button:focus{-webkit-box-shadow:0 .2em 0 #981409;-mox-box-shadow:0 .2em 0 #981409;-ms-box-shadow:0 .2em 0 #981409;-o-box-shadow:0 .2em 0 #981409;box-shadow:0 .2em 0 #981409}
 .primary-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
-.font-size-tiny{font-size:.7em}
-.font-size-xsmall{font-size:.8em}
-.font-size-small{font-size:.9em}
-.font-size-medium{font-size:1em}
-.font-size-large{font-size:1.1em}
-.font-size-xlarge{font-size:1.3em}
-.font-size-obese{font-size:1.6em}
-.font-size-american{font-size:2.5em}
-.font-weight-light{font-weight:300}
-.font-weight-regular{font-weight:400}
-.font-weight-medium{font-weight:500}
-.font-weight-semibold{font-weight:600}
-.font-weight-bold{font-weight:700}
-.body-font{font-family:'Open Sans',sans-serif}
-.article-body-font{font-family:'Droid Serif',serif}
-.alternate-font{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace'}
-.small-caps{-webkit-font-feature-settings:"smcp";-moz-font-feature-settings:"smcp";-ms-font-feature-settings:"smcp";-o-font-feature-settings:"smcp";font-feature-settings:"smcp";position:fixed;top:0px;bottom:0px;left:0px;right:0px;background:pink;text-transform:lowercase}
 .screenshot{height:600px;width:100%;background:#f9f9f9;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);-mox-box-shadow:0 1px 4px rgba(0,0,0,0.3);-ms-box-shadow:0 1px 4px rgba(0,0,0,0.3);-o-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden}
 .screenshot img{width:100%}
 .feature{display:table;margin-top:2em}
@@ -188,6 +188,13 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .feature-description a{font-size:.9em}
 .feature>.feature-description:first-child{padding-right:3em}
 .feature>.feature-description:nth-child(2){padding-left:3em}
+.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
+.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
+.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
+.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
+.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
+.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
+.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
 .block-form{max-width:25em;margin:0 auto;padding:0 1.5em}
 .block-form h1{font-size:1.3em;text-align:center}
 .block-form hr{display:block;width:20%;margin:50px auto 40px auto;border:1px solid #d3d3cf}
@@ -216,13 +223,6 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 @keyframes block-form-focus{50%{border-left-color:#f23e2f}}
 @-moz-keyframes block-form-focus{50%{border-left-color:#f23e2f}}
 @-webkit-keyframes block-form-focus{50%{border-left-color:#f23e2f}}
-.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
-.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
-.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
-.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
-.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
-.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
-.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
 @font-face{font-family:"Essays 1743";src:url("fonts/essays-1743/normal.eot?") format("eot"),url("fonts/essays-1743/normal.woff") format("woff"),url("fonts/essays-1743/normal.ttf") format("truetype")}
 .article{padding:0 2em}
 .article p,.article a:not(.button),.article li,.article blockquote{font-family:'Droid Serif',serif;line-height:1.6em;text-align:justify}
