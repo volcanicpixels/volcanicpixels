@@ -23,6 +23,7 @@
     margin-right: 0.5em;
     opacity: 0.9;
     border: none;
+    text-align: center;
 
     position: relative;
     top: -@shadow-depth;
@@ -35,7 +36,11 @@
 
     &:active {
         top: 0;
-        .transform(translateY(0));
+    }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: 0.4;
     }
 }
 

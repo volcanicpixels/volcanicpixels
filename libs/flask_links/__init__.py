@@ -78,7 +78,7 @@ class Links(object):
             self._is_selected(endpoint + '.index'))
 
     def _is_selected(self, endpoint):
-        return endpoint == request.endpoint
+        return request.endpoint.startswith(endpoint)
 
 
     def _register_link(self, endpoint, link):

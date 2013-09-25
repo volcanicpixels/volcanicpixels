@@ -1,0 +1,26 @@
+{#
+   appengine-ssl
+
+   Copyright (c) 2013 Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}Google App Engine SSL| {{ super() }}{% endblock %}
+
+{% block page %}
+    <article class="article highlight-first container">
+        <section class="intro container-tight">
+            <h1>App Engine SSL</h1>
+            <p>
+                The quickest and easiest way to get SSL certificates for Google App Engine. No messing about with command line applications and merging keys.
+            </p>
+            <div class="align-center font-size-large"><a class="button primary-button">Login to dashboard</a><a href="{{ url_for('app-engine-ssl.buy') }}" class="button primary-button">Purchase new certificate</a></div>
+            <hr />
+            {% markdown %}
+                - Great pricing (£35/year) ✔
+                - Fast verification (most certificates are issued in less than 5 minutes) ✔
+                - Great support ✔
+            {% endmarkdown %}
+        </section>
+    </article>
+{% endblock %}

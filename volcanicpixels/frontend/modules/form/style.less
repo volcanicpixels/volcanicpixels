@@ -4,7 +4,10 @@
  * Copyright (c) 2013 Daniel Chatfield
  */
 
+@import (reference) "modules/article/style";
+@import (reference) "modules/buttons/style";
 @import (reference) "modules/constants/colors";
+@import (reference) "modules/mixins/style";
 
 .block-form {
     max-width: 25em;
@@ -13,16 +16,83 @@
 
     h1 {
         font-size: 1.3em;
+        .align-center;
+    }
+
+    hr {
+        .article-hr;
+    }
+
+    p {
+        font-size: @font-size-small;
+        line-height: 1.7em;
+    }
+
+    fieldset {
+        position: relative;
+
+        &:disabled::after {
+            content: attr(data-disabled-msg);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            text-align: center;
+        }
+    }
+
+    legend,
+    h2 {
+        font-size: 1em;
+        text-align: center;
+        font-weight: @font-weight-semibold;
+        padding: 0.5em 0 1em 0;
+    }
+
+    label {
+        display: block;
+
+        &.new {
+            font-style: italic;
+        }
+    }
+
+    select {
+        .button;
+        width: 100%;
+        .regular-button;
+
+        &:focus {
+            top: 0;
+            .box-shadow(none);
+        }
+    }
+
+    .highlight {
+        line-height: 1.2em;
     }
 }
 
-.block-form input:not([type="submit"]),
-.block-form-input:not([type="submit"]) {
-    background: @subtle-highlight;
-    border: none;
-    width: 100%;
-    padding: 0.5em 0.9em;
-    border-left: 0.5em solid @subtle-highlight;
+.block-form input,
+.block-form-input {
+
+    &[type="text"],
+    &[type="password"] {
+        background: @subtle-highlight;
+        border: none;
+        width: 100%;
+        padding: 0.5em 0.9em;
+        border-left: 0.5em solid @subtle-highlight;
+    }
+
+    &[type="submit"] {
+        width: 100%;
+    }
+
+    &[type="radio"] {
+        margin-right: 1em;
+    }
 
     .placeholder {
         color: @subtle-highlight-text;
@@ -45,42 +115,28 @@
         .block-form-focus;
         outline: none;
     }
-}
 
-.block-form input,
-.block-form-input {
-    width: 100%;
 }
 
 .block-form-focus {
-    -webkit-animation: "block-form-focus" 1s infinite;
+    -webkit-animation: block-form-focus 1s infinite;
+       -moz-animation: block-form-focus 1s infinite;
+            animation: block-form-focus 1s infinite;
 }
 
-@keyframes "block-form-focus" {
+@keyframes block-form-focus {
  50% {
     border-left-color: @emphasis-color;
  }
 }
 
-@-moz-keyframes "block-form-focus" {
+@-moz-keyframes block-form-focus {
  50% {
    border-left-color: @emphasis-color;
  }
 }
 
-@-webkit-keyframes "block-form-focus" {
- 50% {
-   border-left-color: @emphasis-color;
- }
-}
-
-@-ms-keyframes "block-form-focus" {
- 50% {
-   border-left-color: @emphasis-color;
- }
-}
-
-@-o-keyframes "block-form-focus" {
+@-webkit-keyframes block-form-focus {
  50% {
    border-left-color: @emphasis-color;
  }

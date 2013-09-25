@@ -1,0 +1,42 @@
+/**
+ * modules/credit-card
+ * 
+ * Copyright (c) 2013 Daniel Chatfield
+ */
+
+@import (reference) "modules/mixins/style";
+
+.block-form .credit-card,
+.credit-card {
+    //.box-shadow(0 0 5px #ece6da);
+    padding: 1em;
+    background: @subtle-highlight;
+
+    .full-input {
+        margin-bottom: 1em;
+    }
+
+    .half-input {
+        width: 40%;
+    }
+
+    .expiry {
+        max-width: 6em;
+    }
+
+    .cvc {
+        max-width: 3.5em;
+    }
+
+    label {
+        text-transform: uppercase;
+        color: @subtle-highlight-text;
+        font-size: @font-size-xsmall;
+    }
+
+    input[type="text"] {
+        background: white;
+        border-left: none;
+        outline: 1px solid darken(@subtle-highlight-text, 10%);
+    }
+}

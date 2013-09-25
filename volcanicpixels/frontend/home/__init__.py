@@ -32,10 +32,12 @@ def render():
             "url": url_for('wordpress-backup')
         },
         {
-            "name": "WordPress plugin Update Service",
-            "teaser": "The easiest way to distribute updates to your plugin "
-                      "via Github.",
-            "icon": "li_cloud"
+            "name": "Google App Engine SSL service",
+            "teaser": "The quickest and easiest way to get SSL certificates "
+                      "for use with Google App Engine. No messing around "
+                      "with the terminal or chaining certificates.",
+            "icon": "li_key",
+            "url": url_for('app-engine-ssl')
         }
     ]
     return render_template('home', projects=projects)

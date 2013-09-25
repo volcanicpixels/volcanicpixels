@@ -28,6 +28,7 @@ def create_app(package_name, package_path, config=None, **kwargs):
     app = Flask(package_name, **kwargs)
 
     app.config.from_object('volcanicpixels.settings')
+    app.config.from_object('volcanicpixels.secret_keys')
     app.config.from_pyfile('settings.cfg', silent=True)
     app.config.from_object(config)
 
