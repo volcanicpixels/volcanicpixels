@@ -29,7 +29,7 @@
             </fieldset>
 
             <hr />
-            
+
             <fieldset>
                 <input type="text" placeholder="Your name" value="{{ name }}" />
             </fieldset>
@@ -83,6 +83,10 @@
             </fieldset>
 
             {% include "modules/credit-card" %}
+
+            <p class="pad-medium">
+                Submitting this form signifies that you've read and agree to our <a title="Terms of Service" href="{{ url_for('terms-of-service') }}" target="_blank">Terms of Service</a> and <a title="Privacy Policy" href="{{ url_for('privacy-policy') }}" target="_blank">Privacy Policy</a>
+            </p>
 
             <fieldset>
                 <input disabled type="submit" value="Purchase" class="button primary-button" />

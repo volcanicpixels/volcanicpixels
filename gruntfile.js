@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     less: {
       frontend: {
         options: {
-          paths: ['volcanicpixels', 'volcanicpixels/frontend', 'bower_components', 'bower_components/*/'],
+          paths: ['volcanicpixels', 'volcanicpixels/frontend', 'assets'],
           sourceMap: true,
           outputSourceFiles: true,
           strictMath: true,
@@ -22,6 +22,11 @@ module.exports = function(grunt) {
         }
       }
     },
+    bower: {
+      target: {
+        rjsConfig: 'assets/config.js'
+      }
+    },
     copy: {
       fonts: {
         files: [{
@@ -29,6 +34,13 @@ module.exports = function(grunt) {
           cwd: "volcanicpixels/frontend/modules/fonts/",
           src: ['**', '!**.less'],
           dest: 'assets/fonts/'
+        }]
+      },
+      js: {
+        files: [{
+          cwd: "volcanicpixels/frontend/",
+          src: ['config.js', 'build.js'],
+          dest: 'assets/'
         }]
       }
     },
@@ -40,6 +52,17 @@ module.exports = function(grunt) {
           stderr: true,
           failOnError: true
         }
+      }
+    },
+    transpile: {
+      frontend: {
+        type: "amd",
+        files: [{
+          expand: true,
+          cwd: 'volcanicpixels/frontend/',
+          src: ['**/*.js', '!config.js', '!build.js'],
+          dest: 'assets/'
+        }]
       }
     },
     watch: {
@@ -62,15 +85,16 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  grunt.loadNpmTasks('grunt-bower-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-es6-module-transpiler');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task(s).
-  grunt.registerTask('default', ['pep8','jshint', 'less', 'copy']);
+  grunt.registerTask('default', ['pep8','jshint', 'less', 'copy', 'transpile']);
   grunt.registerTask('pep8', ['shell:pep8']);
   grunt.registerTask('test', ['pep8']);
 
