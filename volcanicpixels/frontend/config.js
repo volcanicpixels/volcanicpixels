@@ -1,6 +1,5 @@
-requirejs.config({
-    appDir: '../',
-    baseUrl: 'assets',
+var require = {
+    baseUrl: '/assets',
     paths: {
     }
-});
+};

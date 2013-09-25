@@ -38,10 +38,24 @@ module.exports = function(grunt) {
       },
       js: {
         files: [{
-          cwd: "volcanicpixels/frontend/",
-          src: ['config.js', 'build.js'],
-          dest: 'assets/'
+          src: 'volcanicpixels/frontend/config.js',
+          dest: 'assets/config.js'
         }]
+      }
+    },
+    requirejs: {
+      frontend: {
+        options: {
+          baseUrl: "assets/",
+          mainConfigFile: "assets/config.js",
+          out: "assets/frontend.js",
+          keepBuildDir: true,
+          optimize: 'none',
+          generateSourceMaps: true,
+          preserveLicenseComments: false,
+          name: 'config',
+          include: [ 'requirejs']
+        }
       }
     },
     shell: {
@@ -81,21 +95,35 @@ module.exports = function(grunt) {
       fonts: {
         files: ['volcanicpixels/frontend/modules/fonts/**'],
         tasks: ['copy:fonts']
+      },
+      js: {
+        files: ['volcanicpixels/frontend/**/*.js', '!volcanicpixels/frontend/config.js'],
+        tasks: ['js']
+      },
+      jsconfig: {
+        files: ['volcanicpixels/frontend/config.js'],
+        tasks: ['copy:js', 'bower', 'requirejs']
+      },
+      bowerjs: {
+        files: 'assets/components/**.js',
+        tasks: ['bower', 'requirejs']
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-bower-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-es6-module-transpiler');
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task(s).
-  grunt.registerTask('default', ['pep8','jshint', 'less', 'copy', 'transpile']);
+  grunt.registerTask('default', ['pep8','jshint', 'less', 'copy', 'transpile', 'bower', 'requirejs']);
   grunt.registerTask('pep8', ['shell:pep8']);
   grunt.registerTask('test', ['pep8']);
+  grunt.registerTask('js', ['transpile', 'requirejs']);
 
 };

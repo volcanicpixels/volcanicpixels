@@ -8,11 +8,14 @@ threadsafe: yes
 api_version: 1
 
 handlers:
- - url: /assets
-   static_dir: assets
+- url: /assets
+  static_dir: assets
 
- - url: .*
-   script: volcanicpixels.frontend.app
+- url: .*
+  script: volcanicpixels.frontend.app
 
 builtins:
- - deferred: on
+- deferred: on
+
+skip_files:
+- node_modules(.*)

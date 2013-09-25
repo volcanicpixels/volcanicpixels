@@ -58,23 +58,6 @@ table{border-collapse:collapse;border-spacing:0}
 .no-list-style{list-style:none;padding:0;margin:0}
 .background-highlight-radial{background:-webkit-radial-gradient(center, ellipse contain, transparent 50%, #fff 100%),#f8efe8}
 .highlight{background-color:rgba(255,255,0,0.6)}
-.font-size-tiny{font-size:.7em}
-.font-size-xsmall{font-size:.8em}
-.font-size-small{font-size:.9em}
-.font-size-medium{font-size:1em}
-.font-size-large{font-size:1.1em}
-.font-size-xlarge{font-size:1.3em}
-.font-size-obese{font-size:1.6em}
-.font-size-american{font-size:2.5em}
-.font-weight-light{font-weight:300}
-.font-weight-regular{font-weight:400}
-.font-weight-medium{font-weight:500}
-.font-weight-semibold{font-weight:600}
-.font-weight-bold{font-weight:700}
-.body-font{font-family:'Open Sans',sans-serif}
-.article-body-font{font-family:'Droid Serif',serif}
-.alternate-font{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace'}
-.small-caps{-webkit-font-feature-settings:"smcp";-moz-font-feature-settings:"smcp";-ms-font-feature-settings:"smcp";-o-font-feature-settings:"smcp";font-feature-settings:"smcp";position:fixed;top:0px;bottom:0px;left:0px;right:0px;background:pink;text-transform:lowercase}
 .no-user-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}
 html{font-size:20px}
 html,body{height:100%}
@@ -86,15 +69,15 @@ a{cursor:pointer;color:inherit;text-decoration:none;outline:0}
 a:focus{outline:0}
 p a:not(.button){color:#f23e2f;text-decoration:underline}
 fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
-.page-header{margin-right:auto;margin-left:auto;max-width:1000px;height:5em}
-.page-header:before,.page-header:after{content:" ";display:table}
-.page-header:after{clear:both}
-.page-header .page-nav{float:left !important}
 .page-nav{height:100%}
 .page-nav ul{height:100%;display:table;margin:0;pdding:0}
 .page-nav ul li{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;display:table-cell;vertical-align:middle}
 .page-nav ul li a{color:#b9bab3;margin-right:1.5em}
 .page-nav ul li a:hover,.page-nav ul li a:focus,.page-nav ul li a.selected{color:#f23e2f;opacity:1}
+.page-header{margin-right:auto;margin-left:auto;max-width:1000px;height:5em}
+.page-header:before,.page-header:after{content:" ";display:table}
+.page-header:after{clear:both}
+.page-header .page-nav{float:left !important}
 .page-footer{height:5em;color:#7f7f76;margin-right:auto;margin-left:auto;max-width:1000px}
 .page-footer:before,.page-footer:after{content:" ";display:table}
 .page-footer:after{clear:both}
@@ -179,6 +162,23 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .primary-button{background-color:#f23e2f;-webkit-box-shadow:0 .2em 0 #b0180b;-mox-box-shadow:0 .2em 0 #b0180b;-ms-box-shadow:0 .2em 0 #b0180b;-o-box-shadow:0 .2em 0 #b0180b;box-shadow:0 .2em 0 #b0180b;color:#fff}
 .primary-button:hover,.primary-button:focus{-webkit-box-shadow:0 .2em 0 #981409;-mox-box-shadow:0 .2em 0 #981409;-ms-box-shadow:0 .2em 0 #981409;-o-box-shadow:0 .2em 0 #981409;box-shadow:0 .2em 0 #981409}
 .primary-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
+.font-size-tiny{font-size:.7em}
+.font-size-xsmall{font-size:.8em}
+.font-size-small{font-size:.9em}
+.font-size-medium{font-size:1em}
+.font-size-large{font-size:1.1em}
+.font-size-xlarge{font-size:1.3em}
+.font-size-obese{font-size:1.6em}
+.font-size-american{font-size:2.5em}
+.font-weight-light{font-weight:300}
+.font-weight-regular{font-weight:400}
+.font-weight-medium{font-weight:500}
+.font-weight-semibold{font-weight:600}
+.font-weight-bold{font-weight:700}
+.body-font{font-family:'Open Sans',sans-serif}
+.article-body-font{font-family:'Droid Serif',serif}
+.alternate-font{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace'}
+.small-caps{-webkit-font-feature-settings:"smcp";-moz-font-feature-settings:"smcp";-ms-font-feature-settings:"smcp";-o-font-feature-settings:"smcp";font-feature-settings:"smcp";position:fixed;top:0px;bottom:0px;left:0px;right:0px;background:pink;text-transform:lowercase}
 .screenshot{height:600px;width:100%;background:#f9f9f9;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);-mox-box-shadow:0 1px 4px rgba(0,0,0,0.3);-ms-box-shadow:0 1px 4px rgba(0,0,0,0.3);-o-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden}
 .screenshot img{width:100%}
 .feature{display:table;margin-top:2em}
