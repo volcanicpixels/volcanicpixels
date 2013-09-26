@@ -1,10 +1,15 @@
-define("app-engine-ssl/buy",
-  ["jquery"],
-  function($) {
+define("ssl/buy",
+  ["modules/helpers","modules/credit-card/index","jquery","nprogress"],
+  function(__dependency1__, __dependency2__, $, NProgress) {
     "use strict";
-
+    var showElement = __dependency1__.showElement;
+    var hideElement = __dependency1__.hideElement;
+    var setup = __dependency2__.setup;
+    var tokenize = __dependency2__.tokenize;
 
     $(document).ready(function(){
+
+    setup();
 
     var startsWith = function(input, test) {
         return (input.substring(0, test.length) === test);
@@ -21,24 +26,6 @@ define("app-engine-ssl/buy",
         var naked = hostname.match(/[a-z0-9][a-z0-9\-]*[a-z0-9]\.[a-z\.]{2,6}$/i);
         return naked ? (naked[0] === hostname) : null;
     };
-
-    var showElement = function(selector) {
-        if ($(selector).hasClass('dismissed')) {
-            return;
-        }
-        if ($(selector).hasClass('hide')) {
-            $(selector).hide().removeClass('hide').slideDown(100);
-        }
-    };
-
-    var hideElement = function(selector) {
-        if (!$(selector).hasClass('hide')) {
-            $(selector).slideUp(100,function(){
-                $(this).addClass('hide');
-            });
-        }
-    };
-
 
     /**
      * When the domain field changes
@@ -139,17 +126,64 @@ define("app-engine-ssl/buy",
     };
 
 
+    var approvalEmailTimeout;
+
     /**
      * This is wrapped in a timeout to give other functions a chance to
      * change the value before we send it.
      */
     $('.domain').change(function(){
         var domain = $(this).val();
-        setTimeout(function(){
+        clearTimeout(approvalEmailTimeout);
+        approvalEmailTimeout = setTimeout(function(){
             getApproverEmails(domain);
         }, 50);
     
     });
+
+    var checkPasswordRequest;
+
+    var checkPassword = function() {
+        var $password = $(this);
+        var password = $password.val();
+        var email = $('.email').val();
+
+        if (password === '') {
+            return;
+        }
+
+        try {
+            checkPasswordRequest.abort();
+        } catch (err) {
+            // all is well
+        }
+
+        $password.parent().addClass('loading').removeClass('error');
+
+        checkPasswordRequest = $.getJSON('check_password', {"password":password, "email":email}, function(response){
+            $password.parent().removeClass('loading');
+            if (doError(response)) {
+                $password.parent().addClass('error');
+                return;
+            }
+
+            if (response.data === 'incorrect') {
+                // this is a new user
+                hideElement('.new-user');
+                hideElement('.correct-password');
+                showElement('.incorrect-password');
+                return;
+            }
+
+            if (response.data === 'correct') {
+                // this is an existing user
+                hideElement('.new-user');
+                hideElement('.incorrect-password');
+                showElement('.correct-password');
+                return;
+            }
+        });
+    };
 
 
     /**
@@ -182,17 +216,20 @@ define("app-engine-ssl/buy",
                 return;
             }
 
-            if (response.data === 'new') {
+            if (response.data.user === 'new') {
                 // this is a new user
                 hideElement('.existing-user');
                 showElement('.new-user');
+                $('.password').off('change', checkPassword);
                 return;
             }
 
-            if (response.data === 'existing') {
+            if (response.data.user === 'existing') {
                 // this is an existing user
                 showElement('.existing-user');
                 hideElement('.new-user');
+                $('.password').on('change', checkPassword);
+                // Add credit cards and select default one
                 return;
             }
         });
@@ -208,6 +245,19 @@ define("app-engine-ssl/buy",
      *  - Make sure credit card details are a stripe token
      *  - Initiate purchase
      */
+    var purchase = function(e) {
+        // check that a domain has been selected
+        NProgress.start();
+        tokenize(function(){
+            //submit form
+            NProgress.done();
+        }, function(){
+            NProgress.done();
+        });
+        e.preventDefault();
+    };
+
+    $('.purchase').click(purchase);
 
 
     });

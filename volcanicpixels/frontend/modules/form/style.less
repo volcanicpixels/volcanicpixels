@@ -63,13 +63,9 @@
     }
 
     select {
-        .button;
-        width: 100%;
-        .regular-button;
-
+        .block-form-input;
         &:focus {
-            top: 0;
-            .box-shadow(none);
+            .animation(none);
         }
     }
 
@@ -78,25 +74,12 @@
     }
 }
 
-.block-form input,
 .block-form-input {
-
-    &[type="text"],
-    &[type="password"] {
-        background: @subtle-highlight;
-        border: none;
-        width: 100%;
-        padding: 0.5em 0.9em;
-        border-left: 0.5em solid @subtle-highlight;
-    }
-
-    &[type="submit"] {
-        width: 100%;
-    }
-
-    &[type="radio"] {
-        margin-right: 1em;
-    }
+    background: @subtle-highlight;
+    border: none;
+    width: 100%;
+    padding: 0.5em 0.9em;
+    border-left: 0.5em solid @subtle-highlight;
 
     .placeholder {
         color: @subtle-highlight-text;
@@ -120,8 +103,29 @@
         outline: none;
     }
 
-    &:disabled {
-        
+    &:disabled,
+    &.disabled {
+        opacity: 0.8;
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.block-form input {
+
+    &[type="text"],
+    &[type="password"] {
+        .block-form-input;
+    }
+
+    &[type="submit"] {
+        width: 100%;
+    }
+
+    &[type="radio"] {
+        margin-right: 1em;
     }
 
 }
@@ -156,7 +160,7 @@
     }
     to { 
         transform: rotate(360deg);
-        -ms-transform: rotate(0deg);
+        -ms-transform: rotate(360deg);
     }
 }
 

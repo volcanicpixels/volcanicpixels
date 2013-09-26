@@ -32,12 +32,12 @@ def render():
             "url": url_for('wordpress-backup')
         },
         {
-            "name": "Google App Engine SSL service",
+            "name": "Google App Engine SSL Certificates",
             "teaser": "The quickest and easiest way to get SSL certificates "
                       "for use with Google App Engine. No messing around "
                       "with the terminal or chaining certificates.",
             "icon": "li_key",
-            "url": url_for('app-engine-ssl')
+            "url": url_for('ssl')
         }
     ]
     return render_template('home', projects=projects)

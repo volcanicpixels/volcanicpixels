@@ -5,7 +5,7 @@
 #}
 {% extends "modules/layout" %}
 
-{% block js %}app-engine-ssl/buy{% endblock %}
+{% block js %}ssl/buy{% endblock %}
 
 {% block title %}Purchase Google App Engine SSL Certificate | {{ super() }}{% endblock %}
 
@@ -16,7 +16,7 @@
                 <h1>Get your SSL certificate now</h1>
             </header>
             <fieldset>
-                <input class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
+                <input name="domain" class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
                 <div class="align-center wildcard-message hide">
                     <p>Wildcard certificates are not currently available.<!--Would you like to be notified when they are?</p>
                     <div class="font-size-xsmall">
@@ -37,64 +37,68 @@
 
             <h2>Domain Verification</h2>
             <p class="align-center">
-                To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
+                To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
             </p>
             <fieldset>
-                <select disabled class="verification-email-address">
+                <select class="verification-email-address">
+                    <option>Enter domain first</option>
                 </select>
             </fieldset>
 
             <hr />
 
             <fieldset>
-                <input type="text" placeholder="Your name" value="{{ name }}" />
+                <input name="name" id="name" type="text" x-autocompletetype="name" data-stripe="name" placeholder="Your name" value="{{ name }}" />
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="Email address" value="{{ email }}" />
+                <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="Business name" value="{{ organization }}" />
+                <input name="organization" id="org" type="text" autocomplete="off" x-autocompletetype="org" placeholder="Business name" value="{{ organization }}" />
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="Phone Number" value="{{ phone_number }}" />
+                <input name="phone_number" id="phone_number" type="text" x-autocompletetype="tel" placeholder="Phone Number" value="{{ phone_number }}" />
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="Street Address" value="{{ street_address }}" />
+                <input name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="City/Town" value="{{ city }}" />
+                <input name="city" type="text" placeholder="City/Town" value="{{ city }}" />
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="State" value="{{ state }}" />
+                <input name="state" type="text" placeholder="State" value="{{ state }}" />
             </fieldset>
             <fieldset>
-                <select>
+                <select name="country" data-stripe="address_country">
                 {% for _country in countries %}
                     <option value="{{ _country.alpha2 }}" {% if _country.alpha2 == country %}selected{% endif %}>{{ _country.name }}</option>
                 {% endfor %}
                 </select>
             </fieldset>
             <fieldset>
-                <input type="text" placeholder="Postal code" value="{{ postcode }}" />
+                <input name="postcode" id="postcode" type="text" x-autocompletetype="postal-code" data-stripe="address_zip" placeholder="Postal code" value="{{ postcode }}" />
             </fieldset>
 
             <hr />
 
-            <p class="align-center hide">
+            <p class="align-center hide existing-user">
                 The email address you entered is linked to an account, <span class="highlight">enter your password below</span>.
             </p>
 
-            <fieldset class="password">
-                <input type="password" placeholder="Password" value="{{ password }}" />
+            <p class="align-center hide new-user">
+                It looks like you are new here, <span class="highlight">enter a password below</span>.
+            </p>
+
+            <fieldset>
+                <input name="password" id="password" type="password" class="password" placeholder="Password" value="{{ password }}" />
             </fieldset>
 
             <hr />
 
-            <fieldset>
+            <fieldset class="hide">
                 <legend>Select a credit card to use</legend>
-                <select>
-                    <option>**** **** **** 5012</option>
-                    <option>New credit card</option>
+                <select name="credit_card">
+                    <option selected class="stripe-token">New credit card</option>
                 </select>
             </fieldset>
 
@@ -105,7 +109,7 @@
             </p>
 
             <fieldset>
-                <input disabled type="submit" value="Purchase" class="button primary-button" />
+                <input type="submit" value="Purchase certificate for £35" class="button primary-button purchase" />
             </fieldset>
         </form>
     </section>

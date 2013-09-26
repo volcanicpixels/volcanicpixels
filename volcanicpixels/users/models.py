@@ -13,7 +13,8 @@ from .helpers import validate_email, generate_hash, check_hash
 
 class User(ndb.Model):
     name = ndb.StringProperty()
-    email = ndb.StringProperty(validator=validate_email)
+    email = ndb.StringProperty(
+        validator=lambda prop, email: validate_email(email))
     password = ndb.StringProperty(indexed=False)
     account_created = ndb.DateTimeProperty(auto_now_add=True)
     last_login = ndb.DateTimeProperty()
