@@ -8,6 +8,7 @@
 from flask.ext.links import links
 from flask.ext.markdown import markdown
 from flask.ext.volcano import route, create_app as _create_app
+from sslstore_api import flask_init
 
 
 def create_app(settings_override=None):
@@ -17,6 +18,7 @@ def create_app(settings_override=None):
 
     markdown(app)
     links(app)
+    flask_init(app)
 
     return app
 

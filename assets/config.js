@@ -1,7 +1,7 @@
 var require = {
     baseUrl: '/assets',
     paths: {
-        requirejs: 'components/requirejs/require',
-        jquery: 'components/jquery/jquery'
+        jquery: 'components/jquery/jquery',
+        requirejs: 'components/requirejs/require'
     }
 };

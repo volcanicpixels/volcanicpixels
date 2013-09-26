@@ -31,14 +31,18 @@
     fieldset {
         position: relative;
 
-        &:disabled::after {
-            content: attr(data-disabled-msg);
+        &.loading::after {
+            margin-left: 0.5em;
+            margin-top: -0.5em;
+            top: 50%;
+            left: 100%;
+            content: ' ';
+            height: 1em;
+            width: 1em;
             position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-            text-align: center;
+            border-radius: 50%;
+            border:dashed 0.1em rgba(0,0,0,0.2);
+            .animation(loader-spin 1.5s infinite linear);
         }
     }
 
@@ -123,9 +127,7 @@
 }
 
 .block-form-focus {
-    -webkit-animation: block-form-focus 1s infinite;
-       -moz-animation: block-form-focus 1s infinite;
-            animation: block-form-focus 1s infinite;
+    .animation(block-form-focus 1s infinite);
 }
 
 @keyframes block-form-focus {
@@ -144,4 +146,26 @@
  50% {
    border-left-color: @emphasis-color;
  }
+}
+
+
+@keyframes loader-spin {
+    from { 
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+        -ms-transform: rotate(0deg);
+    }
+}
+
+@-moz-keyframes loader-spin {
+    from {  -moz-transform: rotate(0deg); }
+    to   {  -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes loader-spin {
+    from {  -webkit-transform: rotate(0deg); }
+    to   {  -webkit-transform: rotate(360deg); }
 }

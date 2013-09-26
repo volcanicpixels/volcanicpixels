@@ -171,7 +171,7 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .button{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.9em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-border-radius:.2em;-mox-border-radius:.2em;-ms-border-radius:.2em;-o-border-radius:.2em;border-radius:.2em;display:inline-block;line-height:1em;cursor:pointer;padding:0.5em 1em 0.5em 1em;margin-right:0.5em;opacity:0.9;border:none;text-align:center;position:relative;top:-.2em}
 .button:hover,.button:focus{opacity:1;outline:none}
 .button:active{top:0}
-.button:disabled{pointer-events:none;opacity:0.4}
+.button:disabled,.button.disabled{pointer-events:none;opacity:0.4}
 .small-button{padding:0.2em 0.5em}
 .regular-button{background-color:#bcb5ad;-webkit-box-shadow:0 .2em 0 #8e8275;-mox-box-shadow:0 .2em 0 #8e8275;-ms-box-shadow:0 .2em 0 #8e8275;-o-box-shadow:0 .2em 0 #8e8275;box-shadow:0 .2em 0 #8e8275;color:#fff}
 .regular-button:hover,.regular-button:focus{-webkit-box-shadow:0 .2em 0 #817669;-mox-box-shadow:0 .2em 0 #817669;-ms-box-shadow:0 .2em 0 #817669;-o-box-shadow:0 .2em 0 #817669;box-shadow:0 .2em 0 #817669}
@@ -188,26 +188,19 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .feature-description a{font-size:.9em}
 .feature>.feature-description:first-child{padding-right:3em}
 .feature>.feature-description:nth-child(2){padding-left:3em}
-.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
-.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
-.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
-.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
-.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
-.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
-.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
 .block-form{max-width:25em;margin:0 auto;padding:0 1.5em}
 .block-form h1{font-size:1.3em;text-align:center}
 .block-form hr{display:block;width:20%;margin:50px auto 40px auto;border:1px solid #d3d3cf}
 .block-form p{font-size:.9em;line-height:1.7em}
 .block-form fieldset{position:relative}
-.block-form fieldset:disabled::after{content:attr(data-disabled-msg);position:absolute;top:0px;left:0px;right:0px;bottom:0px;text-align:center}
+.block-form fieldset.loading::after{margin-left:0.5em;margin-top:-0.5em;top:50%;left:100%;content:' ';height:1em;width:1em;position:absolute;border-radius:50%;border:dashed .1em rgba(0,0,0,0.2);-webkit-animation:loader-spin 1.5s infinite linear;-moz-animation:loader-spin 1.5s infinite linear;animation:loader-spin 1.5s infinite linear}
 .block-form legend,.block-form h2{font-size:1em;text-align:center;font-weight:600;padding:0.5em 0 1em 0}
 .block-form label{display:block}
 .block-form label.new{font-style:italic}
 .block-form select{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.9em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-border-radius:.2em;-mox-border-radius:.2em;-ms-border-radius:.2em;-o-border-radius:.2em;border-radius:.2em;display:inline-block;line-height:1em;cursor:pointer;padding:0.5em 1em 0.5em 1em;margin-right:0.5em;opacity:0.9;border:none;text-align:center;position:relative;top:-.2em;width:100%;background-color:#bcb5ad;-webkit-box-shadow:0 .2em 0 #8e8275;-mox-box-shadow:0 .2em 0 #8e8275;-ms-box-shadow:0 .2em 0 #8e8275;-o-box-shadow:0 .2em 0 #8e8275;box-shadow:0 .2em 0 #8e8275;color:#fff}
 .block-form select:hover,.block-form select:focus{opacity:1;outline:none}
 .block-form select:active{top:0}
-.block-form select:disabled{pointer-events:none;opacity:0.4}
+.block-form select:disabled,.block-form select.disabled{pointer-events:none;opacity:0.4}
 .block-form select:hover,.block-form select:focus{-webkit-box-shadow:0 .2em 0 #817669;-mox-box-shadow:0 .2em 0 #817669;-ms-box-shadow:0 .2em 0 #817669;-o-box-shadow:0 .2em 0 #817669;box-shadow:0 .2em 0 #817669}
 .block-form select:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
 .block-form select:focus{top:0;-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
@@ -223,6 +216,19 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 @keyframes block-form-focus{50%{border-left-color:#f23e2f}}
 @-moz-keyframes block-form-focus{50%{border-left-color:#f23e2f}}
 @-webkit-keyframes block-form-focus{50%{border-left-color:#f23e2f}}
+@keyframes loader-spin{from{transform:rotate(0deg);-ms-transform:rotate(0deg)}
+to{transform:rotate(360deg);-ms-transform:rotate(0deg)}}
+@-moz-keyframes loader-spin{from{-moz-transform:rotate(0deg)}
+to{-moz-transform:rotate(360deg)}}
+@-webkit-keyframes loader-spin{from{-webkit-transform:rotate(0deg)}
+to{-webkit-transform:rotate(360deg)}}
+.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
+.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
+.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
+.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
+.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
+.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
+.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
 @font-face{font-family:"Essays 1743";src:url("fonts/essays-1743/normal.eot?") format("eot"),url("fonts/essays-1743/normal.woff") format("woff"),url("fonts/essays-1743/normal.ttf") format("truetype")}
 .article{padding:0 2em}
 .article p,.article a:not(.button),.article li,.article blockquote{font-family:'Droid Serif',serif;line-height:1.6em;text-align:justify}

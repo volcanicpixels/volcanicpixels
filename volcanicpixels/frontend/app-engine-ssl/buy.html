@@ -16,17 +16,31 @@
                 <h1>Get your SSL certificate now</h1>
             </header>
             <fieldset>
-                <input type="text" placeholder="Domain" value="{{ domain }}" />
+                <input class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
+                <div class="align-center wildcard-message hide">
+                    <p>Wildcard certificates are not currently available.<!--Would you like to be notified when they are?</p>
+                    <div class="font-size-xsmall">
+                        <div class="button primary-button disabled">Yes, thanks</div>
+                    </div>-->
+                </div>
+                <div class="align-center naked-domain hide">
+                    <p>Do you mean <span class="alternate-font"><span class="highlight">www.</span><span class="hostname"></span></span>? If you are not sure then <a>read this</a>
+                    </p>
+                    <div class="font-size-xsmall">
+                        <div class="button primary-button yes">Yes, thanks</div>
+                        <div class="button regular-button no">Nope, I'm sure</div>
+                    </div>
+                </div>
             </fieldset>
 
             <hr />
 
             <h2>Domain Verification</h2>
             <p class="align-center">
-                To issue this certificate we need to verify that you manage this domain. <span class="highlight">Select an email address to send the authorization request to.</span> If none of these email addresses exist you need to <a href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
+                To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
             </p>
-            <fieldset class="loading" disabled>
-                <select>
+            <fieldset>
+                <select disabled class="verification-email-address">
                 </select>
             </fieldset>
 

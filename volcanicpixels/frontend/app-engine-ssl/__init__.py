@@ -4,9 +4,9 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
-from flask import render_template, request
-
+from flask import jsonify, request, render_template
 from flask.ext.volcano import create_blueprint
+from sslstore_api.methods import get_approver_emails as _get_approver_emails
 
 from .data import COUNTRIES, REGIONS
 
@@ -39,3 +39,16 @@ def buy():
 
     return render_template('app-engine-ssl/buy',
                            countries=COUNTRIES, **defaults)
+
+
+@bp.route('/app-engine-ssl/get_approver_emails')
+def get_approver_emails():
+    """Get's the approver emails for a domain and returns an API response"""
+    domain = request.args.get("domain", '')
+    try:
+        emails = _get_approver_emails(domain)
+        return jsonify(status='SUCCESS', data=emails)
+    except:
+        msg = "An error occured whilst trying to retrieve the " + \
+            "verification emails for %s" % domain
+        return jsonify(status='ERROR', msg=msg)
