@@ -12,10 +12,17 @@ handlers:
   static_dir: assets
 
 - url: .*
+  login: admin
   script: volcanicpixels.frontend.app
 
 builtins:
 - deferred: on
 
+libraries:
+- name: pycrypto
+  version: "2.6"
+
 skip_files:
 - node_modules(.*)
+- node_modules
+- node_modules/

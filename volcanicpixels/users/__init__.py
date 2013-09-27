@@ -6,6 +6,8 @@
     Normalizes API for different user providers (Google, internal etc.)
 """
 
+import datetime
+
 from flask import session
 
 from .errors import UserNotFoundError, UserAuthenticationFailedError
@@ -29,6 +31,10 @@ def get_user(uid):
         return None
 
 
+def create_user(email, password, **kwargs):
+    return User.create(email, password, **kwargs)
+
+
 def authenticate_user(uid, password):
     """Authenticates a user with email and password
 
@@ -38,4 +44,6 @@ def authenticate_user(uid, password):
     """
 
     user = User.authenticate(uid, password)
+    user.last_login = datetime.datetime.now()
+    user.put()
     session['user'] = user.id()

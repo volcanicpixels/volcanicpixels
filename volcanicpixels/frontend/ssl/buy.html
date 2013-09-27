@@ -40,7 +40,7 @@
                 To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
             </p>
             <fieldset>
-                <select class="verification-email-address">
+                <select email="verify_email" class="verification-email-address">
                     <option>Enter domain first</option>
                 </select>
             </fieldset>
@@ -48,16 +48,16 @@
             <hr />
 
             <fieldset>
-                <input name="name" id="name" type="text" x-autocompletetype="name" data-stripe="name" placeholder="Your name" value="{{ name }}" />
+                <input name="name" id="name" type="text" x-autocompletetype="name-full" data-stripe="name" placeholder="Your name" value="{{ name }}" />
             </fieldset>
             <fieldset>
                 <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
             </fieldset>
             <fieldset>
-                <input name="organization" id="org" type="text" autocomplete="off" x-autocompletetype="org" placeholder="Business name" value="{{ organization }}" />
+                <input name="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business name" value="{{ organization }}" />
             </fieldset>
             <fieldset>
-                <input name="phone_number" id="phone_number" type="text" x-autocompletetype="tel" placeholder="Phone Number" value="{{ phone_number }}" />
+                <input name="phone_number" id="phone_number" type="text" x-autocompletetype="phone-full" placeholder="Phone Number" value="{{ phone_number }}" />
             </fieldset>
             <fieldset>
                 <input name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
@@ -104,8 +104,8 @@
 
             {% include "modules/credit-card" %}
 
-            <p class="pad-medium">
-                Submitting this form signifies that you've read and agree to our <a title="Terms of Service" href="{{ url_for('terms-of-service') }}" target="_blank">Terms of Service</a> and <a title="Privacy Policy" href="{{ url_for('privacy-policy') }}" target="_blank">Privacy Policy</a>
+            <p class="pad-medium align-center">
+                Submitting this form signifies that you've read and agree to our <a title="Terms of Service" href="{{ url_for('terms-of-service') }}" target="_blank">Terms of Service</a>, <a title="Privacy Policy" href="{{ url_for('privacy-policy') }}" target="_blank">Privacy Policy</a> and Symantec's <a href="https://www.verisign.com/repository/agreements/serverClass3Org.html">SSL Subscriber Agreement</a>.
             </p>
 
             <fieldset>

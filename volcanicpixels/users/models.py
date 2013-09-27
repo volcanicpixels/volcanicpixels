@@ -18,6 +18,7 @@ class User(ndb.Model):
     password = ndb.StringProperty(indexed=False)
     account_created = ndb.DateTimeProperty(auto_now_add=True)
     last_login = ndb.DateTimeProperty()
+    stripe_id = ndb.StringProperty()
 
     @classmethod
     def get(cls, uid):
@@ -44,7 +45,7 @@ class User(ndb.Model):
             raise UserNotFoundError(email)
 
     @classmethod
-    def create(cls, name, email, password):
+    def create(cls, email, password, **kwargs):
         """Creates a user
 
         Method for easily creating a user with a name, email and password.
@@ -53,7 +54,7 @@ class User(ndb.Model):
         This does not put the new user.
         """
         password = generate_hash(password)
-        return cls(name=name, email=email, password=password)
+        return cls(email=email, password=password, **kwargs)
 
     @classmethod
     def authenticate(cls, uid, password):

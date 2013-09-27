@@ -50,7 +50,7 @@ module.exports = function(grunt) {
           mainConfigFile: "assets/config.js",
           out: "assets/frontend.js",
           keepBuildDir: true,
-          optimize: 'none',
+          optimize: 'uglify2',
           generateSourceMaps: true,
           preserveLicenseComments: false,
           name: 'config',
