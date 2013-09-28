@@ -871,18 +871,6 @@
     "status": "assigned"
   },
   {
-    "alpha2": "EU",
-    "alpha3": "",
-    "countryCallingCodes": [
-      "388"
-    ],
-    "currencies": [
-      "EUR"
-    ],
-    "name": "European Union",
-    "status": "reserved"
-  },
-  {
     "alpha2": "FI",
     "alpha3": "FIN",
     "countryCallingCodes": [
@@ -2872,18 +2860,6 @@
     ],
     "name": "Uganda",
     "status": "assigned"
-  },
-  {
-    "alpha2": "UK",
-    "alpha3": "",
-    "countryCallingCodes": [
-      "44"
-    ],
-    "currencies": [
-      "GBP"
-    ],
-    "name": "United Kingdom",
-    "status": "reserved"
   },
   {
     "alpha2": "UM",

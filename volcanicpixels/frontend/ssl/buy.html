@@ -70,7 +70,7 @@
             </fieldset>
             <fieldset>
                 <select name="country" data-stripe="address_country">
-                {% for _country in countries %}
+                {% for name, _country in countries|dictsort %}
                     <option value="{{ _country.alpha2 }}" {% if _country.alpha2 == country %}selected{% endif %}>{{ _country.name }}</option>
                 {% endfor %}
                 </select>
@@ -82,11 +82,11 @@
             <hr />
 
             <p class="align-center hide existing-user">
-                The email address you entered is linked to an account, <span class="highlight">enter your password below</span>.
+                The email address you entered is linked to an account, <span class="highlight">enter your password for your new account</span>.
             </p>
 
             <p class="align-center hide new-user">
-                It looks like you are new here, <span class="highlight">enter a password below</span>.
+                It looks like you're new here, <span class="highlight">enter a password below</span>.
             </p>
 
             <fieldset>

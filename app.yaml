@@ -21,6 +21,8 @@ builtins:
 libraries:
 - name: pycrypto
   version: "2.6"
+- name: ssl
+  version: latest
 
 skip_files:
 - node_modules(.*)

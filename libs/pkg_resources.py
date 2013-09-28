@@ -32,6 +32,9 @@ except ImportError:
 from os import open as os_open
 from os.path import isdir, split
 
+# Hack because this is a very dumb file
+os.environ['PYTHON_EGG_CACHE'] = 'G:\\tmp\\eggs'
+
 # This marker is used to simplify the process that checks is the
 # setuptools package was installed by the Setuptools project
 # or by the Distribute project, in case Setuptools creates

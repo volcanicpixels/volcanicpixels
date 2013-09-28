@@ -133,7 +133,7 @@ $(document).ready(function(){
         clearTimeout(approvalEmailTimeout);
         approvalEmailTimeout = setTimeout(function(){
             getApproverEmails(domain);
-        }, 50);
+        }, 100);
         
     });
 
