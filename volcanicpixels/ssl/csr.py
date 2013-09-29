@@ -7,7 +7,8 @@ from base64 import b64encode
 import binascii
 import hashlib
 from Crypto.Util.number import bytes_to_long, long_to_bytes
-from Crypto.Cipher.PKCS1_v1_5 import PKCS115_Cipher
+from Crypto.Signature.PKCS1_v1_5 import PKCS115_SigScheme
+from Crypto.Hash.SHA import SHA1Hash
 from pyasn1.codec.der import encoder, decoder
 from pyasn1.type import univ, char
 from .asn1 import (
@@ -146,7 +147,7 @@ class CertificationRequest():
     def set_keypair(self, keypair):
         """Keypair must already by an _rsaobj (i.e. been through importKey)"""
         self.keypair = keypair
-        self.cipher = PKCS115_Cipher(self.keypair)
+        self.signer = PKCS115_SigScheme(self.keypair)
 
     def set_subject_fields(self, fields):
         for (field, value) in fields:
@@ -265,51 +266,11 @@ class CertificationRequest():
 
         import logging
         digest = encoder.encode(request_info)
-        data = digest
-        digest_info = DigestInfo()
-        algorithm = AlgorithmIdentifier()
-        algorithm.setComponentByName('algorithm', '1.3.14.3.2.26')
-        algorithm.setComponentByName('parameters', univ.Null())
-        digest_info.setComponentByName('digestAlgorithm', algorithm)
-        checksum = hashlib.sha1(data).digest()
-        digest = univ.OctetString(checksum)
-        logging.error(digest.prettyPrint())
-        digest_info.setComponentByName('digest', digest)
-        data = encoder.encode(digest_info)
 
+        mHash = SHA1Hash(digest)
 
-        test = binascii.hexlify(data)
-        binary_data = hex2bin(test)
+        signature = self.signer.sign(mHash)
 
-        logging.error(len(binary_data))
-        bits = bits - len(binary_data)
-        bits = bits - 8 * 3
-        pad_length = bits / 8
-        
-        padding = "0b" + "00000000" + "00000001" + "11111111" * pad_length
-        padding = padding + "00000000"
-        _data = padding + binary_data
-
-        #data = long(_data, 0)
-        #data = _data
-
-        """
-        data_ = bytes_to_long(data)
-        data_ = bin(long)
-        t_len = len(data)
-        em_len = t_len + 11
-        pad = em_len - t_len - 3
-        # Now we need to pad it
-        pre = "0x01" + "1" * pad + "0"
-        data_ = univ.OctetString(pre + data_.prettyPrint()[2:])
-        logging.error(pre)
-        logging.error(data_.prettyPrint())
-        data = pre + data
-        """
-
-        signature = self.cipher.encrypt(data)
-
-        
         return tobits(signature)
 
 
