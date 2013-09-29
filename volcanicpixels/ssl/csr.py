@@ -4,7 +4,10 @@
     ~~~~~~~~~~~~~~~~~~~~~~
 """
 from base64 import b64encode
+import binascii
 import hashlib
+from Crypto.Util.number import bytes_to_long, long_to_bytes
+from Crypto.Cipher.PKCS1_v1_5 import PKCS115_Cipher
 from pyasn1.codec.der import encoder, decoder
 from pyasn1.type import univ, char
 from .asn1 import (
@@ -143,6 +146,7 @@ class CertificationRequest():
     def set_keypair(self, keypair):
         """Keypair must already by an _rsaobj (i.e. been through importKey)"""
         self.keypair = keypair
+        self.cipher = PKCS115_Cipher(self.keypair)
 
     def set_subject_fields(self, fields):
         for (field, value) in fields:
@@ -241,7 +245,24 @@ class CertificationRequest():
         return algorithm
 
 
-    def get_signature(self, request_info):
+    def get_signature(self, request_info, bits=2048):
+        # See ftp://ftp.rsasecurity.com/pub/pkcs/pkcs-1/pkcs-1v2-1.pdf (9.2)
+        def hex2bin(hexdata):
+            return bin(int(hexdata, 16))[2:].zfill(len(hexdata)*4)
+
+        def tobits(s):
+            result = "'"
+            rv = []
+            for c in s:
+                bits = bin(ord(c))[2:]
+                bits = '00000000'[len(bits):] + bits
+                rv.extend([int(b) for b in bits])
+            for bit in rv:
+                result += str(bit)
+
+            result += "'B"
+            return result
+
         import logging
         digest = encoder.encode(request_info)
         data = digest
@@ -250,13 +271,46 @@ class CertificationRequest():
         algorithm.setComponentByName('algorithm', '1.3.14.3.2.26')
         algorithm.setComponentByName('parameters', univ.Null())
         digest_info.setComponentByName('digestAlgorithm', algorithm)
-        digest_info.setComponentByName('digest', univ.OctetString(digest))
-        data = encoder.encode(digest_info)
-        logging.error(hashlib.sha1(data).hexdigest())
         checksum = hashlib.sha1(data).digest()
-        signature = self.keypair.sign(checksum, 1)[0]
-        logging.error(type(signature))
-        return "'" + "{0:b}".format(signature) + "'B"
+        digest = univ.OctetString(checksum)
+        logging.error(digest.prettyPrint())
+        digest_info.setComponentByName('digest', digest)
+        data = encoder.encode(digest_info)
+
+
+        test = binascii.hexlify(data)
+        binary_data = hex2bin(test)
+
+        logging.error(len(binary_data))
+        bits = bits - len(binary_data)
+        bits = bits - 8 * 3
+        pad_length = bits / 8
+        
+        padding = "0b" + "00000000" + "00000001" + "11111111" * pad_length
+        padding = padding + "00000000"
+        _data = padding + binary_data
+
+        #data = long(_data, 0)
+        #data = _data
+
+        """
+        data_ = bytes_to_long(data)
+        data_ = bin(long)
+        t_len = len(data)
+        em_len = t_len + 11
+        pad = em_len - t_len - 3
+        # Now we need to pad it
+        pre = "0x01" + "1" * pad + "0"
+        data_ = univ.OctetString(pre + data_.prettyPrint()[2:])
+        logging.error(pre)
+        logging.error(data_.prettyPrint())
+        data = pre + data
+        """
+
+        signature = self.cipher.encrypt(data)
+
+        
+        return tobits(signature)
 
 
     def get_asn1(self):
