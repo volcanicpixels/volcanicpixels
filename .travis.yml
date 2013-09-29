@@ -6,6 +6,7 @@ python:
 install:
  - npm install -g grunt-cli
  - npm install
+ - bower install
  - pip install pep8
 
 script:

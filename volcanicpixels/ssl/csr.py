@@ -264,7 +264,6 @@ class CertificationRequest():
             result += "'B"
             return result
 
-        import logging
         digest = encoder.encode(request_info)
 
         mHash = SHA1Hash(digest)
