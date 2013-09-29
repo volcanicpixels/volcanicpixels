@@ -25,6 +25,7 @@ from Crypto.Util.number import long_to_bytes, bytes_to_long
 from StringIO import StringIO as BytesIO
 
 
+
 class AlgorithmIdentifier(univ.Sequence):
     componentType = namedtype.NamedTypes(
         namedtype.NamedType('algorithm', univ.ObjectIdentifier()),
@@ -32,12 +33,24 @@ class AlgorithmIdentifier(univ.Sequence):
     )
 
 
+class DigestInfo(univ.Sequence):
+    componentType = namedtype.NamedTypes(
+        namedtype.NamedType('digestAlgorithm', AlgorithmIdentifier()),
+        namedtype.NamedType('digest', univ.OctetString())
+    )
+
+
 class AttributeType(univ.ObjectIdentifier):
     pass
 
 
-class AttributeValue(char.PrintableString):
-    pass
+class AttributeValue(univ.Choice):
+    componentType = namedtype.NamedTypes(
+        namedtype.NamedType('IA5String', char.IA5String()),
+        namedtype.NamedType('UTF8String', char.UTF8String()),
+        namedtype.NamedType('PrintableString', char.PrintableString()),
+        namedtype.NamedType('Set', univ.Set())
+    )
 
 
 class Attribute(univ.Sequence):
@@ -49,6 +62,12 @@ class Attribute(univ.Sequence):
 
 class Attributes(univ.Set):
     componentType = Attribute()
+
+
+class Attributes2(Attributes):
+    tagSet = Attributes.tagSet.tagImplicitly(
+        tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0)
+    )
 
 
 class Name(univ.SequenceOf):
@@ -67,13 +86,7 @@ class CertificationRequestInfo(univ.Sequence):
         namedtype.NamedType('version', univ.Integer()),
         namedtype.NamedType('subject', Name()),
         namedtype.NamedType('subjectPKInfo', SubjectPublicKeyInfo()),
-        namedtype.OptionalNamedType(
-            'attributes',
-            Attributes().subtype(
-                implicitTag=tag.Tag(
-                    tag.tagClassContext, tag.tagFormatSimple, 0)
-                )
-            )
+        namedtype.NamedType('attributes', Attributes2())
     )
 
 

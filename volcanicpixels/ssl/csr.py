@@ -3,18 +3,14 @@
     volcanicpixels.ssl.csr
     ~~~~~~~~~~~~~~~~~~~~~~
 """
-import logging
-from base64 import encodestring
+from base64 import b64encode
 import hashlib
-from Crypto.PublicKey import RSA
-from Crypto.Util.asn1 import DerSequence
-from Crypto.Util.number import long_to_bytes
 from pyasn1.codec.der import encoder, decoder
-from pyasn1.codec.ber import encoder as ber_encoder
+from pyasn1.type import univ, char
 from .asn1 import (
     CertificationRequest as _CertificationRequest, CertificationRequestInfo,
-    Name, Attributes, Attribute, AttributeType, AttributeValue,
-    SubjectPublicKeyInfo, AlgorithmIdentifier, DerBitString, bchr)
+    Name, Attributes2, Attributes, Attribute, AttributeType, AttributeValue,
+    SubjectPublicKeyInfo, AlgorithmIdentifier, DigestInfo)
 from . import get_keypair
 
 """
@@ -42,28 +38,39 @@ def generate_csr(pkey, domain, **fields):
 
 def test_csr():
     request = CertificationRequest()
-    request.set_subject_field('common_name', 'www.volcanicpixels.com')
     request.set_subject_field('country', 'GB')
     request.set_subject_field('state', 'England')
     request.set_subject_field('locality', 'Ringwood')
     request.set_subject_field('organization', 'Platinum Mirror LTD')
     request.set_subject_field('organizational_unit', 'Digital Security')
+    request.set_subject_field('common_name', 'www.volcanicpixels.com')
+    request.set_subject_field('email', 'business@platinummirror.com')
     keypair = get_keypair(False)
     request.set_keypair(keypair)
     return request.encode()
 
 
 class SubjectField():
+    type = 'PrintableString'
     def __init__(self, value):
         self.value = value
 
-    def get_asn1(self):
-        attributes = Attributes()
+    def get_attribute_value(self):
+        return self.value
+
+    def get_attribute(self):
         attribute = Attribute()
         attribute_type = AttributeType(self.identifier)
         attribute.setComponentByName('type', attribute_type)
-        attribute_value = AttributeValue(self.value)
+        attribute_value = AttributeValue()
+        value = self.get_attribute_value()
+        attribute_value.setComponentByName(self.type, value)
         attribute.setComponentByName('value', attribute_value)
+        return attribute
+
+    def get_asn1(self):
+        attributes = Attributes()
+        attribute = self.get_attribute()
         attributes.setComponentByPosition(0, attribute)
         return attributes
 
@@ -105,15 +112,27 @@ class StateSubjectField(SubjectField):
 
 class EmailSubjectField(SubjectField):
     identifier = '1.2.840.113549.1.9.1'
+    type = 'IA5String'
+
+class UnstructuredName(SubjectField):
+    identifier = '1.2.840.113549.1.9.2'
+    type = 'Set'
+
+    def get_attribute_value(self):
+        value = univ.Set()
+        name = char.PrintableString(self.value)
+        value.setComponentByPosition(0, name)
+        return value
 
 
 class CertificationRequest():
     version = 0
 
     def __init__(self, keypair=None, subject_fields=None, attributes=None):
-        self.subject_fields = {}
+        self.subject_fields = []
         self.attributes = {}
         self.keypair = None
+        self.unstructuredName = None
 
         if subject_fields:
             self.set_subject_fields(subject_fields)
@@ -131,7 +150,7 @@ class CertificationRequest():
 
     def set_subject_field(self, field, value):
         def set_field(cls):
-            self.subject_fields[field] = cls(value)
+            self.subject_fields.append(cls(value))
 
         if field == 'common_name':
             return set_field(CommonNameSubjectField)
@@ -146,7 +165,9 @@ class CertificationRequest():
             return set_field(EmailSubjectField)
 
         if field == 'organization':
+            self.unstructuredName = value
             return set_field(OrganizationSubjectField)
+            
 
         if field == 'organizational_unit':
             return set_field(OrganizationalUnitSubjectField)
@@ -170,7 +191,7 @@ class CertificationRequest():
 
         subject = Name()
         i = 0
-        for field in self.subject_fields.itervalues():
+        for field in self.subject_fields:
             subject.setComponentByPosition(i, field.get_asn1())
             i += 1
         return subject
@@ -185,6 +206,12 @@ class CertificationRequest():
         subject_pk_info = self.get_subject_publickey_info_asn1()
         request_info.setComponentByName('subjectPKInfo', subject_pk_info)
 
+        attributes = Attributes2()
+        if self.unstructuredName is not None:
+            name = UnstructuredName(self.unstructuredName).get_attribute()
+            attributes.setComponentByPosition(0, name)
+        request_info.setComponentByName('attributes', attributes)
+
         return request_info
 
     def get_subject_publickey_info_asn1(self):
@@ -193,15 +220,13 @@ class CertificationRequest():
         algorithm_identifier = AlgorithmIdentifier()
         algorithm_identifier.setComponentByName(
             'algorithm', '1.2.840.113549.1.1.1')
+        algorithm_identifier.setComponentByName('parameters', univ.Null())
         publickey_info.setComponentByName('algorithm', algorithm_identifier)
 
         if not self.keypair:
             raise KeyMissingError("No Key Provided")
 
         publickey = self.keypair.publickey()
-        binary = DerBitString(
-            DerSequence([publickey.n, publickey.e]).encode()
-        ).encode()
 
         binary = publickey.exportKey('DER')
         tmp = decoder.decode(binary)
@@ -212,13 +237,26 @@ class CertificationRequest():
     def get_signature_algorithm_asn1(self):
         algorithm = AlgorithmIdentifier()
         algorithm.setComponentByName('algorithm', SHA1_CHECKSUM_WITH_RSA)
+        algorithm.setComponentByName('parameters', univ.Null())
         return algorithm
 
 
     def get_signature(self, request_info):
-        data = encoder.encode(request_info)
+        import logging
+        digest = encoder.encode(request_info)
+        data = digest
+        digest_info = DigestInfo()
+        algorithm = AlgorithmIdentifier()
+        algorithm.setComponentByName('algorithm', '1.3.14.3.2.26')
+        algorithm.setComponentByName('parameters', univ.Null())
+        digest_info.setComponentByName('digestAlgorithm', algorithm)
+        digest_info.setComponentByName('digest', univ.OctetString(digest))
+        data = encoder.encode(digest_info)
+        logging.error(hashlib.sha1(data).hexdigest())
         checksum = hashlib.sha1(data).digest()
-        return "'" + "{0:b}".format(self.keypair.sign(checksum, 1)[0]) + "'B"
+        signature = self.keypair.sign(checksum, 1)[0]
+        logging.error(type(signature))
+        return "'" + "{0:b}".format(signature) + "'B"
 
 
     def get_asn1(self):
@@ -238,10 +276,14 @@ class CertificationRequest():
 
     def encode(self):
         header = "-----BEGIN CERTIFICATE REQUEST-----\n"
-        footer = "-----END CERTIFICATE REQUEST-----"
+        footer = "\n-----END CERTIFICATE REQUEST-----"
         asn1 = self.get_asn1()
         encoded = encoder.encode(asn1)
-        encoded = encodestring(encoded)
+        encoded = b64encode(encoded)
+        lines = []
+        for i in xrange(0, len(encoded), 64):
+            lines.append(encoded[i:i+64])
+        encoded = '\n'.join(lines)
         encoded = header + encoded + footer
         return encoded
 
