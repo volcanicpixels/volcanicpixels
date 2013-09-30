@@ -50,7 +50,7 @@
                 <input autocomplete="off" name="state" type="text" placeholder="{% if country == 'GB'%}County{% else %}State{% endif %}" value="{{ state }}" />
             </fieldset>
             <fieldset>
-                <select name="country" data-stripe="address_country">
+                <select class="country" name="country" data-stripe="address_country">
                 {% for name, _country in countries|dictsort %}
                     <option value="{{ _country.alpha2 }}" {% if _country.alpha2 == country %}selected{% endif %}>{{ _country.name }}</option>
                 {% endfor %}
