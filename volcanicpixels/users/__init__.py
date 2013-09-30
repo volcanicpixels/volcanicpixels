@@ -16,7 +16,7 @@ from .models import User
 
 def get_current_user():
     """Gets the currently logged in user or returns None"""
-    user = session['user']
+    user = session.get('user', None)
     try:
         user = User.get(user)
         return user
@@ -46,4 +46,13 @@ def authenticate_user(uid, password):
     user = User.authenticate(uid, password)
     user.last_login = datetime.datetime.now()
     user.put()
-    session['user'] = user.id()
+    session['user'] = user.key.id()
+    return user
+
+
+def logout_user():
+    session['user'] = None
+
+
+def inject_user():
+    return dict(user=get_current_user())

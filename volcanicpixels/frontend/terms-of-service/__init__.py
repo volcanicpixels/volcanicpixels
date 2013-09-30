@@ -11,6 +11,6 @@ from flask.ext.volcano import create_blueprint
 bp = create_blueprint("terms-of-service", __name__)
 
 
-@bp.route('/terms-of-service')
+@bp.route('/terms')
 def render():
     return render_template('terms-of-service')

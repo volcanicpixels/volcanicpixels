@@ -11,6 +11,6 @@ from flask.ext.volcano import create_blueprint
 bp = create_blueprint("privacy-policy", __name__)
 
 
-@bp.route('/privacy-policy')
+@bp.route('/privacy')
 def render():
     return render_template('privacy-policy')

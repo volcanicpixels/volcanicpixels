@@ -23,8 +23,6 @@ define("modules/credit-card/index",
             return;
         }
 
-        console.log(expiry);
-
         $('.cc-expiry-month').val(expiry[0]);
         $('.cc-expiry-year').val(expiry[1]);
 

@@ -16,7 +16,7 @@
                 <h1>Get your SSL certificate now</h1>
             </header>
             <fieldset>
-                <input name="domain" class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
+                <input name="domain" autocorrect="off" class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
                 <div class="align-center wildcard-message hide">
                     <p>Wildcard certificates are not currently available.<!--Would you like to be notified when they are?</p>
                     <div class="font-size-xsmall">
@@ -33,26 +33,6 @@
                 </div>
             </fieldset>
 
-            <hr />
-
-            <h2>Domain Verification</h2>
-            <p class="align-center">
-                To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
-            </p>
-            <fieldset>
-                <select email="verify_email" class="verification-email-address">
-                    <option>Enter domain first</option>
-                </select>
-            </fieldset>
-
-            <hr />
-
-            <fieldset>
-                <input name="name" id="name" type="text" x-autocompletetype="name-full" data-stripe="name" placeholder="Your name" value="{{ name }}" />
-            </fieldset>
-            <fieldset>
-                <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
-            </fieldset>
             <fieldset>
                 <input name="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business name" value="{{ organization }}" />
             </fieldset>
@@ -60,13 +40,13 @@
                 <input name="phone_number" id="phone_number" type="text" x-autocompletetype="phone-full" placeholder="Phone Number" value="{{ phone_number }}" />
             </fieldset>
             <fieldset>
-                <input name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
+                <input autocomplete="off" name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
             </fieldset>
             <fieldset>
-                <input name="city" type="text" placeholder="City/Town" value="{{ city }}" />
+                <input autocomplete="off" name="city" type="text" placeholder="City/Town" value="{{ city }}" />
             </fieldset>
             <fieldset>
-                <input name="state" type="text" placeholder="State" value="{{ state }}" />
+                <input autocomplete="off" name="state" type="text" placeholder="State" value="{{ state }}" />
             </fieldset>
             <fieldset>
                 <select name="country" data-stripe="address_country">
@@ -81,13 +61,45 @@
 
             <hr />
 
+            <h2>Domain Verification</h2>
+            <p class="align-center">
+                To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
+            </p>
+            <fieldset>
+                <select email="verify_email" class="verification-email-address">
+                    <option>Enter domain first</option>
+                </select>
+            </fieldset>
+
+            <hr />
+            
+            {% if not user.name %}
+
+            <fieldset>
+                <input name="name" id="name" type="text" x-autocompletetype="name-full" data-stripe="name" placeholder="Your name" value="{{ name }}" />
+            </fieldset>
+
+            {% endif %}
+
+            {% if not user.email %}
+
+            <fieldset>
+                <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
+            </fieldset>
+
+
+            {% endif %}
+
+            {% if not user %}
+
             <p class="align-center hide existing-user">
-                The email address you entered is linked to an account, <span class="highlight">enter your password for your new account</span>.
+                The email address you entered is linked to an account, <span class="highlight">enter your password below</span>.
             </p>
 
             <p class="align-center hide new-user">
                 It looks like you're new here, <span class="highlight">enter a password below</span>.
             </p>
+
 
             <fieldset>
                 <input name="password" id="password" type="password" class="password" placeholder="Password" value="{{ password }}" />
@@ -95,10 +107,17 @@
 
             <hr />
 
+            {% endif %}
+
+            <p class="align-center loading-cards hide">
+                We are just loading your credits cards now.
+            </p>
+            
+
             <fieldset class="hide">
                 <legend>Select a credit card to use</legend>
-                <select name="credit_card">
-                    <option selected class="stripe-token">New credit card</option>
+                <select name="credit_card" class="chosen-card">
+                    <option selected class="new-card stripe-token">New credit card</option>
                 </select>
             </fieldset>
 
@@ -109,7 +128,7 @@
             </p>
 
             <fieldset>
-                <input type="submit" value="Purchase certificate for £35" class="button primary-button purchase" />
+                <input type="submit" value="Purchase certificate for {{ price | default("£35") }}" class="button primary-button purchase" />
             </fieldset>
         </form>
     </section>

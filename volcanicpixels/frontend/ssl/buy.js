@@ -173,6 +173,7 @@ $(document).ready(function(){
 
             if (response.data.user === 'correct') {
                 // this is an existing user
+                // TODO: parse credit cards
                 hideElement('.new-user');
                 hideElement('.incorrect-password');
                 showElement('.correct-password');
@@ -235,6 +236,9 @@ $(document).ready(function(){
     $('.email').change(checkEmail);
 
 
+    // A flag to let form submission occur after the form has been processed
+    var formProcessed = false;
+
     /**
      * Purchase button flow:
      *  - Verify details (locally then server side)
@@ -243,18 +247,42 @@ $(document).ready(function(){
      */
     var purchase = function(e) {
         // check that a domain has been selected
-        NProgress.start();
-        tokenize(function(){
-            //submit form
-            NProgress.set(0.4);
+        console.log('Purchase');
+        if (formProcessed) {
+            console.log('Form Processed');
+            return;
+        }
+
+        var submitOrder = function() {
+            formProcessed = true;
             $('form').submit();
-        }, function(){
-            //an error
-            NProgress.done();
-        });
+        };
+        
         e.preventDefault();
+        NProgress.start();
+        if ($('.new-card').is(':selected')) {
+            tokenize(function(){
+                //submit form
+                NProgress.set(0.4);
+                submitOrder();
+            }, function(){
+                //an error
+                NProgress.done();
+            });
+        } else {
+            submitOrder();
+        }
     };
 
-    $('.purchase').click(purchase);
+    $('form').on('submit', purchase);
+
+    // Disable form submission on enter
+    $(document).on("keypress", 'form', function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
 });

@@ -141,6 +141,65 @@ define("ssl/buy",
         
         });
 
+        var cardChange = function() {
+            if ($('.new-card').is(':selected') ) {
+                showElement('.credit-card-fieldset');
+            } else {
+                hideElement('.credit-card-fieldset');
+            }
+        };
+
+        $('.chosen-card').change(cardChange);
+
+        var addCards = function(cards) {
+            if (cards.length === 0) {
+                return;
+            }
+
+            $('.chosen-card option:not(.new-card)').remove();
+
+            for (var i in cards) {
+                var card = cards[i];
+                var option = $('<option></option>');
+                option.val(card['id']);
+                option.text(card['name']);
+
+                if (card['default']) {
+                    option.prop('selected', true);
+                }
+
+                option.appendTo('.chosen-card');
+            }
+
+            $('.chosen-card').change();
+
+            $('.chosen-card').parent().removeClass('hide');
+
+            // Todo - move "new card" to bottom
+        };
+
+        // If the user is loggedin then let's get their credit cards
+        var getCards = function(email, password) {
+            showElement('.loading-cards');
+            var data = {};
+            if (email) {
+                data['email'] = email;
+                data['password'] = password;
+            }
+
+            $('.credit-card').parent().addClass('loading');
+            $.getJSON('get_cards', data,  function(response){
+                $('.credit-card').parent().removeClass('loading');
+                hideElement('.loading-cards');
+                if (doError(response)) {
+                    $('.credit-card').parent().addClass('error');
+                    return;
+                }
+
+                addCards(response.data.cards);
+            });
+        };
+
         var checkPasswordRequest;
 
         var checkPassword = function() {
@@ -180,6 +239,7 @@ define("ssl/buy",
                     hideElement('.new-user');
                     hideElement('.incorrect-password');
                     showElement('.correct-password');
+                    getCards(email, password);
                     return;
                 }
             });
@@ -239,6 +299,9 @@ define("ssl/buy",
         $('.email').change(checkEmail);
 
 
+        // A flag to let form submission occur after the form has been processed
+        var formProcessed = false;
+
         /**
          * Purchase button flow:
          *  - Verify details (locally then server side)
@@ -247,19 +310,43 @@ define("ssl/buy",
          */
         var purchase = function(e) {
             // check that a domain has been selected
-            NProgress.start();
-            tokenize(function(){
-                //submit form
-                NProgress.set(0.4);
+            console.log('Purchase');
+            if (formProcessed) {
+                console.log('Form Processed');
+                return;
+            }
+
+            var submitOrder = function() {
+                formProcessed = true;
                 $('form').submit();
-            }, function(){
-                //an error
-                NProgress.done();
-            });
+            };
+        
             e.preventDefault();
+            NProgress.start();
+            if ($('.new-card').is(':selected')) {
+                tokenize(function(){
+                    //submit form
+                    NProgress.set(0.4);
+                    submitOrder();
+                }, function(){
+                    //an error
+                    NProgress.done();
+                });
+            } else {
+                submitOrder();
+            }
         };
 
-        $('.purchase').click(purchase);
+        $('form').on('submit', purchase);
+
+        // Disable form submission on enter
+        $(document).on("keypress", 'form', function (e) {
+            var code = e.keyCode || e.which;
+            if (code == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
 
     });
 

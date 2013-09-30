@@ -17,9 +17,9 @@ EMAIL_REGEX = re.compile('[^@]+@[^@]+\.[^@]+')
 def validate_email(email):
     email = email.lower()
     if EMAIL_REGEX.match(email):
-        raise EmailError(email)
-    else:
         return email
+    else:
+        raise EmailError(email)
 
 
 def generate_hash(password, salt=None, iterations=None):

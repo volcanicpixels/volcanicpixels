@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    volcanicpixels.ssl.asn
-    ~~~~~~~~~~~~~~~~~~~~~~
+    volcanicpixels.ssl.asn1
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
     EVERY OTHER WEBSITE JUST USES OPENSSL, BUT WE CAN'T BECAUSE GOOGLE DOESN'T
     LIKE C MODULES.
@@ -21,9 +21,6 @@
     STARTS IMPLEMENTING THE SPEC IN PYTHON
 """
 from pyasn1.type import namedtype, univ, tag, char
-from Crypto.Util.number import long_to_bytes, bytes_to_long
-from StringIO import StringIO as BytesIO
-
 
 
 class AlgorithmIdentifier(univ.Sequence):

@@ -1,0 +1,36 @@
+{#
+   login
+
+   Copyright (c) 2013 Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}Login | {{ super() }}{% endblock %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <form class="block-form" method="POST">
+            <header>
+                <h1>Login</h1>
+            </header>
+            {% if error %}
+                <p class="align-center">{{ error }}</p>
+            {% endif %}
+            {% if user %}
+                <p class="align-center"><span class="highlight">You are currently logged in as {{ user.name }}.</span></p>
+            {% endif %}
+            <fieldset>
+                <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
+            </fieldset>
+
+
+            <fieldset>
+                <input name="password" id="password" type="password" class="password" placeholder="Password" value="{{ password }}" />
+            </fieldset>
+
+            <fieldset>
+                <input type="submit" value="Login" class="button primary-button" />
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

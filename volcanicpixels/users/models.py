@@ -54,14 +54,14 @@ class User(ndb.Model):
         This does not put the new user.
         """
         password = generate_hash(password)
-        return cls(email=email, password=password, **kwargs)
+        return cls(id=email, email=email, password=password, **kwargs)
 
     @classmethod
     def authenticate(cls, uid, password):
         """Authenticates a user, if the credentials are correct it returns the
         user, otherwise raises an exception.
         """
-        user = cls.get_user(uid)
+        user = cls.get(uid)
         if user.verify_password(password):
             return user
         else:

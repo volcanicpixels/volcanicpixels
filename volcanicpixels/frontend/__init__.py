@@ -8,8 +8,11 @@
 from flask.ext.links import links
 from flask.ext.markdown import markdown
 from flask.ext.volcano import route, create_app as _create_app
+from volcanicpixels.users import inject_user
+from raven_appengine import register_sentry
 from sslstore_api import flask_init
 import stripe
+import logging
 
 
 def create_app(settings_override=None):
@@ -19,12 +22,19 @@ def create_app(settings_override=None):
 
     markdown(app)
     links(app)
+    register_sentry(app)
     flask_init(app)
+
+    logging.info(app.config)
+
+    app.context_processor(inject_user)
 
     return app
 
 app = create_app()
 stripe_key = app.config.get('STRIPE_KEY')
 
+
 if stripe_key:
-    stripe.stripe_key = stripe_key
+    logging.info('Stripe configured')
+    stripe.api_key = stripe_key

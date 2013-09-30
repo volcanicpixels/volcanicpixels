@@ -4,9 +4,6 @@
     ~~~~~~~~~~~~~~~~~~~~~~
 """
 from base64 import b64encode
-import binascii
-import hashlib
-from Crypto.Util.number import bytes_to_long, long_to_bytes
 from Crypto.Signature.PKCS1_v1_5 import PKCS115_SigScheme
 from Crypto.Hash.SHA import SHA1Hash
 from pyasn1.codec.der import encoder, decoder
@@ -14,8 +11,8 @@ from pyasn1.type import univ, char
 from .asn1 import (
     CertificationRequest as _CertificationRequest, CertificationRequestInfo,
     Name, Attributes2, Attributes, Attribute, AttributeType, AttributeValue,
-    SubjectPublicKeyInfo, AlgorithmIdentifier, DigestInfo)
-from . import get_keypair
+    SubjectPublicKeyInfo, AlgorithmIdentifier)
+from .helpers import get_keypair
 
 """
 Define the ObjectIdentifier constants
@@ -56,6 +53,7 @@ def test_csr():
 
 class SubjectField():
     type = 'PrintableString'
+
     def __init__(self, value):
         self.value = value
 
@@ -110,6 +108,7 @@ class StreetAddressSubjectField(SubjectField):
 class LocalitySubjectField(SubjectField):
     identifier = '2.5.4.7'
 
+
 class StateSubjectField(SubjectField):
     identifier = '2.5.4.8'
 
@@ -117,6 +116,7 @@ class StateSubjectField(SubjectField):
 class EmailSubjectField(SubjectField):
     identifier = '1.2.840.113549.1.9.1'
     type = 'IA5String'
+
 
 class UnstructuredName(SubjectField):
     identifier = '1.2.840.113549.1.9.2'
@@ -166,13 +166,12 @@ class CertificationRequest():
         if field == 'name':
             return set_field(NameSubjectField)
 
-        if field == 'email':
+        if field == 'email_address':
             return set_field(EmailSubjectField)
 
         if field == 'organization':
             self.unstructuredName = value
             return set_field(OrganizationSubjectField)
-            
 
         if field == 'organizational_unit':
             return set_field(OrganizationalUnitSubjectField)
@@ -192,8 +191,6 @@ class CertificationRequest():
         raise NotImplementedError("The %s field is not implemented" % field)
 
     def get_subject_asn1(self):
-
-
         subject = Name()
         i = 0
         for field in self.subject_fields:
@@ -245,7 +242,6 @@ class CertificationRequest():
         algorithm.setComponentByName('parameters', univ.Null())
         return algorithm
 
-
     def get_signature(self, request_info, bits=2048):
         # See ftp://ftp.rsasecurity.com/pub/pkcs/pkcs-1/pkcs-1v2-1.pdf (9.2)
         def hex2bin(hexdata):
@@ -271,7 +267,6 @@ class CertificationRequest():
         signature = self.signer.sign(mHash)
 
         return tobits(signature)
-
 
     def get_asn1(self):
         """Get's the ASN1 object for the certifcation request"""
@@ -300,10 +295,6 @@ class CertificationRequest():
         encoded = '\n'.join(lines)
         encoded = header + encoded + footer
         return encoded
-
-
-
-
 
 
 class KeyMissingError(Exception):

@@ -47,9 +47,9 @@ table{border-collapse:collapse;border-spacing:0}
 .container,.container-tight,.container-very-tight{margin-right:auto;margin-left:auto}
 .container:before,.container-tight:before,.container-very-tight:before,.container:after,.container-tight:after,.container-very-tight:after{content:" ";display:table}
 .container:after,.container-tight:after,.container-very-tight:after{clear:both}
-.container{max-width:1000px}
-.container-tight{max-width:900px}
-.container-very-tight{max-width:800px}
+.container{max-width:50em}
+.container-tight{max-width:45em}
+.container-very-tight{max-width:40em}
 .align-center{text-align:center}
 .vertical-center-outer{display:table}
 .vertical-center-inner{display:table-cell;vertical-align:middle}
@@ -87,15 +87,24 @@ a:focus{outline:0}
 p a:not(.button){color:#f23e2f;text-decoration:underline}
 fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .page-nav{height:100%}
-.page-nav ul{height:100%;display:table;margin:0;pdding:0}
+.page-nav ul{height:100%;display:table;margin:0;padding:0}
 .page-nav ul li{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;display:table-cell;vertical-align:middle}
 .page-nav ul li a{color:#b9bab3;margin-right:1.5em}
 .page-nav ul li a:hover,.page-nav ul li a:focus,.page-nav ul li a.selected{color:#f23e2f;opacity:1}
-.page-header{margin-right:auto;margin-left:auto;max-width:1000px;height:5em}
+.page-header{margin-right:auto;margin-left:auto;max-width:50em;height:5em}
 .page-header:before,.page-header:after{content:" ";display:table}
 .page-header:after{clear:both}
 .page-header .page-nav{float:left !important}
-.page-footer{height:5em;color:#7f7f76;margin-right:auto;margin-left:auto;max-width:1000px}
+.account-box{display:table;float:right !important;height:100%}
+.account-box .account-box-item{display:table-cell;vertical-align:middle}
+.account-box .account-box-item a{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.8em;color:#b9bab3;margin-right:1.5em}
+.account-box .account-box-item a:hover,.account-box .account-box-item a:focus,.account-box .account-box-item a.selected{color:#f23e2f;opacity:1}
+.page-nav{height:100%}
+.page-nav ul{height:100%;display:table;margin:0;padding:0}
+.page-nav ul li{display:table-cell;vertical-align:middle}
+.page-nav ul li a{color:#b9bab3;margin-right:1.5em}
+.page-nav ul li a:hover,.page-nav ul li a:focus,.page-nav ul li a.selected{color:#f23e2f;opacity:1}
+.page-footer{height:5em;color:#7f7f76;margin-right:auto;margin-left:auto;max-width:50em}
 .page-footer:before,.page-footer:after{content:" ";display:table}
 .page-footer:after{clear:both}
 .page-footer .page-nav{float:right !important}
@@ -188,15 +197,6 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .feature-description a{font-size:.9em}
 .feature>.feature-description:first-child{padding-right:3em}
 .feature>.feature-description:nth-child(2){padding-left:3em}
-.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
-.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
-.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
-.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
-.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
-.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
-.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
-.block-form .credit-card input[type="text"].error,.credit-card input[type="text"].error{outline:1px solid red;color:red}
-.payment-error{color:red;font-weight:bold}
 .block-form{max-width:25em;margin:0 auto;padding:0 1.5em}
 .block-form h1{font-size:1.3em;text-align:center}
 .block-form hr{display:block;width:20%;margin:50px auto 40px auto;border:1px solid #d3d3cf}
@@ -241,6 +241,15 @@ to{transform:rotate(360deg);-ms-transform:rotate(360deg)}}
 to{-moz-transform:rotate(360deg)}}
 @-webkit-keyframes loader-spin{from{-webkit-transform:rotate(0deg)}
 to{-webkit-transform:rotate(360deg)}}
+.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
+.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
+.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
+.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
+.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
+.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
+.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
+.block-form .credit-card input[type="text"].error,.credit-card input[type="text"].error{outline:1px solid red;color:red}
+.payment-error{color:red;font-weight:bold}
 #nprogress{pointer-events:none;-webkit-pointer-events:none}
 #nprogress .bar{background:#29d;position:fixed;z-index:100;top:0;left:0;width:100%;height:2px}
 #nprogress .peg{display:block;position:absolute;right:0px;width:100px;height:100%;box-shadow:0 0 10px #29d, 0 0 5px #29d;opacity:1.0;-webkit-transform:rotate(3deg) translate(0, -4px);-moz-transform:rotate(3deg) translate(0, -4px);-ms-transform:rotate(3deg) translate(0, -4px);-o-transform:rotate(3deg) translate(0, -4px);transform:rotate(3deg) translate(0, -4px)}
