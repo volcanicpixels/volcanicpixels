@@ -1,6 +1,6 @@
 import $ from "jquery";
 import NProgress from "nprogress";
-import { showElement, hideElement } from "modules/helpers";
+import { showElement, hideElement, doError } from "modules/helpers";
 import { setup, tokenize } from "modules/credit-card/index";
 
 $(document).ready(function(){
@@ -74,15 +74,6 @@ $(document).ready(function(){
         $('.naked-domain').addClass('dismissed');
         hideElement('.naked-domain');
     });
-
-    var doError = function(response) {
-        if(!response.status || response.status !==  "SUCCESS") {
-            var msg = response.msg || 'Unknown error occured';
-            alert(msg);
-            return true;
-        }
-        return false;
-    };
 
     var approverEmailRequest;
 

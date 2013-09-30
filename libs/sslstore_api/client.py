@@ -10,11 +10,14 @@
 
 import json
 import logging
+import pprint
 from urllib import quote_plus
 
 from google.appengine.api import urlfetch
 
 from .errors import SSLStoreApiError
+
+pp = pprint.PrettyPrinter(indent=4)
 
 
 def escape(s):
@@ -63,7 +66,7 @@ class Client():
 
         result = json.loads(result.content)
         checkForError(result, endpoint)
-        logging.info(result)
+        logging.info(pp.pformat(result))
         return result
 
 
@@ -115,3 +118,6 @@ class Client():
             fields['CustomOrderID'] = str(custom_order_id)
 
         return self.api_call('order/neworder', fields)
+
+    def get_order_status(self, order_id):
+        return self.api_call('order/status', {"TheSSLStoreOrderID": order_id})

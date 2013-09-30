@@ -20,7 +20,18 @@ define("modules/helpers",
         }
     };
 
+    var doError = function(response, cb) {
+        cb = cb || alert;
+        if(!response.status || response.status !==  "SUCCESS") {
+            var msg = response.msg || 'Unknown error occured';
+            cb(msg);
+            return true;
+        }
+        return false;
+    };
+
 
     __exports__.showElement = showElement;
     __exports__.hideElement = hideElement;
+    __exports__.doError = doError;
   });

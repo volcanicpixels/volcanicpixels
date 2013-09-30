@@ -9,7 +9,8 @@ import sys
 import stripe
 from flask import jsonify, request, render_template, url_for, redirect
 from flask.ext.volcano import create_blueprint
-from sslstore_api.methods import get_approver_emails as _get_approver_emails
+from sslstore_api.methods import (
+    get_approver_emails as _get_approver_emails, get_order_status)
 
 from volcanicpixels.ssl import (
     normalize_request, process_request, get_user_certificates,
@@ -103,6 +104,48 @@ def complete_order():
         return "Already setup"
 
     return render_template('ssl/complete', certificate=cert)
+
+
+@bp.route('/ssl/order_status')
+def order_status():
+    """Checks the status of an order and returns a filtered object"""
+    order_id = request.args.get("order_id")
+    user = get_current_user()
+
+    """Security:
+
+    Here we are fetching the certificate entity attached to this order_id
+    from the database, if this fails then either the order_id is wrong, in
+    which case the subsequent API call would fail, or it belongs to another
+    user. Without this an authenticated user could access other people's
+    order statuses.
+    """
+    cert = get_certificate(order_id, user)
+    if not cert:
+        msg = "Order %s does not exist or belongs to another user." % order_id
+        return jsonify(status='ERROR', msg=msg)
+    try:
+        result = get_order_status(order_id)
+        data = {}
+        status = result['OrderStatus']['MajorStatus']
+        if status == 'Pending':
+            data['status'] = 'pending'
+        elif status == 'Active':
+            data['status'] = 'active'
+            data['expires'] = result['CertificateEndDate']
+        else:
+            logging.error("Unknown status %s" % status)
+
+        data['approver_email'] = result['ApproverEmail']
+
+        return jsonify(status='SUCCESS', data=data)
+
+    except:
+        logging.exception("Error checking order status")
+        return jsonify(
+            status='ERROR',
+            msg="An error occured checking the order status"
+        )
 
 
 @bp.route('/ssl/get_approver_emails')

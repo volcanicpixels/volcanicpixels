@@ -17,4 +17,14 @@ var hideElement = function(selector) {
     }
 };
 
-export { showElement, hideElement };
+var doError = function(response, cb) {
+    cb = cb || alert;
+    if(!response.status || response.status !==  "SUCCESS") {
+        var msg = response.msg || 'Unknown error occured';
+        cb(msg);
+        return true;
+    }
+    return false;
+};
+
+export { showElement, hideElement, doError };

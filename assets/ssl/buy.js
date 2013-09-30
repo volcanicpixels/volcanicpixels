@@ -4,6 +4,7 @@ define("ssl/buy",
     "use strict";
     var showElement = __dependency1__.showElement;
     var hideElement = __dependency1__.hideElement;
+    var doError = __dependency1__.doError;
     var setup = __dependency2__.setup;
     var tokenize = __dependency2__.tokenize;
 
@@ -78,15 +79,6 @@ define("ssl/buy",
             $('.naked-domain').addClass('dismissed');
             hideElement('.naked-domain');
         });
-
-        var doError = function(response) {
-            if(!response.status || response.status !==  "SUCCESS") {
-                var msg = response.msg || 'Unknown error occured';
-                alert(msg);
-                return true;
-            }
-            return false;
-        };
 
         var approverEmailRequest;
 

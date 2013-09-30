@@ -27,11 +27,15 @@
         font-size: @font-size-small;
         line-height: 1.7em;
         text-align: center;
+
+        &.error {
+            color: red;
+        }
     }
 
+    p,
+    .button,
     fieldset {
-        position: relative;
-
         &.loading::after {
             margin-left: 0.5em;
             margin-top: -0.5em;
@@ -45,6 +49,10 @@
             border:dashed 0.1em rgba(0,0,0,0.2);
             .animation(loader-spin 1.5s infinite linear);
         }
+    }
+
+    fieldset {
+        position: relative;
     }
 
     legend,

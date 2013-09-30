@@ -7,7 +7,7 @@
 
 {% block js %}ssl/complete{% endblock %}
 
-{% block title %}Purchase Google App Engine SSL Certificate | {{ super() }}{% endblock %}
+{% block title %}SSL Certificate Purchased | {{ super() }}{% endblock %}
 
 {% block page %}
     <section class="container-very-tight">
@@ -15,14 +15,27 @@
             <header>
                 <h1>Certificate Purchased</h1>
             </header>
-                <span class="pending">
+                <input type="hidden" class="order-id" value="{{ certificate.order_id }}" />
+                
                     <p class="congratulations">
-                        Congratulations, you have purchased an SSL certificate. Shortly you will receive an email at <span class="approver_email"></span> to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span>
+                        Congratulations, you have purchased an SSL certificate.<span class="pending"> Shortly you will receive an email at <span class="approver_email"></span> to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span><span class="download hide"> <span class="highlight">Follow the steps below to setup SSL.</span> If you get stuck then submit an issue <a>here</a>.</span/>
                     </p>
                     <hr />
-                    <button class="button regular-button">Resend verification email</button>
-                    <button class="button regular-button">Change verification email address</button>
-                    <button class="button primary-button">I've verified</button>
+                <span class="pending">
+                    <button class="button regular-button resend-email">Resend verification email</button>
+                    <button class="button regular-button change-email">Change verification email address</button>
+                    <button class="button primary-button ive-verified">I've verified</button>
+                    <p class="error not-verified hide">
+                        Not verified (if you have only just verified, please wait a minute).
+                    </p>
+                </span>
+                <span class="download hide">
+                    <h2>Step 1</h2>
+                    <p>
+                        <span class="highlight">Download your certificates.</span> For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
+                    </p>
+                    <button class="button primary-button ive-verified">Download App Engine Certs</button>
+                    <button class="button regular-button resend-email">Download unformatted Certs</button>
                 </span>
         </div>
     </section>
