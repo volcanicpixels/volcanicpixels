@@ -121,3 +121,9 @@ class Client():
 
     def get_order_status(self, order_id):
         return self.api_call('order/status', {"TheSSLStoreOrderID": order_id})
+
+    def get_certificates(self, order_id):
+        return self.api_call(
+            'order/download',
+            {"TheSSLStoreOrderID": order_id}
+        )

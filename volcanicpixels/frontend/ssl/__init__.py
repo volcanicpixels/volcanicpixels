@@ -6,11 +6,15 @@
 
 import logging
 import sys
+from StringIO import StringIO
+import zipfile
 import stripe
-from flask import jsonify, request, render_template, url_for, redirect
+from flask import (
+    jsonify, request, render_template, url_for, redirect, make_response)
 from flask.ext.volcano import create_blueprint
 from sslstore_api.methods import (
-    get_approver_emails as _get_approver_emails, get_order_status)
+    get_approver_emails as _get_approver_emails, get_order_status,
+    get_certificates)
 
 from volcanicpixels.ssl import (
     normalize_request, process_request, get_user_certificates,
@@ -19,6 +23,7 @@ from volcanicpixels.users import (
     get_user, UserAuthenticationFailedError, get_current_user, User)
 
 from volcanicpixels.ssl.data import COUNTRIES_BY_NAME, REGIONS
+from .helpers import fix_unicode
 
 bp = create_blueprint("ssl", __name__)
 
@@ -99,11 +104,82 @@ def complete_order():
             logging.error('Certificate not found')
             raise Exception("Certificate not found")
 
-    if cert.status != 'pending':
+    #if cert.status != 'pending':
         # TODO: redirect to dashboard
-        return "Already setup"
+        #return "Already setup"
 
     return render_template('ssl/complete', certificate=cert)
+
+
+@bp.route('/ssl/download')
+def download():
+    """
+    Prepares the certificates for download (TODO: redirect to GS)
+    """
+    user = get_current_user()
+
+    if not user:
+        # TODO: fix redirect path to include args
+        return redirect(url_for('auth.login', redirect=request.path))
+
+    order_id = request.args.get('order_id', None)
+    download_type = request.args.get('type', "appengine")
+
+    if order_id is None:
+        # Fetch User's last certificate
+        certs = get_user_certificates(limit=1)
+
+        if len(certs) == 0:
+            # Not sure how they got here, best log an error
+            logging.error("User has no certificates")
+            raise Exception("Certificate not found")
+
+        cert = certs[0]
+    else:
+        cert = get_certificate(order_id, user)
+        if cert is None:
+            logging.error('Certificate not found')
+            raise Exception("Certificate not found")
+
+    cert_modified = False
+
+    if cert.certs is None:
+        certificates = get_certificates(order_id)
+        cert.certs = certificates['Certificates']
+        cert_modified = True
+
+    if cert.appengine_cert is None:
+        appengine_cert = ''
+        for _cert in cert.certs:
+            appengine_cert = _cert['FileContent'] + appengine_cert
+        cert.appengine_cert = appengine_cert
+        cert_modified = True
+
+    if cert_modified:
+        cert.put()
+
+    output = StringIO()
+    z = zipfile.ZipFile(output, 'w')
+
+    if download_type == 'appengine':
+        z.writestr("certificate.crt", fix_unicode(cert.appengine_cert))
+
+    if download_type == 'unformatted':
+        for _cert in cert.certs:
+            z.writestr(
+                fix_unicode(_cert['FileName']),
+                fix_unicode(_cert['FileContent'])
+            )
+
+    if cert.keypair is not None:
+        z.writestr("privatekey.key", fix_unicode(cert.keypair))
+
+    z.close()
+    response = make_response(output.getvalue())
+    response.headers["Content-Type"] = "multipart/x-zip"
+    response.headers['Content-Disposition'] = "attachment; " + \
+                                              "filename=ssl_bundle.zip"
+    return response
 
 
 @bp.route('/ssl/order_status')
@@ -124,6 +200,8 @@ def order_status():
     if not cert:
         msg = "Order %s does not exist or belongs to another user." % order_id
         return jsonify(status='ERROR', msg=msg)
+    if cert.status == 'active':
+        return jsonify(status='SUCCESS', data={'status': 'active'})
     try:
         result = get_order_status(order_id)
         data = {}
@@ -131,8 +209,9 @@ def order_status():
         if status == 'Pending':
             data['status'] = 'pending'
         elif status == 'Active':
+            cert.status = 'active'
+            cert.put()
             data['status'] = 'active'
-            data['expires'] = result['CertificateEndDate']
         else:
             logging.error("Unknown status %s" % status)
 

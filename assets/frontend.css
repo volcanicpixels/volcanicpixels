@@ -177,17 +177,17 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .list-item-title{font-weight:bold;font-size:1.2em;padding:0;margin:0}
 .list-item-teaser{margin:0;padding:0 0 0.5em 0;line-height:1.4;font-size:.9em}
 .list-heading{text-align:center}
-.button{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.9em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-border-radius:.2em;-mox-border-radius:.2em;-ms-border-radius:.2em;-o-border-radius:.2em;border-radius:.2em;display:inline-block;line-height:1em;cursor:pointer;padding:0.5em 1em 0.5em 1em;margin-right:0.5em;opacity:0.9;border:none;text-align:center;position:relative;top:-.2em}
-.button:hover,.button:focus{opacity:1;outline:none}
-.button:active{top:0}
-.button:disabled,.button.disabled{pointer-events:none;opacity:0.4}
+.block-form .button,.button{text-transform:uppercase;word-spacing:-0.3em;font-family:'Courier','monospace';font-size:.9em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-border-radius:.2em;-mox-border-radius:.2em;-ms-border-radius:.2em;-o-border-radius:.2em;border-radius:.2em;display:inline-block;line-height:1em;cursor:pointer;padding:0.5em 1em 0.5em 1em;margin-right:0.5em;opacity:0.9;border:none;text-align:center;position:relative;top:-.2em}
+.block-form .button:hover,.button:hover,.block-form .button:focus,.button:focus{opacity:1;outline:none}
+.block-form .button:active,.button:active{top:0}
+.block-form .button:disabled,.button:disabled,.block-form .button.disabled,.button.disabled{pointer-events:none;opacity:0.4}
 .small-button{padding:0.2em 0.5em}
-.regular-button{background-color:#bcb5ad;-webkit-box-shadow:0 .2em 0 #8e8275;-mox-box-shadow:0 .2em 0 #8e8275;-ms-box-shadow:0 .2em 0 #8e8275;-o-box-shadow:0 .2em 0 #8e8275;box-shadow:0 .2em 0 #8e8275;color:#fff}
-.regular-button:hover,.regular-button:focus{-webkit-box-shadow:0 .2em 0 #817669;-mox-box-shadow:0 .2em 0 #817669;-ms-box-shadow:0 .2em 0 #817669;-o-box-shadow:0 .2em 0 #817669;box-shadow:0 .2em 0 #817669}
-.regular-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
-.primary-button{background-color:#f23e2f;-webkit-box-shadow:0 .2em 0 #b0180b;-mox-box-shadow:0 .2em 0 #b0180b;-ms-box-shadow:0 .2em 0 #b0180b;-o-box-shadow:0 .2em 0 #b0180b;box-shadow:0 .2em 0 #b0180b;color:#fff}
-.primary-button:hover,.primary-button:focus{-webkit-box-shadow:0 .2em 0 #981409;-mox-box-shadow:0 .2em 0 #981409;-ms-box-shadow:0 .2em 0 #981409;-o-box-shadow:0 .2em 0 #981409;box-shadow:0 .2em 0 #981409}
-.primary-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
+.block-form .regular-button,.regular-button{background-color:#bcb5ad;-webkit-box-shadow:0 .2em 0 #8e8275;-mox-box-shadow:0 .2em 0 #8e8275;-ms-box-shadow:0 .2em 0 #8e8275;-o-box-shadow:0 .2em 0 #8e8275;box-shadow:0 .2em 0 #8e8275;color:#fff}
+.block-form .regular-button:hover,.regular-button:hover,.block-form .regular-button:focus,.regular-button:focus{color:#fff;-webkit-box-shadow:0 .2em 0 #817669;-mox-box-shadow:0 .2em 0 #817669;-ms-box-shadow:0 .2em 0 #817669;-o-box-shadow:0 .2em 0 #817669;box-shadow:0 .2em 0 #817669}
+.block-form .regular-button:active,.regular-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
+.block-form .primary-button,.primary-button{background-color:#f23e2f;-webkit-box-shadow:0 .2em 0 #b0180b;-mox-box-shadow:0 .2em 0 #b0180b;-ms-box-shadow:0 .2em 0 #b0180b;-o-box-shadow:0 .2em 0 #b0180b;box-shadow:0 .2em 0 #b0180b;color:#fff}
+.block-form .primary-button:hover,.primary-button:hover,.block-form .primary-button:focus,.primary-button:focus{color:#fff;-webkit-box-shadow:0 .2em 0 #981409;-mox-box-shadow:0 .2em 0 #981409;-ms-box-shadow:0 .2em 0 #981409;-o-box-shadow:0 .2em 0 #981409;box-shadow:0 .2em 0 #981409}
+.block-form .primary-button:active,.primary-button:active{-webkit-box-shadow:none;-mox-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none}
 .screenshot{height:600px;width:100%;background:#f9f9f9;-webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);-mox-box-shadow:0 1px 4px rgba(0,0,0,0.3);-ms-box-shadow:0 1px 4px rgba(0,0,0,0.3);-o-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);overflow:hidden}
 .screenshot img{width:100%}
 .feature{display:table;margin-top:2em}
@@ -197,6 +197,15 @@ fieldset{border:none;margin:0;padding:0;margin-bottom:1em}
 .feature-description a{font-size:.9em}
 .feature>.feature-description:first-child{padding-right:3em}
 .feature>.feature-description:nth-child(2){padding-left:3em}
+.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
+.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
+.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
+.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
+.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
+.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
+.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
+.block-form .credit-card input[type="text"].error,.credit-card input[type="text"].error{outline:1px solid red;color:red}
+.payment-error{color:red;font-weight:bold}
 .block-form{max-width:25em;margin:0 auto;padding:0 1.5em}
 .block-form h1{font-size:1.3em;text-align:center}
 .block-form hr{display:block;width:20%;margin:50px auto 40px auto;border:1px solid #d3d3cf}
@@ -245,15 +254,6 @@ to{transform:rotate(360deg);-ms-transform:rotate(360deg)}}
 to{-moz-transform:rotate(360deg)}}
 @-webkit-keyframes loader-spin{from{-webkit-transform:rotate(0deg)}
 to{-webkit-transform:rotate(360deg)}}
-.block-form .credit-card,.credit-card{padding:1em;background:#f8f5f0}
-.block-form .credit-card .full-input,.credit-card .full-input{margin-bottom:1em}
-.block-form .credit-card .half-input,.credit-card .half-input{width:40%}
-.block-form .credit-card .expiry,.credit-card .expiry{max-width:6em}
-.block-form .credit-card .cvc,.credit-card .cvc{max-width:3.5em}
-.block-form .credit-card label,.credit-card label{text-transform:uppercase;color:#c5bcac;font-size:.8em}
-.block-form .credit-card input[type="text"],.credit-card input[type="text"]{background:white;border-left:none;outline:1px solid #b0a48e}
-.block-form .credit-card input[type="text"].error,.credit-card input[type="text"].error{outline:1px solid red;color:red}
-.payment-error{color:red;font-weight:bold}
 @charset "UTF-8";
 @font-face{font-family:"SSStandard";src:url('fonts/ss-standard/ss-standard.eot');src:url('fonts/ss-standard/ss-standard.eot?#iefix') format('embedded-opentype'),url('fonts/ss-standard/ss-standard.woff') format('woff'),url('fonts/ss-standard/ss-standard.ttf') format('truetype'),url('fonts/ss-standard/ss-standard.svg#SSStandard') format('svg');font-weight:normal;font-style:normal}
 html:hover [class^="ss-"]{-ms-zoom:1}

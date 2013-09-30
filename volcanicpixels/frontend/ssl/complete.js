@@ -40,7 +40,7 @@ $(document).ready(function(){
             if (response['data']['status'] === "active") {
                 hideElement('.not-verified');
                 hideElement('.pending');
-                showElement('.download');
+                showElement('.configure');
             }
 
         });

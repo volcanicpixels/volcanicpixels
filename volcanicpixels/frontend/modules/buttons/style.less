@@ -11,6 +11,7 @@
 
 @shadow-depth: 0.2em;
 
+.block-form .button,
 .button {
     .alternate-font;
     .font-size-small;
@@ -59,6 +60,7 @@
 
     &:hover,
     &:focus {
+        color: @text-color;
         .box-shadow(0 @shadow-depth 0 @button-color-darker);
     }
 
@@ -67,10 +69,13 @@
     }
 }
 
+
+.block-form .regular-button,
 .regular-button {
     .button-helper(#bcb5ad, @emphasis-text);
 }
 
+.block-form .primary-button,
 .primary-button {
     .button-helper(@emphasis-color, @emphasis-text);
 }

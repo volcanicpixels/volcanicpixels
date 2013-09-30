@@ -20,6 +20,8 @@ class SSLCertificate(ndb.Model):
     order_id = ndb.StringProperty()
     charge_id = ndb.StringProperty()
     created_at = ndb.DateTimeProperty(auto_now_add=True)
+    appengine_cert = ndb.TextProperty()
+    certs = ndb.PickleProperty()
 
     @classmethod
     def get(cls, order_id, user=None):

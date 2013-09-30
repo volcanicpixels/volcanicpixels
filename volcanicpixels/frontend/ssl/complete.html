@@ -13,30 +13,43 @@
     <section class="container-very-tight">
         <div class="block-form">
             <header>
-                <h1>Certificate Purchased</h1>
+                <h1 class="pending">Certificate Purchased</h1>
+                <h1 class="configure hide">Setup Certificate</h1>
             </header>
-                <input type="hidden" class="order-id" value="{{ certificate.order_id }}" />
-                
-                    <p class="congratulations">
-                        Congratulations, you have purchased an SSL certificate.<span class="pending"> Shortly you will receive an email at <span class="approver_email"></span> to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span><span class="download hide"> <span class="highlight">Follow the steps below to setup SSL.</span> If you get stuck then submit an issue <a>here</a>.</span/>
-                    </p>
-                    <hr />
-                <span class="pending">
-                    <button class="button regular-button resend-email">Resend verification email</button>
-                    <button class="button regular-button change-email">Change verification email address</button>
-                    <button class="button primary-button ive-verified">I've verified</button>
-                    <p class="error not-verified hide">
-                        Not verified (if you have only just verified, please wait a minute).
-                    </p>
-                </span>
-                <span class="download hide">
-                    <h2>Step 1</h2>
-                    <p>
-                        <span class="highlight">Download your certificates.</span> For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
-                    </p>
-                    <button class="button primary-button ive-verified">Download App Engine Certs</button>
-                    <button class="button regular-button resend-email">Download unformatted Certs</button>
-                </span>
+            <input type="hidden" class="order-id" value="{{ certificate.order_id }}" />
+            
+                <p class="congratulations">
+                    Congratulations, you have purchased an SSL certificate.<span class="pending"> Shortly you will receive an email at <span class="approver_email"></span> to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span><span class="configure hide"> <span class="highlight">Follow the steps below to setup SSL.</span> If you get stuck then submit an issue <a>here</a>.</span/>
+                </p>
+                <hr />
+            <span class="pending">
+                <button class="button regular-button resend-email">Resend verification email</button>
+                <button class="button regular-button change-email">Change verification email address</button>
+                <button class="button primary-button ive-verified">I've verified</button>
+                <p class="error not-verified hide">
+                    Not verified (if you have only just verified, please wait a minute).
+                </p>
+            </span>
+            <span class="configure hide">
+                <h2>Step 1</h2>
+                <p>
+                    <span class="highlight">Download your certificates.</span> For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
+                </p>
+                <a target="_blank" class="button primary-button" href="{{ url_for('ssl.download', order_id=certificate.order_id, type="appengine") }}">Download App Engine Certs</a>
+                <a target="_blank" class="button regular-button" href="{{ url_for('ssl.download', order_id=certificate.order_id, type="unformatted") }}">Download Unformatted Certs</a>
+                <hr />
+                <h2>Step 2</h2>
+                <p>
+                    If you have not enabled SSL for your domain then do that now. Google has a <a target="_blank" href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">handy guide</a> to help you.
+                </p>
+                <h2>Step 3</h2>
+                <p>
+                    Go to the Google Apps Admin panel.
+                </p>
+                <h2>Step 4</h2>
+                <button class="button regular-button">Tell the world how great we are</button>
+                <button class="button regular-button">Submit feedback</button>
+            </span>
         </div>
     </section>
 {% endblock %}
