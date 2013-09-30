@@ -16,7 +16,7 @@ class User(ndb.Model):
     email = ndb.StringProperty(
         validator=lambda prop, email: validate_email(email))
     password = ndb.StringProperty(indexed=False)
-    account_created = ndb.DateTimeProperty(auto_now_add=True)
+    created_at = ndb.DateTimeProperty(auto_now_add=True)
     last_login = ndb.DateTimeProperty()
     stripe_id = ndb.StringProperty()
 
@@ -61,6 +61,11 @@ class User(ndb.Model):
         """Authenticates a user, if the credentials are correct it returns the
         user, otherwise raises an exception.
         """
+        if uid == '' or uid is None:
+            raise UserNotFoundError()
+        if password == '' or password is None:
+            raise UserAuthenticationFailedError()
+
         user = cls.get(uid)
         if user.verify_password(password):
             return user

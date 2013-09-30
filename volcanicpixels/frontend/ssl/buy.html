@@ -46,7 +46,7 @@
                 <input autocomplete="off" name="city" type="text" placeholder="City/Town" value="{{ city }}" />
             </fieldset>
             <fieldset>
-                <input autocomplete="off" name="state" type="text" placeholder="State" value="{{ state }}" />
+                <input autocomplete="off" name="state" type="text" placeholder="{% if country == 'GB'%}County{% else %}State{% endif %}" value="{{ state }}" />
             </fieldset>
             <fieldset>
                 <select name="country" data-stripe="address_country">
@@ -66,7 +66,7 @@
                 To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
             </p>
             <fieldset>
-                <select email="verify_email" class="verification-email-address">
+                <select name="approver_email" class="verification-email-address">
                     <option>Enter domain first</option>
                 </select>
             </fieldset>
@@ -100,17 +100,24 @@
                 It looks like you're new here, <span class="highlight">enter a password below</span>.
             </p>
 
-
             <fieldset>
                 <input name="password" id="password" type="password" class="password" placeholder="Password" value="{{ password }}" />
             </fieldset>
+
+            <p class="align-center hide negative incorrect-password">
+                <i class="ss-alert"></i> That password is wrong
+            </p>
+
+            <p class="align-center hide positive correct-password">
+                <i class="li_like"></i> That password is correct
+            </p>
 
             <hr />
 
             {% endif %}
 
             <p class="align-center loading-cards hide">
-                We are just loading your credits cards now.
+                <span class="highlight">We are just loading your credits cards now.</span>
             </p>
             
 

@@ -1,0 +1,29 @@
+{#
+   app-engine-ssl/complete
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block js %}ssl/complete{% endblock %}
+
+{% block title %}Purchase Google App Engine SSL Certificate | {{ super() }}{% endblock %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <div class="block-form">
+            <header>
+                <h1>Certificate Purchased</h1>
+            </header>
+                <span class="pending">
+                    <p class="congratulations">
+                        Congratulations, you have purchased an SSL certificate. Shortly you will receive an email at <span class="approver_email"></span> to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span>
+                    </p>
+                    <hr />
+                    <button class="button regular-button">Resend verification email</button>
+                    <button class="button regular-button">Change verification email address</button>
+                    <button class="button primary-button">I've verified</button>
+                </span>
+        </div>
+    </section>
+{% endblock %}

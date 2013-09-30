@@ -24,16 +24,20 @@ def login():
 
     email = request.form.get('email')
     password = request.form.get('password')
+    redirect_url = request.args.get('redirect', None)
+    if redirect_url is None:
+        redirect_url = url_for('home')
 
     try:
         authenticate_user(email, password)
     except UserNotFoundError:
         logging.info('User not found')
-        render_template('auth/login', error="That user doesn't exist")
+        return render_template('auth/login', error="That user doesn't exist")
     except UserAuthenticationFailedError:
-        render_template('login', error="Incorrect Password", email=email)
+        return render_template(
+            'auth/login', error="Incorrect Password", email=email)
         logging.info('Wrong password')
-    return redirect(url_for('home'))
+    return redirect(redirect_url)
 
 
 @bp.route('/logout')

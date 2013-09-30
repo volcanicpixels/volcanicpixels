@@ -2,8 +2,6 @@
 """
     volcanicpixels.ssl.helpers
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    The SSL Api.
 """
 
 from google.appengine.ext import ndb

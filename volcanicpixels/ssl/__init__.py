@@ -10,17 +10,61 @@ from flask import session
 from volcanicpixels.users import (
     get_current_user, get_user, authenticate_user, create_user,
     UserAuthenticationFailedError)
+from sslstore_api.methods import check_csr, create_dv_ssl_order
 from .csr import CertificationRequest
+from .data import REGIONS
 from .helpers import get_keypair
+from .errors import (
+    CVCCheckFailedError, WildCardCSRError, SSLCertificateNotFoundError,
+    UserNotProvidedError)
+from .models import SSLCertificate
 
 
-def process_request(options):
+def create_certificate(csr, **kwargs):
+    return SSLCertificate.create(csr, **kwargs)
 
+
+def get_certificate(order_id, user=None):
+    """Gets a certificate by order_id, this should ideally called with the
+    user argument to ensure consistency (ancestorless datastore queries can
+    return stale results)
     """
-    Validate request info
+    try:
+        return SSLCertificate.get(order_id, user)
+    except SSLCertificateNotFoundError:
+        return None
+
+
+def get_user_certificates(user=None, limit=20):
+    if user is None:
+        user = get_current_user()
+    if user is None:
+        # No user was provided to the function and a user it not loggedin
+        raise UserNotProvidedError()
+
+    return SSLCertificate.query(
+        ancestor=user.key
+    ).order(
+        -SSLCertificate.created_at
+    ).fetch(limit)
+
+
+def normalize_request(options):
+    """Normalize request
+
+    Adter this, the user should be created and logged in, they
+    should have a stripe id associated with them and if a token was passed
+    as credit_card then it should be converted into a stripe card id.
+
+    TODO: update existing user if additional information is provided
     """
 
     credit_card = options.get('credit_card')
+    country = options.get('country')
+    state = options.get('state')
+
+    if country in REGIONS and state in REGIONS[country]:
+        options['state'] = REGIONS[country][state]
 
     def do_error(msg='An error occured'):
         raise Exception(msg)
@@ -29,16 +73,11 @@ def process_request(options):
         """Determines whether the passed argument is a stripe token or not"""
         return (value[:3] == 'tok')
 
-    """Normalize request
+    if 'user' in options:
+        user = options['user']
+    else:
+        user = get_current_user()
 
-    At "END NORMALIZE" the user should be created and logged in, they
-    should have a stripe id associated with them and if a token was passed
-    as credit_card then it should be converted into a card object.
-
-    TODO: update existing user if additional information is provided
-    """
-
-    user = get_current_user()
     if not user:
         # user is not logged in, let's see if the email is attached to an
         # account
@@ -78,12 +117,10 @@ def process_request(options):
 
     user.put()
 
-    """END NORMALIZE"""
-
     if 'csr' not in options:
         # We need to generate the CSR
-        key = get_keypair(False)
-        csr = CertificationRequest(keypair=key)
+        keypair = get_keypair(False)
+        csr = CertificationRequest(keypair=keypair)
 
         # Set fields
         domain = options.get('domain')
@@ -91,11 +128,101 @@ def process_request(options):
         state = options.get('state')
         country = options.get('country')
         phone_number = options.get('phone_number')
+        email = user.email
 
         csr.set_subject_field('common_name', domain)
         csr.set_subject_field('organization', organization)
         csr.set_subject_field('state', state)
         csr.set_subject_field('country', country)
         csr.set_subject_field('telephone', phone_number)
+        csr.set_subject_field('email_address', email)
 
-    return 'test'
+        options['csr'] = csr.export()
+        options['keypair'] = keypair.exportKey()
+
+    options['credit_card'] = credit_card
+    options['user'] = user
+
+    return options
+
+
+def process_request(options):
+    keypair = options.get('keypair', None)
+    csr = options.get('csr', 'NO_CSR')
+    user = options.get('user', None)
+    domain = options.get('domain', None)
+    approver_email = options.get('approver_email', None)
+
+    # TODO: Consume nonce and regurgitate on exception
+
+    try:
+        result = check_csr(csr)
+        if result['isWildcardCSR']:
+            raise WildCardCSRError()
+    except:
+        raise
+
+    # Now let's authorise a stripe payment
+
+    card = options.get('credit_card', None)
+    customer = user.stripe_id
+    amount = "3500"
+    description = "SSL certificate for %s" % domain
+
+    # TODO: BQ and datastore
+
+    try:
+        charge = stripe.Charge.create(
+            amount=amount,
+            currency="gbp",
+            card=card,
+            customer=customer,
+            description=description,
+            capture=False
+        )
+    except:
+        raise
+
+    if charge.card.cvc_check == "fail":
+        raise CVCCheckFailedError()
+
+    # Payment authorised, now let's get this certificate!
+
+    ssl_certificate = create_certificate(
+        parent=user.key,
+        csr=csr,
+        keypair=keypair,
+        domain=domain,
+        charge_id=charge.id,
+        provider="sslstore",
+        status="created"
+    )
+
+    ssl_certificate.put()
+
+    result = create_dv_ssl_order(
+        csr,
+        domain,
+        approver_email,
+        custom_order_id=ssl_certificate.key.id()
+    )
+
+    ssl_certificate.order_id = result['TheSSLStoreOrderID']
+    ssl_certificate.status = "pending"
+
+    if 'VendorOrderID' in result:
+        ssl_certificate.vendor_id = result['VendorOrderID']
+
+    ssl_certificate.put()
+
+    # Now actually charge the credit card
+    # TODO: If this fails (which it should never do since the bank has issued
+    # an authorization which is essentially a promise that it can do the
+    # payment then we should automatically lock the SSL certificate)
+    #
+    # Also this can be wrapped in a deferred to benefit from automatic
+    # retrying.
+
+    charge.capture()
+
+    return ssl_certificate

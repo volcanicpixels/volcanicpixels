@@ -284,8 +284,6 @@ class CertificationRequest():
         return request
 
     def encode(self):
-        header = "-----BEGIN CERTIFICATE REQUEST-----\n"
-        footer = "\n-----END CERTIFICATE REQUEST-----"
         asn1 = self.get_asn1()
         encoded = encoder.encode(asn1)
         encoded = b64encode(encoded)
@@ -293,8 +291,13 @@ class CertificationRequest():
         for i in xrange(0, len(encoded), 64):
             lines.append(encoded[i:i+64])
         encoded = '\n'.join(lines)
-        encoded = header + encoded + footer
         return encoded
+
+    def export(self):
+        header = "-----BEGIN CERTIFICATE REQUEST-----\n"
+        footer = "\n-----END CERTIFICATE REQUEST-----"
+        encoded = self.encode()
+        return header + encoded + footer
 
 
 class KeyMissingError(Exception):

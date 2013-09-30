@@ -200,10 +200,14 @@ define("ssl/buy",
             });
         };
 
+        if ($('body').hasClass('loggedin')) {
+            getCards();
+        }
+
         var checkPasswordRequest;
 
         var checkPassword = function() {
-            var $password = $(this);
+            var $password = $('.password');
             var password = $password.val();
             var email = $('.email').val();
 
@@ -236,6 +240,7 @@ define("ssl/buy",
 
                 if (response.data.user === 'correct') {
                     // this is an existing user
+                    // TODO: parse credit cards
                     hideElement('.new-user');
                     hideElement('.incorrect-password');
                     showElement('.correct-password');
@@ -243,6 +248,17 @@ define("ssl/buy",
                     return;
                 }
             });
+        };
+
+        /**
+         * This timeout is so the checkPassword function is only called when the
+         * user stops typing
+         */
+        var passwordChangeTimeout;
+
+        var passwordChange = function() {
+            clearTimeout(passwordChangeTimeout);
+            passwordChangeTimeout = setTimeout(checkPassword, 650);
         };
 
 
@@ -254,7 +270,7 @@ define("ssl/buy",
         var checkEmailRequest;
 
         var checkEmail = function() {
-            var $email = $(this);
+            var $email = $('.email');
             var email = $email.val();
 
             if (email === '') {
@@ -280,7 +296,8 @@ define("ssl/buy",
                     // this is a new user
                     hideElement('.existing-user');
                     showElement('.new-user');
-                    $('.password').off('change', checkPassword);
+                    $('.password').off('keyup', passwordChange);
+                    $('.password').off('blur', checkPassword);
                     return;
                 }
 
@@ -288,7 +305,9 @@ define("ssl/buy",
                     // this is an existing user
                     showElement('.existing-user');
                     hideElement('.new-user');
-                    $('.password').on('change', checkPassword);
+                    $('.password').on('keyup', passwordChange);
+                    $('.password').on('blur', checkPassword);
+                    checkPassword();
                     // Add credit cards and select default one
                     return;
                 }
@@ -296,7 +315,18 @@ define("ssl/buy",
 
         };
 
-        $('.email').change(checkEmail);
+        /**
+         * This timeout is so the checkEmail function is only called when the
+         * user stops typing
+         */
+        var emailChangeTimeout;
+
+        var emailChange = function() {
+            clearTimeout(emailChangeTimeout);
+            emailChangeTimeout = setTimeout(checkEmail, 650);
+        };
+
+        $('.email').on('keyup', emailChange);
 
 
         // A flag to let form submission occur after the form has been processed

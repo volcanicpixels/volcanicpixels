@@ -137,10 +137,73 @@ $(document).ready(function(){
         
     });
 
+    var cardChange = function() {
+        if ($('.new-card').is(':selected') ) {
+            showElement('.credit-card-fieldset');
+        } else {
+            hideElement('.credit-card-fieldset');
+        }
+    };
+
+    $('.chosen-card').change(cardChange);
+
+    var addCards = function(cards) {
+        if (cards.length === 0) {
+            return;
+        }
+
+        $('.chosen-card option:not(.new-card)').remove();
+
+        for (var i in cards) {
+            var card = cards[i];
+            var option = $('<option></option>');
+            option.val(card['id']);
+            option.text(card['name']);
+
+            if (card['default']) {
+                option.prop('selected', true);
+            }
+
+            option.appendTo('.chosen-card');
+        }
+
+        $('.chosen-card').change();
+
+        $('.chosen-card').parent().removeClass('hide');
+
+        // Todo - move "new card" to bottom
+    };
+
+    // If the user is loggedin then let's get their credit cards
+    var getCards = function(email, password) {
+        showElement('.loading-cards');
+        var data = {};
+        if (email) {
+            data['email'] = email;
+            data['password'] = password;
+        }
+
+        $('.credit-card').parent().addClass('loading');
+        $.getJSON('get_cards', data,  function(response){
+            $('.credit-card').parent().removeClass('loading');
+            hideElement('.loading-cards');
+            if (doError(response)) {
+                $('.credit-card').parent().addClass('error');
+                return;
+            }
+
+            addCards(response.data.cards);
+        });
+    };
+
+    if ($('body').hasClass('loggedin')) {
+        getCards();
+    }
+
     var checkPasswordRequest;
 
     var checkPassword = function() {
-        var $password = $(this);
+        var $password = $('.password');
         var password = $password.val();
         var email = $('.email').val();
 
@@ -177,9 +240,21 @@ $(document).ready(function(){
                 hideElement('.new-user');
                 hideElement('.incorrect-password');
                 showElement('.correct-password');
+                getCards(email, password);
                 return;
             }
         });
+    };
+
+    /**
+     * This timeout is so the checkPassword function is only called when the
+     * user stops typing
+     */
+    var passwordChangeTimeout;
+
+    var passwordChange = function() {
+        clearTimeout(passwordChangeTimeout);
+        passwordChangeTimeout = setTimeout(checkPassword, 650);
     };
 
 
@@ -191,7 +266,7 @@ $(document).ready(function(){
     var checkEmailRequest;
 
     var checkEmail = function() {
-        var $email = $(this);
+        var $email = $('.email');
         var email = $email.val();
 
         if (email === '') {
@@ -217,7 +292,8 @@ $(document).ready(function(){
                 // this is a new user
                 hideElement('.existing-user');
                 showElement('.new-user');
-                $('.password').off('change', checkPassword);
+                $('.password').off('keyup', passwordChange);
+                $('.password').off('blur', checkPassword);
                 return;
             }
 
@@ -225,7 +301,9 @@ $(document).ready(function(){
                 // this is an existing user
                 showElement('.existing-user');
                 hideElement('.new-user');
-                $('.password').on('change', checkPassword);
+                $('.password').on('keyup', passwordChange);
+                $('.password').on('blur', checkPassword);
+                checkPassword();
                 // Add credit cards and select default one
                 return;
             }
@@ -233,7 +311,18 @@ $(document).ready(function(){
 
     };
 
-    $('.email').change(checkEmail);
+    /**
+     * This timeout is so the checkEmail function is only called when the
+     * user stops typing
+     */
+    var emailChangeTimeout;
+
+    var emailChange = function() {
+        clearTimeout(emailChangeTimeout);
+        emailChangeTimeout = setTimeout(checkEmail, 650);
+    };
+
+    $('.email').on('keyup', emailChange);
 
 
     // A flag to let form submission occur after the form has been processed

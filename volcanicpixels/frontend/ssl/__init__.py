@@ -7,16 +7,17 @@
 import logging
 import sys
 import stripe
-from flask import jsonify, redirect, request, render_template, url_for
+from flask import jsonify, request, render_template, url_for, redirect
 from flask.ext.volcano import create_blueprint
 from sslstore_api.methods import get_approver_emails as _get_approver_emails
 
-from volcanicpixels.ssl import process_request
+from volcanicpixels.ssl import (
+    normalize_request, process_request, get_user_certificates,
+    get_certificate)
 from volcanicpixels.users import (
-    get_user, authenticate_user, UserAuthenticationFailedError,
-    get_current_user, User)
+    get_user, UserAuthenticationFailedError, get_current_user, User)
 
-from .data import COUNTRIES_BY_NAME, REGIONS
+from volcanicpixels.ssl.data import COUNTRIES_BY_NAME, REGIONS
 
 bp = create_blueprint("ssl", __name__)
 
@@ -48,8 +49,7 @@ def buy(defaults=None):
         if country in REGIONS and region in REGIONS[country]:
             defaults['state'] = REGIONS[country][region]
 
-    return render_template('ssl/buy',
-                           countries=COUNTRIES_BY_NAME, **defaults)
+    return render_template('ssl/buy', countries=COUNTRIES_BY_NAME, **defaults)
 
 
 @bp.route('/ssl/test2')
@@ -60,18 +60,49 @@ def test2():
 
 @bp.route('/ssl/buy', methods=['POST'])
 def process_order():
-    if request.method == 'GET':
-        return redirect(url_for('.buy'))
 
-    options = request.form
+    options = normalize_request(request.form.copy())
 
-    state = options.get('state')
-    country = options.get('country')
+    cert = process_request(options)
 
-    if country in REGIONS and state in REGIONS[country]:
-        options['state'] = REGIONS[country][state]
+    return redirect(url_for('.complete_order', order_id=cert.order_id))
 
-    return process_request(options)
+
+@bp.route('/ssl/complete')
+def complete_order():
+    """
+    Complete order page, either takes a SSLCertificate ID as an arg or get's
+    the users most recent SSL certificate.
+    """
+    user = get_current_user()
+
+    if not user:
+        # TODO: fix redirect path to include args
+        return redirect(url_for('auth.login', redirect=request.path))
+
+    order_id = request.args.get('order_id', None)
+
+    if order_id is None:
+        # Fetch User's last certificate
+        certs = get_user_certificates(limit=1)
+
+        if len(certs) == 0:
+            # Not sure how they got here, best log an error
+            logging.error("User has no certificates")
+            raise Exception("Certificate not found")
+
+        cert = certs[0]
+    else:
+        cert = get_certificate(order_id, user)
+        if cert is None:
+            logging.error('Certificate not found')
+            raise Exception("Certificate not found")
+
+    if cert.status != 'pending':
+        # TODO: redirect to dashboard
+        return "Already setup"
+
+    return render_template('ssl/complete', certificate=cert)
 
 
 @bp.route('/ssl/get_approver_emails')

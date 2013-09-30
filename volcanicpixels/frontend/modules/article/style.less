@@ -26,16 +26,21 @@
     }
 
     a:not(.button) {
-        color: @link-text;
-        border-bottom: 1px solid @lightest-gray;
-        text-decoration: none;
-        font-style: italic;
+        .article-link;
+    }
 
-        &:hover,
-        &:focus {
-            color: darken(@link-text, 10%);
-            border-bottom-color: @link-text;
-        }
+}
+
+.article-link {
+    color: @link-text;
+    border-bottom: 1px solid @lightest-gray;
+    text-decoration: none;
+    font-style: italic;
+
+    &:hover,
+    &:focus {
+        color: darken(@link-text, 10%);
+        border-bottom-color: @link-text;
     }
 }
 
