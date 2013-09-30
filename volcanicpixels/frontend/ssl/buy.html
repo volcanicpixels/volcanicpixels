@@ -10,8 +10,9 @@
 {% block title %}Purchase Google App Engine SSL Certificate | {{ super() }}{% endblock %}
 
 {% block page %}
+    {% include "modules/credit-card/key" %}
     <section class="container-very-tight">
-        <form class="block-form" method="POST">
+        <form class="block-form" method="POST" action="{{ url_for('ssl.buy') }}">
             <header>
                 <h1>Get your SSL certificate now</h1>
             </header>

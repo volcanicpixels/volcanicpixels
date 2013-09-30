@@ -29,6 +29,12 @@ def get_order_status(*args, **kwargs):
     return current_app.extensions['sslstore'].get_order_status(
         *args, **kwargs)
 
+
 def get_certificates(*args, **kwargs):
     return current_app.extensions['sslstore'].get_certificates(
+        *args, **kwargs)
+
+
+def resend_email(*args, **kwargs):
+    return current_app.extensions['sslstore'].resend_email(
         *args, **kwargs)

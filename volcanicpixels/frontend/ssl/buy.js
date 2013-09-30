@@ -1,11 +1,14 @@
 import $ from "jquery";
 import NProgress from "nprogress";
 import { showElement, hideElement, doError } from "modules/helpers";
-import { setup, tokenize } from "modules/credit-card/index";
+import { setup, tokenize, setStripeKey } from "modules/credit-card/index";
 
 $(document).ready(function(){
 
     setup();
+
+    var stripeKey = $('.stripe-key').val();
+    setStripeKey(stripeKey);
 
     var startsWith = function(input, test) {
         return (input.substring(0, test.length) === test);
@@ -105,6 +108,9 @@ $(document).ready(function(){
             $select.html('');
 
             $.each(response.data, function(key, value){
+                if (value == '') {
+                    return;
+                }
                 $('<option></option>').html(value).val(value).appendTo($select);
             });
 
@@ -327,7 +333,6 @@ $(document).ready(function(){
      */
     var purchase = function(e) {
         // check that a domain has been selected
-        console.log('Purchase');
         if (formProcessed) {
             console.log('Form Processed');
             return;
@@ -339,6 +344,18 @@ $(document).ready(function(){
         };
         
         e.preventDefault();
+
+        var errorFunc = alert;
+
+        if($('.domain').val() === '') {
+            return errorFunc("You haven't entered a domain");
+        }
+
+        if($('.country').val() === '') {
+            return errorFunc("You haven't selected a country");
+        }
+
+
         NProgress.start();
         if ($('.new-card').is(':selected')) {
             tokenize(function(){

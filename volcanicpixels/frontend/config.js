@@ -8,7 +8,8 @@ var require = {
           exports: 'Stripe'
         },
         'nprogress': {
-          exports: 'NProgress'
+          exports: 'NProgress',
+          deps: ['jquery']
         }
     }
 };

@@ -122,8 +122,11 @@ class Client():
     def get_order_status(self, order_id):
         return self.api_call('order/status', {"TheSSLStoreOrderID": order_id})
 
-    def get_certificates(self, order_id):
+    def resend_email(self, order_id):
         return self.api_call(
-            'order/download',
-            {"TheSSLStoreOrderID": order_id}
+            'order/resend',
+            {
+                "TheSSLStoreOrderID": order_id,
+                "ResendEmailType": "ApproverEmail"
+            }
         )

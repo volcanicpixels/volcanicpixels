@@ -72,4 +72,27 @@ $(document).ready(function(){
 
     $('.ive-verified').click(iveVerified);
 
+    var resendEmail = function() {
+        $('.resend-email').prop('disabled', true).addClass('loading');
+        NProgress.start();
+        $.getJSON('resend_email', {'order_id': orderID},  function(response){
+            $('.resend-email').prop('disabled', false).removeClass('loading');
+            NProgress.done();
+            if (doError(response, function(msg){
+                $('.resend-error').text(msg);
+                showElement('.resend-error');
+                hidelement('.resend-success');
+            })) {
+                return;
+            }
+
+            hideElement('.resend-error');
+            showElement('.resend-success');
+
+        });
+    };
+
+
+    $('.resend-email').click(iveVerified);
+
 });

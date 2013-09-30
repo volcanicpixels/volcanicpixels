@@ -5,7 +5,10 @@ define("modules/credit-card/index",
     var showElement = __dependency1__.showElement;
     var hideElement = __dependency1__.hideElement;
 
-    Stripe.setPublishableKey('pk_test_NgVxcRzPcljLftdwhuJAMMpX');
+
+    var setStripeKey = function(key) {
+        Stripe.setPublishableKey(key);
+    };
 
     var formatCardNumber = function(e) {
     };
@@ -85,4 +88,5 @@ define("modules/credit-card/index",
 
     __exports__.setup = setup;
     __exports__.tokenize = tokenize;
+    __exports__.setStripeKey = setStripeKey;
   });

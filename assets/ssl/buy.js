@@ -7,10 +7,14 @@ define("ssl/buy",
     var doError = __dependency1__.doError;
     var setup = __dependency2__.setup;
     var tokenize = __dependency2__.tokenize;
+    var setStripeKey = __dependency2__.setStripeKey;
 
     $(document).ready(function(){
 
         setup();
+
+        var stripeKey = $('.stripe-key').val();
+        setStripeKey(stripeKey);
 
         var startsWith = function(input, test) {
             return (input.substring(0, test.length) === test);
@@ -110,6 +114,9 @@ define("ssl/buy",
                 $select.html('');
 
                 $.each(response.data, function(key, value){
+                    if (value == '') {
+                        return;
+                    }
                     $('<option></option>').html(value).val(value).appendTo($select);
                 });
 
@@ -332,7 +339,6 @@ define("ssl/buy",
          */
         var purchase = function(e) {
             // check that a domain has been selected
-            console.log('Purchase');
             if (formProcessed) {
                 console.log('Form Processed');
                 return;
@@ -344,6 +350,18 @@ define("ssl/buy",
             };
         
             e.preventDefault();
+
+            var errorFunc = alert;
+
+            if($('.domain').val() === '') {
+                return errorFunc("You haven't entered a domain");
+            }
+
+            if($('.country').val() === '') {
+                return errorFunc("You haven't selected a country");
+            }
+
+
             NProgress.start();
             if ($('.new-card').is(':selected')) {
                 tokenize(function(){

@@ -14,7 +14,7 @@ from flask import (
 from flask.ext.volcano import create_blueprint
 from sslstore_api.methods import (
     get_approver_emails as _get_approver_emails, get_order_status,
-    get_certificates)
+    get_certificates, resend_email as _resend_email)
 
 from volcanicpixels.ssl import (
     normalize_request, process_request, get_user_certificates,
@@ -25,16 +25,16 @@ from volcanicpixels.users import (
 from volcanicpixels.ssl.data import COUNTRIES_BY_NAME, REGIONS
 from .helpers import fix_unicode
 
-bp = create_blueprint("ssl", __name__)
+bp = create_blueprint("ssl", __name__, url_prefix="/ssl")
 
 
-@bp.route('/app-engine-ssl')
+@bp.route('/')
 def render():
-    return render_template('ssl')
+    return buy(template="ssl")
 
 
-@bp.route('/ssl/buy')
-def buy(defaults=None):
+@bp.route('/buy')
+def buy(defaults=None, template="ssl/buy"):
     if defaults is None:
         defaults = {}
     country = request.headers.get('X-Appengine-Country', '').upper()
@@ -55,16 +55,16 @@ def buy(defaults=None):
         if country in REGIONS and region in REGIONS[country]:
             defaults['state'] = REGIONS[country][region]
 
-    return render_template('ssl/buy', countries=COUNTRIES_BY_NAME, **defaults)
+    return render_template(template, countries=COUNTRIES_BY_NAME, **defaults)
 
 
-@bp.route('/ssl/test2')
+@bp.route('/test2')
 def test2():
     from volcanicpixels.ssl.csr import test_csr
     return test_csr()
 
 
-@bp.route('/ssl/buy', methods=['POST'])
+@bp.route('/buy', methods=['POST'])
 def process_order():
 
     options = normalize_request(request.form.copy())
@@ -74,7 +74,7 @@ def process_order():
     return redirect(url_for('.complete_order', order_id=cert.order_id))
 
 
-@bp.route('/ssl/complete')
+@bp.route('/complete')
 def complete_order():
     """
     Complete order page, either takes a SSLCertificate ID as an arg or get's
@@ -111,7 +111,7 @@ def complete_order():
     return render_template('ssl/complete', certificate=cert)
 
 
-@bp.route('/ssl/download')
+@bp.route('/download')
 def download():
     """
     Prepares the certificates for download (TODO: redirect to GS)
@@ -182,7 +182,19 @@ def download():
     return response
 
 
-@bp.route('/ssl/order_status')
+@bp.route('/resend_email')
+def resend_email():
+    order_id = request.args.get('order_id', None)
+    try:
+        _resend_email(order_id)
+        return jsonify(status='SUCCESS', data="SUCCESS")
+    except:
+        msg = "Could not resend email, contact support"
+        logging.exception(msg)
+        return jsonify(status='ERROR', msg=msg)
+
+
+@bp.route('/order_status')
 def order_status():
     """Checks the status of an order and returns a filtered object"""
     order_id = request.args.get("order_id")
@@ -227,7 +239,7 @@ def order_status():
         )
 
 
-@bp.route('/ssl/get_approver_emails')
+@bp.route('/get_approver_emails')
 def get_approver_emails():
     """Get's the approver emails for a domain and returns an API response"""
     domain = request.args.get("domain", '')
@@ -240,7 +252,7 @@ def get_approver_emails():
         return jsonify(status='ERROR', msg=msg)
 
 
-@bp.route('/ssl/check_email')
+@bp.route('/check_email')
 def check_email():
     """Checks whether an email belongs to an account or not."""
     email = request.args.get("email")
@@ -258,7 +270,7 @@ def check_email():
         return jsonify(status='ERROR', msg=msg)
 
 
-@bp.route('/ssl/check_password')
+@bp.route('/check_password')
 def check_password():
     """Checks whether the submitted password is correct."""
     email = request.args.get("email")
@@ -282,7 +294,7 @@ def check_password():
         return jsonify(status='ERROR', msg=msg)
 
 
-@bp.route('/ssl/get_cards')
+@bp.route('/get_cards')
 def get_cards():
     msg = None
     try:

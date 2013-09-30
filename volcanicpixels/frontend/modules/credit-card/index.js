@@ -2,7 +2,10 @@ import $ from "jquery";
 import { showElement, hideElement } from "modules/helpers";
 import Stripe from "stripe";
 
-Stripe.setPublishableKey('pk_test_NgVxcRzPcljLftdwhuJAMMpX');
+
+var setStripeKey = function(key) {
+    Stripe.setPublishableKey(key);
+};
 
 var formatCardNumber = function(e) {
 };
@@ -79,4 +82,4 @@ var tokenize = function(cb, errback) {
     });
 };
 
-export { setup, tokenize };
+export { setup, tokenize, setStripeKey };

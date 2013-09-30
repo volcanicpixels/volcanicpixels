@@ -24,16 +24,17 @@
                 <hr />
             <span class="pending">
                 <button class="button regular-button resend-email">Resend verification email</button>
-                <button class="button regular-button change-email">Change verification email address</button>
+                <p class="hide positive resend-success">Verification email has been resent</p>
+                <p class="hide negative resend-error">Verification email could not be resent, contact support.</p>
                 <button class="button primary-button ive-verified">I've verified</button>
-                <p class="error not-verified hide">
+                <p class="negative not-verified hide">
                     Not verified (if you have only just verified, please wait a minute).
                 </p>
             </span>
             <span class="configure hide">
                 <h2>Step 1</h2>
                 <p>
-                    <span class="highlight">Download your certificates.</span> For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
+                    Download your certificates. For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
                 </p>
                 <a target="_blank" class="button primary-button" href="{{ url_for('ssl.download', order_id=certificate.order_id, type="appengine") }}">Download App Engine Certs</a>
                 <a target="_blank" class="button regular-button" href="{{ url_for('ssl.download', order_id=certificate.order_id, type="unformatted") }}">Download Unformatted Certs</a>
@@ -42,13 +43,36 @@
                 <p>
                     If you have not enabled SSL for your domain then do that now. Google has a <a target="_blank" href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">handy guide</a> to help you.
                 </p>
+                <hr />
                 <h2>Step 3</h2>
                 <p>
-                    Go to the Google Apps Admin panel.
+                    Go to the <a href="https://admin.google.com">Google Apps Admin panel</a>.<br/>
+                    Click "Security" <em>(may be under "more controls" at the bottom)</em>.<br/>
+                    Click "SSL for Custom Domains" <em>(may need to click "show more")</em>.
                 </p>
+                <hr />
                 <h2>Step 4</h2>
+                <p>
+                    Click "Upload a new certificate".<br/>
+                    Select <code>certificate.crt</code> for the field labelled "PEM encoded x.509 certificate."<br/>
+                    Select <code>privatekey.key</code> for the field labelled "Unencrypted private key"<br/>
+                    Click "Upload".<br/>
+                </p>
+                <hr />
+                <h2>Step 5</h2>
+                <p>
+                    Assign the URLs that you want to protect
+                </p>
+                {#
                 <button class="button regular-button">Tell the world how great we are</button>
-                <button class="button regular-button">Submit feedback</button>
+                #}
+                <hr />
+                <h2>Step 6</h2>
+                <p>
+                    You are done, it may take up to an hour before the certificates work in your browser.
+                </p>
+                <a class="button regular-button" href="{{ url_for('ssl.buy') }}">Purchase another certificate</a>
+                <a class="button regular-button" href="mailto:hello@volcanicpixels.com">Submit feedback</a>
             </span>
         </div>
     </section>
