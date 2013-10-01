@@ -124,6 +124,7 @@ def download():
 
     order_id = request.args.get('order_id', None)
     download_type = request.args.get('type', "appengine")
+    force = request.args.get('force', None)
 
     if order_id is None:
         # Fetch User's last certificate
@@ -143,15 +144,22 @@ def download():
 
     cert_modified = False
 
-    if cert.certs is None:
+    if cert.certs is None or force:
         certificates = get_certificates(order_id)
         cert.certs = certificates['Certificates']
         cert_modified = True
 
-    if cert.appengine_cert is None:
+    if cert.appengine_cert is None or force:
         appengine_cert = ''
         for _cert in cert.certs:
-            appengine_cert = _cert['FileContent'] + appengine_cert
+            logging.info(_cert)
+            if _cert['FileName'] == 'PositiveSSLCA2.crt':
+                middle = _cert['FileContent']
+            if _cert['FileName'] == 'AddTrustExternalCARoot.crt':
+                bottom = _cert['FileContent']
+            else:
+                top = _cert['FileContent']
+        appengine_cert = top + middle + bottom
         cert.appengine_cert = appengine_cert
         cert_modified = True
 

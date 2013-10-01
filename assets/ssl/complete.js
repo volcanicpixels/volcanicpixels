@@ -20,24 +20,27 @@ define("ssl/complete",
          */
         var checkStatus = function(cb) {
             cb = cb || function() {};
-            $('.pending').addClass("loading");
+            $('.ive-verified').addClass('loading').text("checking...").prop('disabled', true);
 
             if (showError) {
                 NProgress.start();
             }
 
             $.getJSON('order_status', {'order_id': orderID},  function(response){
-                $('.pending').removeClass('loading');
+                $('.ive-verified').removeClass('loading').text("I've verified").prop('disabled', false);
                 if (showError) {
                     NProgress.done();
                     showError = false;
                 }
                 if (doError(response)) {
+                    showError = false;
                     return;
                 }
 
-                if (response['data']['status'] === "pending" && showError === true) {
-                    showElement('.not-verified');
+                if (response['data']['status'] === "pending") {
+                    if (showError) {
+                        showElement('.not-verified');
+                    }
                     cb();
                 }
 
@@ -46,14 +49,30 @@ define("ssl/complete",
                     hideElement('.pending');
                     showElement('.configure');
                 }
+            
+                showError = false;
 
             });
         };
 
 
-        var checkStatusRunner = function() {
+        var checkStatusRunner;
+        var runCount = 0;
+
+        checkStatusRunner = function() {
             checkStatus(function() {
-                setTimeout(checkStatusRunner, 1000 * 10);
+                runCount++;
+                timer = 1000 * 10;
+                if (runCount > 6) {
+                    timer = timer * 2;
+                }
+                if (runCount > 10) {
+                    timer = timer * 2;
+                }
+                if (runCount < 30) {
+                    setTimeout(checkStatusRunner, 1000 * 10);
+                }
+            
             });
         };
 
@@ -67,10 +86,8 @@ define("ssl/complete",
             }
             showError = true;
             isRunning = true;
-            $('.ive-verified').addClass('loading').text("checking...").prop('disabled', true);
             checkStatus(function(){
                 isRunning = false;
-                $('.ive-verified').removeClass('loading').text("I've verified").prop('disabled', false);
             });
         };
 
@@ -85,7 +102,7 @@ define("ssl/complete",
                 if (doError(response, function(msg){
                     $('.resend-error').text(msg);
                     showElement('.resend-error');
-                    hidelement('.resend-success');
+                    hideElement('.resend-success');
                 })) {
                     return;
                 }
@@ -97,7 +114,7 @@ define("ssl/complete",
         };
 
 
-        $('.resend-email').click(iveVerified);
+        $('.resend-email').click(resendEmail);
 
     });
 
