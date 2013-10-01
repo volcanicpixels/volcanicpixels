@@ -15,7 +15,7 @@ from flask.ext.volcano import create_blueprint
 from sslstore_api.methods import (
     get_approver_emails as _get_approver_emails, get_order_status,
     get_certificates, resend_email as _resend_email, check_csr)
-
+from sslstore_api.errors import WildCardCSRError
 from volcanicpixels.ssl import (
     normalize_request, process_request, get_user_certificates,
     get_certificate)
@@ -69,14 +69,18 @@ def upload_csr(defaults=None, template="ssl/buy"):
 
 @bp.route('/buy', methods=['POST'])
 def process_order():
-
-    options = normalize_request(request.form.copy())
-
+    options = {}
+    for key in request.form:
+        options[key] = request.form[key]
     try:
+        options = normalize_request(options)
         cert = process_request(options)
+    except WildCardCSRError:
+        options['error'] = "Wildcard domain not allowed"
     except:
-        logging.exception("An error occured processing the order")
+        logging.exception("Uncaught exception while processing order")
         options['error'] = "An error occured, we have emailed an admin."
+    finally:
         return buy(options)
 
     return redirect(url_for('.complete_order', order_id=cert.order_id))
@@ -159,6 +163,7 @@ def download():
 
     if cert.appengine_cert is None or force:
         appengine_cert = ''
+        top = middle = bottom = None
         for _cert in cert.certs:
             logging.info(_cert)
             if _cert['FileName'] == 'PositiveSSLCA2.crt':
@@ -167,7 +172,13 @@ def download():
                 bottom = _cert['FileContent']
             else:
                 top = _cert['FileContent']
-        appengine_cert = top + middle + bottom
+
+        if top is not None and middle is not None and bottom is not None:
+            appengine_cert = top + middle + bottom
+        else:
+            logging.error("Predefined ssl merging rules failed")
+            for _cert in cert.certs:
+                appengine_cert += _cert['FileContent']
         cert.appengine_cert = appengine_cert
         cert_modified = True
 
@@ -285,7 +296,8 @@ def verify_csr():
         else:
             domain = result['DomainName']
         emails = _get_approver_emails(domain)
-        return jsonify(status='SUCCESS', data=emails)
+        data = {'emails': emails, 'domain': domain}
+        return jsonify(status='SUCCESS', data=data)
     except:
         logging.exception("Uncaught CSR Error")
         msg = "This isn't a valid CSR. If you are sure it is " + \

@@ -23,15 +23,6 @@ def render():
             "url": url_for('private-blog')
         },
         {
-            "name": "WordPress Backup Service",
-            "teaser": "Keeping your data backed-up can be an arduous task. "
-                      "Our plugin makes the task completely painless. Packed "
-                      "full of features and at an incredible price you'd be "
-                      "mad not to!",
-            "icon": "li_data",
-            "url": url_for('wordpress-backup')
-        },
-        {
             "name": "Google App Engine SSL Certificates",
             "teaser": "The quickest and easiest way to get SSL certificates "
                       "for use with Google App Engine. No messing around "
@@ -40,4 +31,15 @@ def render():
             "url": url_for('ssl')
         }
     ]
+    """
+        {
+            "name": "WordPress Backup Service",
+            "teaser": "Keeping your data backed-up can be an arduous task. "
+                      "Our plugin makes the task completely painless. Packed "
+                      "full of features and at an incredible price you'd be "
+                      "mad not to!",
+            "icon": "li_data",
+            "url": url_for('wordpress-backup')
+        },
+    """
     return render_template('home', projects=projects)

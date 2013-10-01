@@ -11,11 +11,12 @@ from volcanicpixels.users import (
     get_current_user, get_user, authenticate_user, create_user,
     UserAuthenticationFailedError)
 from sslstore_api.methods import check_csr, create_dv_ssl_order
+from sslstore_api.errors import WildCardCSRError
 from .csr import CertificationRequest
 from .data import REGIONS
 from .helpers import get_keypair
 from .errors import (
-    CVCCheckFailedError, WildCardCSRError, SSLCertificateNotFoundError,
+    CVCCheckFailedError, SSLCertificateNotFoundError,
     UserNotProvidedError)
 from .models import SSLCertificate
 

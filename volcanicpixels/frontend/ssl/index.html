@@ -19,62 +19,49 @@
         </section>
         <h2 class="list-heading">Features</h2>
         <div class="container article-bleed">
-            <section class="feature">
-                <div class="feature-item feature-icon">
+            <section>
+                <div class="feature-description with-icon">
                     <i class="li_banknote"></i>
-                </div>
-                <div class="feature-item feature-description">
                     <h1>Great pricing</h1>
                     <p>At just <span class="highlight">£{{ price | default(35)}}</span> a year we not only provide you with exceptional features, but also exceptional value.</p>
                     <small>Note: You need to have <a href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">activated ssl</a>, which Google charges for.</small>
                 </div>
             </section>
 
-            <section class="feature align-center">
-                <div class="feature-item feature-description">
+            <section>
+                <div class="with-icon feature-description no-pad">
                     <h1>Not just App Engine</h1>
-                    <p>We are currently targeting App Engine users, however we provide both the App Engine formatted certificates and the unformatted ones so <span class="highlight">our certificates can be used on any server</span>. So if you move away from App Engine or you aren't using it to start with then we can still deliver.</p>
+                    <p style="text-align:center">We are currently targeting App Engine users, however we provide both the App Engine formatted certificates and the unformatted ones so <span class="highlight">our certificates can be used on any server</span>. So if you move away from App Engine or you aren't using it to start with then we can still deliver.</p>
                     <small>We don't currently provide "helping you setup" support for websites not hosted on App Engine, ask your hosting provider instead.</small>
                 </div>
             </section>
 
-            <section class="feature">
-                <div class="feature-item">
-                    <figure class="">
-                        <img src="//lorempixel.com/500/550/" />
-                    </figure>
-                </div>
-                <div class="feature-item feature-description">
+            <section>
+                <div class="with-icon feature-description">
                     <h1>Ease of use</h1>
                     <p>No one likes using poorly designed software. That is why we have spent time creating an <span class="highlight">intuitive</span> and <span class="highlight">intelligent</span> website.</p>
                 </div>
             </section>
 
-            <section class="feature">
-                <div class="feature-item feature-description">
+            <section>
+                <div class="feature-description with-icon">
+                    <i class="li_clock"></i>
                     <h1>Fast Issuance</h1>
                     <p>Typically, certificates are issued within 5 minutes of verification.</p>
                 </div>
-                <div class="feature-item feature-icon">
-                    <i class="li_clock"></i>
-                </div>
             </section>
 
-            <section class="feature">
-                <div class="feature-item">
-                    <figure class="">
-                        <img src="//lorempixel.com/500/400/" />
-                    </figure>
-                </div>
-                <div class="feature-item feature-description">
+            <section>
+                <div class=" feature-description with-icon">
+                    <i class="li_bulb"></i>
                     <h1>Great Support</h1>
                     <p>Need help with setting up? <span class="highlight">We are just an email away.</span></p>
                     <a class="button regular-button small-button">Go to Help</a>
                 </div>
             </section>
 
-            <section class="feature align-center">
-                <div class="feature-item feature-description">
+            <section>
+                <div class="feature-description with-icon">
                     <h1>Advanced user?</h1>
                     <p>Do you like "messing about with the terminal"? Well that's great (we kinda like it as well). If you've generated your own Certificate Signing Request then we'll happily process that for you.</p>
                     <a class="button regular-button small-button" href="{{ url_for('ssl.upload_csr') }}">Upload CSR</a>
@@ -91,15 +78,15 @@
             </p>
             <p>
                 <h3>Can I upload my own CSR?</h3>
-                Yes you can: <a href="{{ url_for('ssl.upload_csr') }}">Upload a CSR</a>
+                Yes you can: <a class="button regular-button small-button" href="{{ url_for('ssl.upload_csr') }}">Upload a CSR</a>
             </p>
             <p>
                 <h3>Who does your payments?</h3>
-                Our payment provider is <a href="https://stripe.com">Stripe</a>. Your credit card info is never sent to our servers. If you want to know more about how this works please <a href="mailto:hello@volcanicpixels.com">email us</a>.
+                Our payment provider is <a href="https://stripe.com">Stripe</a>. Your credit card info is never sent to our servers. If you want to know more about how this works please send an email to <a href="mailto:hello@volcanicpixels.com">hello@volcanicpixels.com</a>.
             </p>
             <p>
                 <h3>Do you provide wildcard certificates?</h3>
-                Wildcard certificates are much more expensive so unless you need more than 5 sub domains they are not economical. If you do need this then <a href="mailto:hello@volcanicpixels.com">get in touch</a>
+                Wildcard certificates are much more expensive so unless you need more than 5 sub domains they are not economical. If you do need this then send an email to <a href="mailto:hello@volcanicpixels.com">hello@volcanicpixels.com</a>.
             </p>
             <p>
                 <h3>Do you provide extended verification certificates?</h3>
@@ -107,7 +94,7 @@
             </p>
             <p>
                 <h3>I have a different question.</h3>
-                We love hearing from people, send an email to <a href="mailto:hello@volcanicpixels.com">hello@<volcanicpixels class="com"></volcanicpixels></a>
+                We love hearing from people, send an email to <a href="mailto:hello@volcanicpixels.com">hello@volcanicpixels.com</a>.
             </p>
         </div>
         <hr/>

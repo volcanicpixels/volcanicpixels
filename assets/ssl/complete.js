@@ -30,7 +30,6 @@ define("ssl/complete",
                 $('.ive-verified').removeClass('loading').text("I've verified").prop('disabled', false);
                 if (showError) {
                     NProgress.done();
-                    showError = false;
                 }
                 if (doError(response)) {
                     showError = false;
@@ -62,7 +61,7 @@ define("ssl/complete",
         checkStatusRunner = function() {
             checkStatus(function() {
                 runCount++;
-                timer = 1000 * 10;
+                var timer = 1000 * 10;
                 if (runCount > 6) {
                     timer = timer * 2;
                 }
@@ -70,7 +69,7 @@ define("ssl/complete",
                     timer = timer * 2;
                 }
                 if (runCount < 30) {
-                    setTimeout(checkStatusRunner, 1000 * 10);
+                    setTimeout(checkStatusRunner, timer);
                 }
             
             });

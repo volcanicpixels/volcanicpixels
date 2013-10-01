@@ -11,10 +11,6 @@ class UserNotProvidedError(Exception):
     pass
 
 
-class WildCardCSRError(Exception):
-    pass
-
-
 class CVCCheckFailedError(Exception):
     pass
 

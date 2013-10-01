@@ -24,8 +24,11 @@
             </header>
             <input type="hidden" class="order-id" value="{{ certificate.order_id }}" />
             
-                <p class="congratulations">
-                    Congratulations, you have purchased an SSL certificate.<span class="pending {{ pending }}"> Shortly you will receive an email to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span><span class="configure hide"> <span class="highlight">Follow the steps below to setup SSL.</span> If you get stuck then submit an issue <a>here</a>.</span/>
+                <p class="pending {{ pending }}">
+                    Congratulations, you have purchased an SSL certificate. Shortly you will receive an email to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span>
+                </p>
+                <p class="configure {{ configure }}">
+                    <span class="highlight">Follow the steps below to setup your SSL certificate with App Engine.</span> If you get stuck then submit an issue <a>here</a>.
                 </p>
                 <hr />
             <span class="pending {{ pending }}">
@@ -52,17 +55,31 @@
                 <hr />
                 <h2>Step 3</h2>
                 <p>
-                    Go to the <a href="https://admin.google.com">Google Apps Admin panel</a>.<br/>
-                    Click "Security" <em>(may be under "more controls" at the bottom)</em>.<br/>
+                    Go to the <a href="https://admin.google.com">Google Apps Admin panel</a>.
+                </p>
+                <p>
+                    Click "Security" <em>(may be under "more controls" at the bottom)</em>.
+                </p>
+                <p>
                     Click "SSL for Custom Domains" <em>(may need to click "show more")</em>.
                 </p>
                 <hr />
                 <h2>Step 4</h2>
                 <p>
-                    Click "Upload a new certificate".<br/>
-                    Select <code>certificate.crt</code> for the field labelled "PEM encoded x.509 certificate."<br/>
-                    Select <code>privatekey.key</code> for the field labelled "Unencrypted private key"<br/>
-                    Click "Upload".<br/>
+                    Click "Upload a new certificate".
+                </p>
+                <p>
+                    Select <code>certificate.crt</code> from the download for the field labelled "PEM encoded x.509 certificate."
+                </p>
+                <p>
+                    {% if certificate.keypair %}
+                    Select <code>privatekey.key</code> from the download for the field labelled "Unencrypted private key"
+                    {% else %}
+                    Select the private key that you used to generate the CSR for the field labelled "Unencrypted private key". <small>This won't work if the privatekey hasn't been decrypted.</small>
+                    {% endif %}
+                </p>
+                <p>
+                    Click "Upload".
                 </p>
                 <hr />
                 <h2>Step 5</h2>

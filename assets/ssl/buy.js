@@ -53,6 +53,8 @@ define("ssl/buy",
             $select.parent().addClass('loading');
             $button.prop('disabled', true).text('Loading ...');
 
+            hideElement('.csr-loaded');
+
             verifyCSRRequest = $.getJSON('verify_csr', {"csr": $csr.val()}, function(response){
                 $csr.parent().removeClass('loading');
                 $select.parent().removeClass('loading');
@@ -64,14 +66,14 @@ define("ssl/buy",
 
                 $select.html('');
 
-                $.each(response.data, function(key, value){
+                $.each(response.data.emails, function(key, value){
                     if (value === '') {
                         return;
                     }
                     $('<option></option>').html(value).val(value).appendTo($select);
                 });
 
-                alert('That CSR looks like it is valid');
+                showElement('.csr-loaded');
             });
         };
 

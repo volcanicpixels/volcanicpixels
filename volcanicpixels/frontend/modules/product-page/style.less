@@ -5,7 +5,7 @@
  */
 
 .screenshot {
-    height: 600px;
+    max-height: 600px;
     width: 100%;
     background: @off-white;
     .box-shadow(0 1px 4px rgba(0,0,0,0.3));
@@ -39,12 +39,35 @@
     > a {
         .font-size-small;
     }
+
+    &.with-icon {
+        text-align: center;
+        max-width: 40em;
+        margin-left: auto;
+        margin-right: auto;
+
+        i {
+            font-size: 3em;
+            color: @emphasis-color;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
 }
 
 .feature > .feature-description:first-child {
     padding-right: 3em;
+
+    &.no-pad {
+        padding-right: 1em;
+    }
 }
 
 .feature > .feature-description:nth-child(2) {
     padding-left: 3em;
+    &.no-pad {
+        padding-left: 1em;
+    }
 }

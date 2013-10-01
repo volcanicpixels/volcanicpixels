@@ -15,7 +15,7 @@ from urllib import quote_plus
 
 from google.appengine.api import urlfetch
 
-from .errors import SSLStoreApiError
+from .errors import SSLStoreApiError, WildCardCSRError
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -25,6 +25,13 @@ def escape(s):
 
 
 def parseError(result):
+        try:
+            message = result['AuthResponse']['Message'][0]
+        except:
+            message = "unknown error message"
+
+        if "The Common Name (Domain Name) may not contain a *" in message:
+            raise WildCardCSRError()
         raise SSLStoreApiError(result['AuthResponse']['Message'][0])
 
 

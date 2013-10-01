@@ -11,8 +11,10 @@ handlers:
 - url: /assets
   static_dir: assets
 
+- url: /api/1/.*
+  script: volcanicpixels.legacy.app
+
 - url: .*
-  login: admin
   script: volcanicpixels.frontend.app
   secure: always
 
