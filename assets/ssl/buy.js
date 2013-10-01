@@ -28,9 +28,54 @@ define("ssl/buy",
             if (hostname.indexOf('www') != -1) {
                 return false;
             }
+            if (hostname.length < 10) {
+                return false;
+            }
             var naked = hostname.match(/[a-z0-9][a-z0-9\-]*[a-z0-9]\.[a-z\.]{2,6}$/i);
             return naked ? (naked[0] === hostname) : null;
         };
+
+        var verifyCSRRequest;
+
+        var verifyCSR = function() {
+            // cancel previous request
+            try {
+                verifyCSRRequest.abort();
+            } catch (err) {
+                // no request to cancel
+            }
+
+            var $csr = $('.csr');
+            var $button = $('.load-csr');
+            var $select = $('.verification-email-address');
+
+            $csr.parent().addClass('loading');
+            $select.parent().addClass('loading');
+            $button.prop('disabled', true).text('Loading ...');
+
+            verifyCSRRequest = $.getJSON('verify_csr', {"csr": $csr.val()}, function(response){
+                $csr.parent().removeClass('loading');
+                $select.parent().removeClass('loading');
+                $button.prop('disabled', false).text('Load Certificate Signing Request');
+                if(doError(response)) {
+                    return;
+                }
+
+
+                $select.html('');
+
+                $.each(response.data, function(key, value){
+                    if (value === '') {
+                        return;
+                    }
+                    $('<option></option>').html(value).val(value).appendTo($select);
+                });
+
+                alert('That CSR looks like it is valid');
+            });
+        };
+
+        $('.load-csr').click(verifyCSR);
 
         /**
          * When the domain field changes
@@ -114,7 +159,7 @@ define("ssl/buy",
                 $select.html('');
 
                 $.each(response.data, function(key, value){
-                    if (value == '') {
+                    if (value === '') {
                         return;
                     }
                     $('<option></option>').html(value).val(value).appendTo($select);

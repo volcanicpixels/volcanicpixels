@@ -7,58 +7,71 @@
 
 {% block js %}ssl/buy{% endblock %}
 
-{% block title %}Purchase Google App Engine SSL Certificate | {{ super() }}{% endblock %}
+{% block title %}Purchase SSL Certificate | {{ super() }}{% endblock %}
+
 
 {% block page %}
     {% include "modules/credit-card/key" %}
     <section class="container-very-tight">
-        <form class="block-form" method="POST" action="{{ url_for('ssl.buy') }}">
+        <form class="block-form" method="POST" action="{{ url_for('ssl.process_order') }}">
             <header>
                 <h1>Get your SSL certificate now</h1>
             </header>
-            <fieldset>
-                <input name="domain" autocorrect="off" class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
-                <div class="align-center wildcard-message hide">
-                    <p>Wildcard certificates are not currently available.<!--Would you like to be notified when they are?</p>
-                    <div class="font-size-xsmall">
-                        <div class="button primary-button disabled">Yes, thanks</div>
-                    </div>-->
-                </div>
-                <div class="align-center naked-domain hide">
-                    <p>Do you mean <span class="alternate-font"><span class="highlight">www.</span><span class="hostname"></span></span>? If you are not sure then <a>read this</a>
+            {% if upload_csr %}
+                <fieldset>
+                    <p>
+                        <span class="highlight">Enter your CSR below.</span> You are entirely responsible for making sure the CSR is correct, we will only check that it is valid. We recommend you use <a href="http://certlogik.com/decoder/" target="_blank">this tool</a> to make sure.
                     </p>
-                    <div class="font-size-xsmall">
-                        <div class="button primary-button yes">Yes, thanks</div>
-                        <div class="button regular-button no">Nope, I'm sure</div>
+                    <textarea autocorrect="off" class="csr"></textarea>
+                </fieldset>
+                <div class="load-csr button regular-button">Load Certificate Signing Request</div>
+            {% else %}
+                <fieldset>
+                    <input name="domain" spellcheck="false" class="domain" type="text" placeholder="Domain" value="{{ domain }}" />
+                    <div class="align-center wildcard-message hide">
+                        <p>Wildcard certificates are not currently available.<!--Would you like to be notified when they are?</p>
+                        <div class="font-size-xsmall">
+                            <div class="button primary-button disabled">Yes, thanks</div>
+                        </div>-->
                     </div>
-                </div>
-            </fieldset>
+                    <div class="align-center naked-domain hide">
+                        <p>Do you mean <span class="alternate-font"><span class="highlight">www.</span><span class="hostname"></span></span>? If you are not sure then <a>read this</a>
+                        </p>
+                        <div class="font-size-xsmall">
+                            <div class="button primary-button yes">Yes, thanks</div>
+                            <div class="button regular-button no">Nope, I'm sure</div>
+                        </div>
+                    </div>
+                </fieldset>
 
-            <fieldset>
-                <input name="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business name" value="{{ organization }}" />
-            </fieldset>
-            <fieldset>
-                <input name="phone_number" id="phone_number" type="text" x-autocompletetype="phone-full" placeholder="Phone Number" value="{{ phone_number }}" />
-            </fieldset>
-            <fieldset>
-                <input autocomplete="off" name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
-            </fieldset>
-            <fieldset>
-                <input autocomplete="off" name="city" type="text" placeholder="City/Town" value="{{ city }}" />
-            </fieldset>
-            <fieldset>
-                <input autocomplete="off" name="state" type="text" placeholder="{% if country == 'GB'%}County{% else %}State{% endif %}" value="{{ state }}" />
-            </fieldset>
-            <fieldset>
-                <select class="country" name="country" data-stripe="address_country">
-                {% for name, _country in countries|dictsort %}
-                    <option value="{{ _country.alpha2 }}" {% if _country.alpha2 == country %}selected{% endif %}>{{ _country.name }}</option>
-                {% endfor %}
-                </select>
-            </fieldset>
-            <fieldset>
-                <input name="postcode" id="postcode" type="text" x-autocompletetype="postal-code" data-stripe="address_zip" placeholder="Postal code" value="{{ postcode }}" />
-            </fieldset>
+                <fieldset>
+                    <input name="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business name" value="{{ organization }}" />
+                </fieldset>
+                <fieldset>
+                    <input name="phone_number" id="phone_number" type="text" x-autocompletetype="phone-full" placeholder="Phone Number" value="{{ phone_number }}" />
+                </fieldset>
+                <fieldset>
+                    <input autocomplete="off" name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
+                </fieldset>
+                <fieldset>
+                    <input autocomplete="off" name="city" type="text" placeholder="City/Town" value="{{ city }}" />
+                </fieldset>
+                <fieldset>
+                    <input autocomplete="off" name="state" type="text" placeholder="{% if country == 'GB'%}County{% else %}State{% endif %}" value="{{ state }}" />
+                </fieldset>
+                <fieldset>
+                    <select class="country" name="country" data-stripe="address_country">
+                    {% for name, _country in countries|dictsort %}
+                        <option value="{{ _country.alpha2 }}" {% if _country.alpha2 == country %}selected{% endif %}>{{ _country.name }}</option>
+                    {% endfor %}
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <input name="postcode" id="postcode" type="text" x-autocompletetype="postal-code" data-stripe="address_zip" placeholder="Postal code" value="{{ postcode }}" />
+                </fieldset>
+            {% endif %}
+
+
 
             <hr />
 
@@ -68,7 +81,7 @@
             </p>
             <fieldset>
                 <select name="approver_email" class="verification-email-address">
-                    <option>Enter domain first</option>
+                    <option>Enter {% if upload_csr %}CSR{% else %}domain{% endif%} first</option>
                 </select>
             </fieldset>
 

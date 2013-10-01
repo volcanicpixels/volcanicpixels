@@ -14,7 +14,7 @@ from flask import (
 from flask.ext.volcano import create_blueprint
 from sslstore_api.methods import (
     get_approver_emails as _get_approver_emails, get_order_status,
-    get_certificates, resend_email as _resend_email)
+    get_certificates, resend_email as _resend_email, check_csr)
 
 from volcanicpixels.ssl import (
     normalize_request, process_request, get_user_certificates,
@@ -58,10 +58,13 @@ def buy(defaults=None, template="ssl/buy"):
     return render_template(template, countries=COUNTRIES_BY_NAME, **defaults)
 
 
-@bp.route('/test2')
-def test2():
-    from volcanicpixels.ssl.csr import test_csr
-    return test_csr()
+@bp.route('/upload-csr')
+def upload_csr(defaults=None, template="ssl/buy"):
+    if defaults is None:
+        defaults = {}
+
+    return render_template(
+        template, countries=COUNTRIES_BY_NAME, upload_csr=True, **defaults)
 
 
 @bp.route('/buy', methods=['POST'])
@@ -69,7 +72,12 @@ def process_order():
 
     options = normalize_request(request.form.copy())
 
-    cert = process_request(options)
+    try:
+        cert = process_request(options)
+    except:
+        logging.exception("An error occured processing the order")
+        options['error'] = "An error occured, we have emailed an admin."
+        return buy(options)
 
     return redirect(url_for('.complete_order', order_id=cert.order_id))
 
@@ -257,6 +265,31 @@ def get_approver_emails():
     except:
         msg = "An error occured whilst trying to retrieve the " + \
             "verification emails for %s" % domain
+        return jsonify(status='ERROR', msg=msg)
+
+
+@bp.route('/verify_csr')
+def verify_csr():
+    csr = request.args.get("csr", '')
+    if csr == '':
+        return jsonify(status='ERROR', msg="You haven't entered anything")
+    try:
+        result = check_csr(csr)
+        if result['isWildcardCSR']:
+            return jsonify(
+                status='ERROR',
+                msg="This CSR is for a wildcard certificate"
+            )
+        if 'DominName' in result:
+            domain = result['DominName']
+        else:
+            domain = result['DomainName']
+        emails = _get_approver_emails(domain)
+        return jsonify(status='SUCCESS', data=emails)
+    except:
+        logging.exception("Uncaught CSR Error")
+        msg = "This isn't a valid CSR. If you are sure it is " + \
+              "then contact support."
         return jsonify(status='ERROR', msg=msg)
 
 

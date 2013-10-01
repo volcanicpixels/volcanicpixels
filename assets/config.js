@@ -3,8 +3,8 @@ var require = {
     paths: {
         stripe: 'https://js.stripe.com/v2/?1',
         jquery: 'components/jquery/jquery',
-        requirejs: 'components/requirejs/require',
-        nprogress: 'components/nprogress/nprogress'
+        nprogress: 'components/nprogress/nprogress',
+        requirejs: 'components/requirejs/require'
     },
     shim: {
         stripe: {

@@ -36,7 +36,8 @@
 
     p,
     .button,
-    fieldset {
+    fieldset,
+    textarea {
         &.loading::after {
             margin-left: 0.5em;
             margin-top: -0.5em;
@@ -50,6 +51,13 @@
             border:dashed 0.1em rgba(0,0,0,0.2);
             .animation(loader-spin 1.5s infinite linear);
         }
+    }
+
+    textarea {
+        width: 100%;
+        resize: vertical;
+        height: 300px;
+        border: 1px solid @light-gray;
     }
 
     fieldset {

@@ -5,7 +5,7 @@
 #}
 {% extends "ssl/buy" %}
 
-{% block title %}Google App Engine SSL| {{ super() }}{% endblock %}
+{% block title %}Google App Engine SSL| Volcanic Pixels{% endblock %}
 
 {% block page %}
     <article class="article container ssl">
@@ -77,7 +77,7 @@
                 <div class="feature-item feature-description">
                     <h1>Advanced user?</h1>
                     <p>Do you like "messing about with the terminal"? Well that's great (we kinda like it as well). If you've generated your own Certificate Signing Request then we'll happily process that for you.</p>
-                    <a class="button regular-button small-button">Upload CSR</a>
+                    <a class="button regular-button small-button" href="{{ url_for('ssl.upload_csr') }}">Upload CSR</a>
                 </div>
             </section>
 
@@ -91,7 +91,7 @@
             </p>
             <p>
                 <h3>Can I upload my own CSR?</h3>
-                Yes you can: <a>Upload a CSR</a>
+                Yes you can: <a href="{{ url_for('ssl.upload_csr') }}">Upload a CSR</a>
             </p>
             <p>
                 <h3>Who does your payments?</h3>

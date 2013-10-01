@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         tasks: ['copy:js', 'bower', 'requirejs']
       },
       bowerjs: {
-        files: 'assets/components/**.js',
+        files: ['assets/components/**.js', 'bower.json'],
         tasks: ['bower', 'requirejs']
       }
     }
