@@ -12,6 +12,7 @@ handlers:
   static_dir: assets
 
 - url: .*
+  secure:always
   login: admin
   script: volcanicpixels.frontend.app
 
