@@ -9,20 +9,26 @@
 
 {% block title %}SSL Certificate Purchased | {{ super() }}{% endblock %}
 
+{% if certificate.status == "active" %}
+    {% set pending = 'hide' %}
+{% else %}
+    {% set configure = 'hide' %}
+{% endif %}
+
 {% block page %}
     <section class="container-very-tight">
         <div class="block-form">
             <header>
-                <h1 class="pending">Certificate Purchased</h1>
-                <h1 class="configure hide">Setup Certificate</h1>
+                <h1 class="pending {{ pending }}">Certificate Purchased</h1>
+                <h1 class="configure {{ configure }}">Setup Certificate</h1>
             </header>
             <input type="hidden" class="order-id" value="{{ certificate.order_id }}" />
             
                 <p class="congratulations">
-                    Congratulations, you have purchased an SSL certificate.<span class="pending"> Shortly you will receive an email to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span><span class="configure hide"> <span class="highlight">Follow the steps below to setup SSL.</span> If you get stuck then submit an issue <a>here</a>.</span/>
+                    Congratulations, you have purchased an SSL certificate.<span class="pending {{ pending }}"> Shortly you will receive an email to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span><span class="configure hide"> <span class="highlight">Follow the steps below to setup SSL.</span> If you get stuck then submit an issue <a>here</a>.</span/>
                 </p>
                 <hr />
-            <span class="pending">
+            <span class="pending {{ pending }}">
                 <button class="button regular-button resend-email">Resend verification email</button>
                 <p class="hide positive resend-success">Verification email has been resent</p>
                 <p class="hide negative resend-error">Verification email could not be resent, contact support.</p>
@@ -31,7 +37,7 @@
                     Not verified (it can take up to 10 minutes after verifying, please be patient).
                 </p>
             </span>
-            <span class="configure hide">
+            <span class="configure {{ configure }}">
                 <h2>Step 1</h2>
                 <p>
                     Download your certificates. For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
