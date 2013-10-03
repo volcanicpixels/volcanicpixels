@@ -11,6 +11,10 @@ handlers:
 - url: /assets
   static_dir: assets
 
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
 - url: /api/1/.*
   script: volcanicpixels.legacy.app
 
