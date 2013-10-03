@@ -5,10 +5,18 @@
 
     Normalises legacy stuff (redirects to new endpoint)
 """
-from flask.ext.volcano import route, create_app as _create_app
+from flask.ext.volcano import create_app as _create_app
 from flask import request, redirect
 import logging
-import urllib
+
+
+def fix_unicode(text):
+    text = text.decode("utf-8")
+
+    text = text.replace(u"\xa0", u" ")
+    text = text.encode("utf-8")
+
+    return text
 
 
 def create_app(settings_override=None):
@@ -27,7 +35,8 @@ app = create_app()
 def redirect_api(method):
     new_url = "http://legacy.volcanicpixels.com"
     new_url += request.path
+    new_url += '?'
+    for arg in request.args:
+        new_url += arg + "=" + request.args[arg] + "&"
 
-    new_url += '?' + urllib.urlencode(request.args)
-
-    return redirect(new_url)
+    return redirect(new_url[:-1])
