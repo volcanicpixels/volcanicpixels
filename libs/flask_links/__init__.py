@@ -78,6 +78,8 @@ class Links(object):
             self._is_selected(endpoint + '.index'))
 
     def _is_selected(self, endpoint):
+        if request.endpoint is None:
+            return False
         return request.endpoint.startswith(endpoint)
 
 

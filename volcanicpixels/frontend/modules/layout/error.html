@@ -1,0 +1,28 @@
+{#
+   modules/layout
+
+   Copyright (c) Daniel Chatfield
+#}
+<!DOCTYPE html>
+<!-- DEBUG OUTPUT
+{% include "modules/debug" %}
+-->
+<html>
+  <head>
+    <title>{% block title %}Volcanic Pixels{% endblock %}</title>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="/assets/frontend.css" />
+    <script src="/assets/config.js"></script>
+    <script data-main="{% block js %}{% endblock %}" src="/assets/frontend.js"></script>
+  </head>
+  <body ontouchstart="" {% if user %}class="loggedin"{% endif %}>
+    <div class="wrapper">
+      {% include "modules/header" %}
+      <div class="page-content">
+        {% block page %}
+        {% endblock %}
+      </div>
+    </div>
+    {% include "modules/footer" %}
+  </body>
+</html>

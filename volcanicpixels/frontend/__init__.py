@@ -11,6 +11,7 @@ from flask.ext.volcano import route, create_app as _create_app, canonical_url
 from volcanicpixels.users import inject_user
 from raven_appengine import register_sentry
 from sslstore_api import flask_init
+from .errors import register_error_handlers
 import stripe
 import logging
 
@@ -29,6 +30,8 @@ def create_app(settings_override=None):
 
     app.context_processor(inject_user)
     app.add_template_global(canonical_url)
+
+    register_error_handlers(app)
 
     return app
 
