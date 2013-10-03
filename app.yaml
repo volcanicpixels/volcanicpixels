@@ -4,7 +4,7 @@ version: live
 module: default
 
 runtime: python27
-threadsafe: yes
+threadsafe: true
 api_version: 1
 
 handlers:
@@ -14,9 +14,17 @@ handlers:
 - url: /api/1/.*
   script: volcanicpixels.legacy.app
 
-- url: .*
+
+- url: /ssl.*
   script: volcanicpixels.frontend.app
   secure: always
+
+- url: .*
+  script: volcanicpixels.frontend.app
+  secure: optional
+
+inbound_services:
+- warmup
 
 builtins:
 - deferred: on

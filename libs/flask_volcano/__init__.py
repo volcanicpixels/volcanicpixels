@@ -8,5 +8,7 @@
     :copyright: (c) 2013 by Daniel Chatfield
 """
 
-from .helpers import route, register_blueprints, register_views, is_dev_server
+from .helpers import (
+    route, register_blueprints, register_views, is_dev_server, make_external,
+    canonical_url)
 from .factory import create_app, create_blueprint

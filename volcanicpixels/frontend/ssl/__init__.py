@@ -77,10 +77,10 @@ def process_order():
         cert = process_request(options)
     except WildCardCSRError:
         options['error'] = "Wildcard domain not allowed"
+        return buy(options)
     except:
         logging.exception("Uncaught exception while processing order")
         options['error'] = "An error occured, we have emailed an admin."
-    finally:
         return buy(options)
 
     return redirect(url_for('.complete_order', order_id=cert.order_id))
@@ -163,12 +163,14 @@ def download():
 
     if cert.appengine_cert is None or force:
         appengine_cert = ''
-        top = middle = bottom = None
+        top = None
+        middle = None
+        bottom = None
         for _cert in cert.certs:
             logging.info(_cert)
             if _cert['FileName'] == 'PositiveSSLCA2.crt':
                 middle = _cert['FileContent']
-            if _cert['FileName'] == 'AddTrustExternalCARoot.crt':
+            elif _cert['FileName'] == 'AddTrustExternalCARoot.crt':
                 bottom = _cert['FileContent']
             else:
                 top = _cert['FileContent']

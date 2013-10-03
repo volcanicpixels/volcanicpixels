@@ -11,6 +11,7 @@ from flask.ext.volcano import create_blueprint
 bp = create_blueprint("home", __name__)
 
 
+@bp.route('/_ah/warmup')
 @bp.route('/')
 def render():
     """Renders the homepage"""

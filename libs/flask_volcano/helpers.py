@@ -7,9 +7,10 @@
 """
 
 import importlib, logging, pkgutil, os, sys
+from urlparse import urljoin
 from functools import wraps
 
-from flask import Blueprint, url_for
+from flask import Blueprint, url_for, request, current_app
 from werkzeug.routing import BuildError
 
 
@@ -95,3 +96,13 @@ def url_build_handler(error, endpoint, values):
                 return url_for(endpoint + '.' + item)
             except BuildError:
                 continue
+
+
+def make_external(url, root=None):
+    if root is None:
+        root = request.url_root
+    return urljoin(root, url)
+
+
+def canonical_url(url):
+    return make_external(url, current_app.config.get('CANONICAL_URL_ROOT'))
