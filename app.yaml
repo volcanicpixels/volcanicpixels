@@ -15,6 +15,10 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /robots\.txt
+  static_files: robots.txt
+  upload: robots\.txt
+
 - url: /api/1/.*
   script: volcanicpixels.legacy.app
 
