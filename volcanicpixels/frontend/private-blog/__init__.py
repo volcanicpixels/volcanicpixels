@@ -12,6 +12,9 @@ bp = create_blueprint("private-blog", __name__)
 
 
 # trailing slash is for legacy purposes - do not remove
+
+@bp.route('/password-protect-wordpress-blog/')
+@bp.route('/wordpress-stuff/password-protect-wordpress-blog/')
 @bp.route('/password-protect-wordpress-plugin/')
 def render():
     return render_template('private-blog')
