@@ -9,6 +9,12 @@
 
 {% block title %}Purchase SSL Certificate | {{ super() }}{% endblock %}
 
+{% set price = 36 %}
+
+{% if request.args.academic is defined or academic %}
+    {% set price = 15 %}
+{% endif %}
+
 
 {% block page %}
     {% include "modules/credit-card/key" %}
@@ -22,6 +28,11 @@
             <header>
                 <h1>Get your SSL certificate now</h1>
             </header>
+            <input type="hidden" name="price" value="{{ price }} {{request.args.academic }}"/>
+            {% if request.args.academic is defined or academic %}
+                 <input class="academic" type="hidden" name="academic" value="true" />
+            {% endif %}
+
             {% if upload_csr %}
                 <input type="hidden" name="upload_csr" value="true" />
                 <fieldset>
@@ -52,16 +63,16 @@
                 </fieldset>
 
                 <fieldset>
-                    <input name="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business name" value="{{ organization }}" />
+                    <input autocomplete="off" name="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business name (optional)" value="{{ organization }}" />
                 </fieldset>
                 <fieldset>
-                    <input name="phone_number" id="phone_number" type="text" x-autocompletetype="phone-full" placeholder="Phone Number" value="{{ phone_number }}" />
+                    <input autocomplete="off" name="phone_number" id="phone_number" type="text" x-autocompletetype="phone-full" placeholder="Phone Number (optional)" value="{{ phone_number }}" />
                 </fieldset>
                 <fieldset>
-                    <input autocomplete="off" name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address" value="{{ street_address }}" />
+                    <input autocomplete="off" name="street_address" id="street_address" type="text" x-autocompletetype="street-address" placeholder="Street Address (optional)" value="{{ street_address }}" />
                 </fieldset>
                 <fieldset>
-                    <input autocomplete="off" name="city" type="text" placeholder="City/Town" value="{{ city }}" />
+                    <input autocomplete="off" name="city" type="text" placeholder="City/Town (optional)" value="{{ city }}" />
                 </fieldset>
                 <fieldset>
                     <input autocomplete="off" name="state" type="text" placeholder="{% if country == 'GB'%}County{% else %}State{% endif %}" value="{{ state }}" />
@@ -74,7 +85,7 @@
                     </select>
                 </fieldset>
                 <fieldset>
-                    <input name="postcode" id="postcode" type="text" x-autocompletetype="postal-code" data-stripe="address_zip" placeholder="Postal code" value="{{ postcode }}" />
+                    <input autocomplete="off" name="postcode" id="postcode" type="text" x-autocompletetype="postal-code" data-stripe="address_zip" placeholder="Postal code" value="{{ postcode }}" />
                 </fieldset>
             {% endif %}
 
@@ -105,6 +116,11 @@
             {% if not user.email %}
 
             <fieldset>
+                {% if request.args.academic is defined or academic %}
+                <p class="align-center">
+                    <span class="highlight">Enter your academic email address</span>
+                </p>
+                {% endif %}
                 <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
             </fieldset>
 
@@ -112,6 +128,18 @@
             {% endif %}
 
             {% if not user %}
+
+            {% if request.args.academic is defined or academic %}
+
+                <p class="align-center hide negative non-academic-user">
+                    For academic pricing you must enter an accepted academic email.
+                </p>
+
+                <p class="align-center hide positive academic-user">
+                    That email address looks good :)
+                </p>
+
+            {% endif %}
 
             <p class="align-center hide existing-user">
                 The email address you entered is linked to an account, <span class="highlight">enter your password below</span>.
@@ -156,7 +184,7 @@
             </p>
 
             <fieldset>
-                <input type="submit" value="Purchase certificate for {{ price | default("£35") }}" class="button primary-button purchase" />
+                <input type="submit" value="Purchase certificate for £{{ price | default("35") }}" class="button primary-button purchase" />
             </fieldset>
         </form>
     </section>

@@ -23,7 +23,7 @@ from volcanicpixels.users import (
     get_user, UserAuthenticationFailedError, get_current_user, User)
 
 from volcanicpixels.ssl.data import COUNTRIES_BY_NAME, REGIONS
-from .helpers import fix_unicode
+from .helpers import fix_unicode, is_academic
 
 bp = create_blueprint("ssl", __name__, url_prefix="/ssl")
 
@@ -313,10 +313,17 @@ def check_email():
     email = request.args.get("email")
     try:
         user = get_user(email)
+        academic = is_academic(email)
         if user:
-            return jsonify(status='SUCCESS', data='existing')
+            return jsonify(
+                status='SUCCESS',
+                data={'type': 'existing', 'academic': academic}
+                )
         else:
-            return jsonify(status='SUCCESS', data='new')
+            return jsonify(
+                status='SUCCESS',
+                data={'type': 'new', 'academic': academic}
+                )
     except:
         msg = "An error occured whilst trying to check if this email is " + \
             "associated with an existing user."

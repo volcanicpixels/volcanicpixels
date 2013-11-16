@@ -7,16 +7,20 @@
 
 {% block title %}Google App Engine SSL| Volcanic Pixels{% endblock %}
 
-{% block description%}The Quickest and easiest way to get App Engine SSL certificates.{% endblock %}
+{% block description%}The Quickest and easiest way to get SSL certificates for AppEngine.{% endblock %}
 
 {% block page %}
     <article class="article container ssl">
         <section class="intro container-tight">
-            <h1>App Engine SSL</h1>
+            <h1>SSL Certificates</h1>
             <p class="article-highlight align-center">
-                The quickest and easiest way to get SSL certificates for Google App Engine. No messing about with the terminal or combining keys.
+                The quickest and easiest way to get SSL certificates for AppEngine. No messing about with the terminal or combining keys.
             </p>
+            {% if request.args.academic is defined %}
+            <div class="align-center font-size-large"><a href="{{ url_for('.buy', academic=true) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a></div>
+            {% else %}
             <div class="align-center font-size-large"><a href="{{ url_for('.buy') }}" class="button primary-button">Purchase an SSL certificate for £{{ price | default('35') }}</a></div>
+            {% endif %}
             <hr />
         </section>
         <h2 class="list-heading">Features</h2>

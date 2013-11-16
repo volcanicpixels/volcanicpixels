@@ -332,16 +332,15 @@ $(document).ready(function(){
                 return;
             }
 
-            if (response.data === 'new') {
+            if (response.data.type === 'new') {
                 // this is a new user
                 hideElement('.existing-user');
                 showElement('.new-user');
                 $('.password').off('keyup', passwordChange);
                 $('.password').off('blur', checkPassword);
-                return;
             }
 
-            if (response.data === 'existing') {
+            if (response.data.type === 'existing') {
                 // this is an existing user
                 showElement('.existing-user');
                 hideElement('.new-user');
@@ -349,7 +348,14 @@ $(document).ready(function(){
                 $('.password').on('blur', checkPassword);
                 checkPassword();
                 // Add credit cards and select default one
-                return;
+            }
+
+            if (response.data.academic) {
+                showElement('.academic-user');
+                hideElement('.non-academic-user');
+            } else {
+                hideElement('.academic-user');
+                showElement('.non-academic-user');
             }
         });
 
