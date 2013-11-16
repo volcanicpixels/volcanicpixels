@@ -75,14 +75,18 @@ $(document).ready(function(){
 
     /**
      * When the domain field changes
-     * 
+     *
      * Full should be true when this was triggered from a blur event otherwise
-     * we will assume that it is not safe to modify the input just yet.     
+     * we will assume that it is not safe to modify the input just yet.
      * @return {[type]} [description]
      */
     var verifyDomain = function(full) {
         var $domain = $(this);
         var domain = $domain.val();
+
+        if (domain == undefined || domain.length == 0) {
+            return;
+        }
 
         // Does it contain an asterisk?
         if (domain.indexOf('*') != -1) {
@@ -128,6 +132,9 @@ $(document).ready(function(){
     var approverEmailRequest;
 
     var getApproverEmails = function(domain) {
+        if (domain == undefined || domain.length == 0) {
+            return;
+        }
         // cancel previous request
         try {
             approverEmailRequest.abort();
@@ -140,6 +147,7 @@ $(document).ready(function(){
         }
 
         var $select = $('.verification-email-address');
+        var defaultEmail = $select.attr('data-default');
 
         $select.parent().addClass('loading');
         $('<option selected></option>').html('Loading...').prependTo($select);
@@ -158,7 +166,11 @@ $(document).ready(function(){
                 if (value === '') {
                     return;
                 }
-                $('<option></option>').html(value).val(value).appendTo($select);
+                if(value == defaultEmail) {
+                    $('<option selected></option>').html(value).val(value).appendTo($select);
+                } else {
+                    $('<option></option>').html(value).val(value).appendTo($select);
+                }
             });
 
             $select.attr('data-domain', domain);
@@ -178,8 +190,8 @@ $(document).ready(function(){
         approvalEmailTimeout = setTimeout(function(){
             getApproverEmails(domain);
         }, 100);
-        
-    });
+
+    }).change();
 
     var cardChange = function() {
         if ($('.new-card').is(':selected') ) {
@@ -395,7 +407,7 @@ $(document).ready(function(){
             formProcessed = true;
             $('form').submit();
         };
-        
+
         e.preventDefault();
 
         var errorFunc = alert;

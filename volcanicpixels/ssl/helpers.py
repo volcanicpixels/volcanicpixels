@@ -10,6 +10,14 @@ from Crypto.PublicKey import RSA
 from .models import KeyPair
 
 
+def is_academic(email):
+    if email is None:
+        return False
+    import logging
+    logging.info(email[-9:])
+    return email[-9:] == "cam.ac.uk"
+
+
 def generate_keypair(bits=2048):
     """Generates a public/private key pair"""
     return RSA.generate(2048)

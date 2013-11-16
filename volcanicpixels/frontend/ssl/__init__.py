@@ -17,13 +17,13 @@ from sslstore_api.methods import (
     get_certificates, resend_email as _resend_email, check_csr)
 from sslstore_api.errors import WildCardCSRError
 from volcanicpixels.ssl import (
-    normalize_request, process_request, get_user_certificates,
+    check_request, normalize_request, process_request, get_user_certificates,
     get_certificate)
 from volcanicpixels.users import (
     get_user, UserAuthenticationFailedError, get_current_user, User)
-
 from volcanicpixels.ssl.data import COUNTRIES_BY_NAME, REGIONS
-from .helpers import fix_unicode, is_academic
+from volcanicpixels.ssl.helpers import is_academic
+from .helpers import fix_unicode
 
 bp = create_blueprint("ssl", __name__, url_prefix="/ssl")
 
@@ -72,15 +72,20 @@ def process_order():
     options = {}
     for key in request.form:
         options[key] = request.form[key]
+
+    logging.error(options)
+
     try:
+        options = check_request(options)
         options = normalize_request(options)
         cert = process_request(options)
     except WildCardCSRError:
         options['error'] = "Wildcard domain not allowed"
         return buy(options)
-    except:
+    except Exception, e:
         logging.exception("Uncaught exception while processing order")
-        options['error'] = "An error occured, we have emailed an admin."
+        logging.error(e)
+        options['error'] = 'Error: %s' % e
         return buy(options)
 
     return redirect(url_for('.complete_order', order_id=cert.order_id))

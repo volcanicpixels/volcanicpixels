@@ -17,3 +17,7 @@ class CVCCheckFailedError(Exception):
 
 class SSLCertificateNotFoundError(Exception):
     pass
+
+
+class NonAcademicEmailError(Exception):
+    pass

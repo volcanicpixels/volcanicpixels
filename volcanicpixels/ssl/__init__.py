@@ -6,7 +6,7 @@
     The SSL Api.
 """
 import stripe
-from flask import session
+from flask import session, request
 from volcanicpixels.users import (
     get_current_user, get_user, authenticate_user, create_user,
     UserAuthenticationFailedError)
@@ -14,10 +14,10 @@ from sslstore_api.methods import check_csr, create_dv_ssl_order
 from sslstore_api.errors import WildCardCSRError
 from .csr import CertificationRequest
 from .data import REGIONS
-from .helpers import get_keypair
+from .helpers import get_keypair, is_academic
 from .errors import (
     CVCCheckFailedError, SSLCertificateNotFoundError,
-    UserNotProvidedError)
+    UserNotProvidedError, NonAcademicEmailError)
 from .models import SSLCertificate
 
 
@@ -50,10 +50,52 @@ def get_user_certificates(user=None, limit=20):
     ).fetch(limit)
 
 
+def do_error(msg='An error occured'):
+    raise Exception(msg)
+
+
+def check_request(options):
+    """
+    Do as many preliminary checks as possible
+    """
+
+    promotion = options.get('promotion', None)
+    email = options.get('email')
+    domain = options.get('domain', '')
+    approver_email = options.get('approver_email', None)
+
+    if 'user' in options:
+        user = options['user']
+    else:
+        user = get_current_user()
+
+    if user is not None:
+        email = user.email
+
+    if 'csr' not in options:
+
+        # check that a domain name has been submitted
+        if len(domain) == 0:
+            do_error("You haven't submitted a domain")
+
+    # check for academic status
+    if promotion == 'academic':
+        if not is_academic(email):
+            raise NonAcademicEmailError(
+                'The email address %s is not an accepted academic email'
+                % email)
+
+    # Check that approver email has been selected
+    if approver_email is None:
+        do_error('No approver email has been selected')
+
+    return options
+
+
 def normalize_request(options):
     """Normalize request
 
-    Adter this, the user should be created and logged in, they
+    After this, the user should be created and logged in, they
     should have a stripe id associated with them and if a token was passed
     as credit_card then it should be converted into a stripe card id.
 
@@ -66,9 +108,6 @@ def normalize_request(options):
 
     if country in REGIONS and state in REGIONS[country]:
         options['state'] = REGIONS[country][state]
-
-    def do_error(msg='An error occured'):
-        raise Exception(msg)
 
     def is_token(value):
         """Determines whether the passed argument is a stripe token or not"""
@@ -144,6 +183,9 @@ def normalize_request(options):
     options['credit_card'] = credit_card
     options['user'] = user
 
+    if request.args.get('promotion') == 'academic':
+        options['academic'] = True
+
     return options
 
 
@@ -153,6 +195,7 @@ def process_request(options):
     user = options.get('user', None)
     domain = options.get('domain', None)
     approver_email = options.get('approver_email', None)
+    price = options.get('price')
 
     # TODO: Consume nonce and regurgitate on exception
 
@@ -167,8 +210,15 @@ def process_request(options):
 
     card = options.get('credit_card', None)
     customer = user.stripe_id
-    amount = "3500"
+    amount = 3500
     description = "SSL certificate for %s" % domain
+
+    if options.get('promotion') == 'academic':
+        amount = 1500
+
+    if amount != int(price) * 100:
+        do_error('Price sanity check failed, expected %s but got %s'
+                 % (amount/100, price))
 
     # TODO: BQ and datastore
 

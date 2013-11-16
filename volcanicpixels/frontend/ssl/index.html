@@ -16,8 +16,8 @@
             <p class="article-highlight align-center">
                 The quickest and easiest way to get SSL certificates for AppEngine. No messing about with the terminal or combining keys.
             </p>
-            {% if request.args.academic is defined %}
-            <div class="align-center font-size-large"><a href="{{ url_for('.buy', academic=true) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a></div>
+            {% if request.args.promotion is defined %}
+            <div class="align-center font-size-large"><a href="{{ url_for('.buy', promotion=request.args.promotion) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a></div>
             {% else %}
             <div class="align-center font-size-large"><a href="{{ url_for('.buy') }}" class="button primary-button">Purchase an SSL certificate for £{{ price | default('35') }}</a></div>
             {% endif %}

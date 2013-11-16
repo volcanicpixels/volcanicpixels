@@ -81,14 +81,18 @@ define("ssl/buy",
 
         /**
          * When the domain field changes
-         * 
+         *
          * Full should be true when this was triggered from a blur event otherwise
-         * we will assume that it is not safe to modify the input just yet.     
+         * we will assume that it is not safe to modify the input just yet.
          * @return {[type]} [description]
          */
         var verifyDomain = function(full) {
             var $domain = $(this);
             var domain = $domain.val();
+
+            if (domain == undefined || domain.length == 0) {
+                return;
+            }
 
             // Does it contain an asterisk?
             if (domain.indexOf('*') != -1) {
@@ -134,6 +138,9 @@ define("ssl/buy",
         var approverEmailRequest;
 
         var getApproverEmails = function(domain) {
+            if (domain == undefined || domain.length == 0) {
+                return;
+            }
             // cancel previous request
             try {
                 approverEmailRequest.abort();
@@ -146,6 +153,7 @@ define("ssl/buy",
             }
 
             var $select = $('.verification-email-address');
+            var defaultEmail = $select.attr('data-default');
 
             $select.parent().addClass('loading');
             $('<option selected></option>').html('Loading...').prependTo($select);
@@ -164,7 +172,11 @@ define("ssl/buy",
                     if (value === '') {
                         return;
                     }
-                    $('<option></option>').html(value).val(value).appendTo($select);
+                    if(value == defaultEmail) {
+                        $('<option selected></option>').html(value).val(value).appendTo($select);
+                    } else {
+                        $('<option></option>').html(value).val(value).appendTo($select);
+                    }
                 });
 
                 $select.attr('data-domain', domain);
@@ -184,8 +196,8 @@ define("ssl/buy",
             approvalEmailTimeout = setTimeout(function(){
                 getApproverEmails(domain);
             }, 100);
-        
-        });
+
+        }).change();
 
         var cardChange = function() {
             if ($('.new-card').is(':selected') ) {
@@ -401,7 +413,7 @@ define("ssl/buy",
                 formProcessed = true;
                 $('form').submit();
             };
-        
+
             e.preventDefault();
 
             var errorFunc = alert;

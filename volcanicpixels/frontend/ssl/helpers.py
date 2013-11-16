@@ -37,12 +37,6 @@ def safe_unicode(value, encoding='utf-8'):
     return value
 
 
-def is_academic(email):
-    import logging
-    logging.info(email[-9:])
-    return email[-9:] == "cam.ac.uk"
-
-
 def fix_unicode(text):
     text = text.decode("utf-8")
 

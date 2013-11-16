@@ -9,9 +9,9 @@
 
 {% block title %}Purchase SSL Certificate | {{ super() }}{% endblock %}
 
-{% set price = 36 %}
+{% set price = 35 %}
 
-{% if request.args.academic is defined or academic %}
+{% if request.args.promotion == 'academic' or academic %}
     {% set price = 15 %}
 {% endif %}
 
@@ -19,18 +19,23 @@
 {% block page %}
     {% include "modules/credit-card/key" %}
     <section class="container-very-tight">
-        {% if error %}
-            <p class="negative align-center">
-                {{ error }}
-            </p>
+        {% if request.args.promotion == 'academic' or academic %}
+            <form class="block-form" method="POST" action="{{ url_for('ssl.process_order', promotion='academic') }}">
+        {% else %}
+            <form class="block-form" method="POST" action="{{ url_for('ssl.process_order') }}">
         {% endif %}
         <form class="block-form" method="POST" action="{{ url_for('ssl.process_order') }}">
+            {% if error %}
+                <p class="negative align-center">
+                    {{ error }}
+                </p>
+            {% endif %}
             <header>
                 <h1>Get your SSL certificate now</h1>
             </header>
-            <input type="hidden" name="price" value="{{ price }} {{request.args.academic }}"/>
-            {% if request.args.academic is defined or academic %}
-                 <input class="academic" type="hidden" name="academic" value="true" />
+            <input type="hidden" name="price" value="{{ price }}"/>
+            {% if request.args.promotion == 'academic' or academic %}
+                 <input class="promotion" type="hidden" name="promotion" value="academic" />
             {% endif %}
 
             {% if upload_csr %}
@@ -98,13 +103,13 @@
                 To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
             </p>
             <fieldset>
-                <select name="approver_email" class="verification-email-address">
+                <select name="approver_email" class="verification-email-address" data-default="{{ approver_email }}">
                     <option>Enter {% if upload_csr %}CSR{% else %}domain{% endif%} first</option>
                 </select>
             </fieldset>
 
             <hr />
-            
+
             {% if not user.name %}
 
             <fieldset>
@@ -116,7 +121,7 @@
             {% if not user.email %}
 
             <fieldset>
-                {% if request.args.academic is defined or academic %}
+                {% if request.args.promotion == 'academic' or academic %}
                 <p class="align-center">
                     <span class="highlight">Enter your academic email address</span>
                 </p>
@@ -129,7 +134,7 @@
 
             {% if not user %}
 
-            {% if request.args.academic is defined or academic %}
+            {% if request.args.promotion == 'academic' or academic %}
 
                 <p class="align-center hide negative non-academic-user">
                     For academic pricing you must enter an accepted academic email.
@@ -168,7 +173,7 @@
             <p class="align-center loading-cards hide">
                 <span class="highlight">We are just loading your credits cards now.</span>
             </p>
-            
+
 
             <fieldset class="hide">
                 <legend>Select a credit card to use</legend>
