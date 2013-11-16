@@ -35,6 +35,9 @@ dev_appserver.py [path_to_project]
  - Node
  - Bower (`npm install -g bower`)
  - Grunt (`npm install -g grunt-cli`)
+ - pep8 (`pip install pep8`)
+
+Install the development dependencies by running `npm install`
 
 ### Building
 
