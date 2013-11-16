@@ -123,7 +123,7 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['pep8','jshint', 'less', 'copy', 'transpile', 'bower', 'requirejs']);
   grunt.registerTask('pep8', ['shell:pep8']);
-  grunt.registerTask('test', ['pep8']);
+  grunt.registerTask('test', ['jshint', 'pep8']);
   grunt.registerTask('js', ['transpile', 'requirejs']);
 
 };

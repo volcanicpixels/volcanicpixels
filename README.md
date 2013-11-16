@@ -27,3 +27,21 @@ Using the Command line:
 ```
 dev_appserver.py [path_to_project]
 ```
+
+## Development
+
+### Requirements
+
+ - Node
+ - Bower (`npm install -g bower`)
+ - Grunt (`npm install -g grunt-cli`)
+
+### Building
+
+To build the project completely run `grunt` from the project root.
+
+Use `grunt watch` to watch for file changes and only rebuild the changed files.
+
+### Testing
+
+We use travis-ci for automated testing, you can manually run the testsuite by running `grunt test`
