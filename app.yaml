@@ -1,11 +1,14 @@
 application: volcanic-pixels
 version: live
 
-module: default
-
 runtime: python27
 threadsafe: true
 api_version: 1
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: automatic  # default value
+  min_pending_latency: automatic  # default value
+  max_concurrent_requests: 50
 
 handlers:
 - url: /assets
