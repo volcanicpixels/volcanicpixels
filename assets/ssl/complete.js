@@ -49,7 +49,7 @@ define("ssl/complete",
                     hideElement('.pending');
                     showElement('.configure');
                 }
-            
+
                 showError = false;
 
             });
@@ -62,7 +62,7 @@ define("ssl/complete",
         checkStatusRunner = function() {
             checkStatus(function() {
                 runCount++;
-                timer = 1000 * 10;
+                var timer = 1000 * 10;
                 if (runCount > 6) {
                     timer = timer * 2;
                 }
@@ -72,7 +72,7 @@ define("ssl/complete",
                 if (runCount < 30) {
                     setTimeout(checkStatusRunner, 1000 * 10);
                 }
-            
+
             });
         };
 

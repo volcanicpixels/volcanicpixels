@@ -45,7 +45,7 @@ $(document).ready(function(){
                 hideElement('.pending');
                 showElement('.configure');
             }
-            
+
             showError = false;
 
         });
@@ -58,7 +58,7 @@ $(document).ready(function(){
     checkStatusRunner = function() {
         checkStatus(function() {
             runCount++;
-            timer = 1000 * 10;
+            var timer = 1000 * 10;
             if (runCount > 6) {
                 timer = timer * 2;
             }
@@ -68,7 +68,7 @@ $(document).ready(function(){
             if (runCount < 30) {
                 setTimeout(checkStatusRunner, 1000 * 10);
             }
-            
+
         });
     };
 
