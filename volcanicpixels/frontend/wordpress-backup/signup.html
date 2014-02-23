@@ -1,0 +1,39 @@
+{#
+   wordpress-backup/signup
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}WordPress Backup Service| {{ super() }}{% endblock %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <form class="align-center block-form" method="POST">
+            <header>
+                <h1>Sign up for WordPress Backup</h1>
+            </header>
+            <fieldset class="name">
+                <input type="text" placeholder="Your name" />
+            </fieldset>
+            <fieldset class="email">
+                <input type="text" placeholder="Email address" />
+            </fieldset>
+            <fieldset class="password">
+                <input type="password" placeholder="Password" />
+            </fieldset>
+            <p class="highlight">
+                You will not be charged until you make your first backup.
+            <p>
+            <script
+                src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+                data-key="pk_test_NgVxcRzPcljLftdwhuJAMMpX"
+                data-name="Volcanic Pixels"
+                data-description="Charges will appear as Platinum Mirror LTD">
+            </script>
+            <fieldset>
+                <input type="submit" class="button primary-button" />
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

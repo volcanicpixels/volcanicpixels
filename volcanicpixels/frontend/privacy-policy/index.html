@@ -1,0 +1,80 @@
+{#
+   privacy-policy
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Privacy Policy | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight highlight-first">
+    {% markdown %}
+        Privacy Policy
+        ==============
+
+        In short, we only collect and use information that will help make our 
+        products and services better. We never share any of your data unless 
+        absolutely necessary (for example, preventing fraud, when providing a 
+        service from a third party or when legally compelled to).
+
+        ***
+
+
+        The long version
+        ----------------
+
+        At Volcanic Pixels (the "Website", the "Service", Us", "We") We collect 
+        and manage consumer data in accordance with this policy. If you have 
+        any questions or comments regarding this Privacy Policy then please 
+        contact us at <hello@platinummirror.com>.
+
+        ### Information we collect and use
+        
+        We collect anonymous data from every visitor of the Website to monitor 
+        traffic and fix bugs. For example, We collect information like IP 
+        addresses, browser version, timestamp, page accessed. If you are 
+        logged in to the site, this data is linked to your account. 
+
+        ### How We use your data
+
+        We may use your personal information to:  
+        
+         - administer the website
+         - improve your experience of the site by personalising the website
+         - send statements and invoices to you
+         - collect payments from you
+         - send you general (non-marketing) communications
+         - send you email notifications which you have explitly opted-in to
+         - deal with enquiries or complaints
+         - keep the website secure and prevent fraud
+         - list you in the "Customers" section (we will remove you upon request)
+         - action orders with third parties on your behalf
+
+        ## Collecting Payment
+
+        Our current payment provider is Stripe. When you enter your credit 
+        card details they are sent encrypted to Stripe and stored in a PCI 
+        compliant environment. Your credit card information is never sent to,
+        let alone stored on our servers.
+
+        ## SSL orders
+
+        When you make an SSL order with us your details are sent securely to
+        the certificate issuer and are used by them in accordance with their 
+        own privacy policy. Volcanic Pixels routinely verifies that this policy 
+        provides adequate provisions for the privacy of our users and in 
+        the event that it does not we will no longer use that provider and 
+        request that they remove all customer data.
+
+        ### Changes to this policy
+
+        We may amend this Privacy Policy from time to time. Use of information 
+        We collect now is subject to the Privacy Policy in effect at the time 
+        such information is used. If We make major changes in the way We collect 
+        or use your information then We will notify you by posting an announcement 
+        on the website or sending you an email.
+    {% endmarkdown %}
+  </article>
+{% endblock %}

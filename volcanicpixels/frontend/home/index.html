@@ -1,0 +1,17 @@
+{#
+   home
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Home | {{ super() }}{% endblock %}
+
+{% block description%}Volcanic Pixels is home to a collection of web services, specialising in WordPress and App Engine SSL{% endblock %}
+
+{% block page %}
+  <section class="container-tight pad-medium">
+    {{ list(projects, "Our Products and Services", "project", true) }}
+  </section>
+{% endblock %}

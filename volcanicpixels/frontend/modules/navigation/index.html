@@ -1,0 +1,24 @@
+{#
+    modules/navigation
+
+    Copyright (c) Daniel Chatfield
+#}
+
+{% macro navigation(items=[], type=false) %}
+  <nav class="page-nav">
+    <ul>
+      {% for item in items %}
+        {% if item.selected %}
+          {% set selected = 'selected' %}
+        {% else %}
+          {% set selected = '' %}
+        {% endif%}
+        <li>
+          <a class="{{ selected }}" href="{{ item.url }}">
+            {{ item.link_title or item.title or item.name or item.text }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>  
+{% endmacro %}

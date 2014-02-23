@@ -1,0 +1,25 @@
+{#
+   contact
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Contact Us | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight">
+    {% markdown %}
+        Contact Us
+        ==========
+
+        If you are having a problem with a product then the best place to go 
+        is our [help centre](https://platinummirror.zendesk.com) and submit 
+        a request.
+
+        If you have a general enquiry or just want to say hi then email us at 
+        <hello@volcanicpixels.com>.
+    {% endmarkdown %}
+  </article>
+{% endblock %}

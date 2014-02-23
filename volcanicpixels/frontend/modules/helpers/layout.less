@@ -1,0 +1,98 @@
+/**
+ * modules/helpers/layout
+ *
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/constants/layout";
+
+// Floats
+// ~~~~~~
+.clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+// Visibility
+// ~~~~~~~~~~
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+// Layout
+// ~~~~~~
+.container,
+.container-tight,
+.container-very-tight {
+    .clearfix;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+.container {
+    max-width: @container-width;
+}
+
+.container-tight {
+    max-width: @container-tight-width;
+}
+
+.container-very-tight {
+    max-width: @container-very-tight-width;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.vertical-center-outer {
+    display: table;
+}
+
+.vertical-center-inner {
+    display: table-cell; 
+    vertical-align: middle;
+}
+
+// Padding
+// ~~~~~~~
+
+.pad-medium {
+    padding-top: 2em;
+    padding-bottom: 1.5em;
+}
+
+.pad-heavy {
+    padding-top: 4em;
+    padding-bottom: 3em;
+}
+
+// Lists
+// ~~~~~
+.no-list-style {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

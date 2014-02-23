@@ -1,0 +1,14 @@
+{#
+   errors/404
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout/error.html" %}
+
+{% block title %}Not Found | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight">
+    <h1>404, Not Found</h1>
+  </article>
+{% endblock %}

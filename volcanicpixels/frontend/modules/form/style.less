@@ -1,0 +1,207 @@
+/**
+ * modules/form
+ * 
+ * Copyright (c) 2013 Daniel Chatfield
+ */
+
+@import (reference) "modules/article/style";
+@import (reference) "modules/buttons/style";
+@import (reference) "modules/constants/colors";
+@import (reference) "modules/mixins/style";
+
+.article .block-form,
+.block-form {
+    max-width: 25em;
+    margin: 0 auto;
+    padding: 0 1.5em;
+
+    h1 {
+        font-size: 1.3em;
+        .align-center;
+    }
+
+    hr {
+        .article-hr;
+    }
+
+    p {
+        font-size: @font-size-small;
+        line-height: 1.7em;
+        text-align: center;
+
+        &.error {
+            color: red;
+        }
+    }
+
+    p,
+    .button,
+    fieldset,
+    textarea {
+        &.loading::after {
+            margin-left: 0.5em;
+            margin-top: -0.5em;
+            top: 50%;
+            left: 100%;
+            content: ' ';
+            height: 1em;
+            width: 1em;
+            position: absolute;
+            border-radius: 50%;
+            border:dashed 0.1em rgba(0,0,0,0.2);
+            .animation(loader-spin 1.5s infinite linear);
+        }
+    }
+
+    textarea {
+        width: 100%;
+        resize: vertical;
+        height: 300px;
+        border: 1px solid @light-gray;
+    }
+
+    fieldset {
+        position: relative;
+    }
+
+    legend,
+    h2 {
+        font-size: 1em;
+        text-align: center;
+        font-weight: @font-weight-semibold;
+        padding: 0.5em 0 1em 0;
+    }
+
+    label {
+        display: block;
+
+        &.new {
+            font-style: italic;
+        }
+    }
+
+    select {
+        .block-form-input;
+        border-left: none;
+        border: 1px solid @light-gray;
+        &:focus {
+            .animation(none);
+            border: 1px solid @gray;
+        }
+    }
+
+    .highlight {
+        line-height: 1.2em;
+    }
+
+    a {
+        .article-link;
+        font-style: inherit;
+    }
+
+    span > .button,
+    > .button {
+        margin-bottom: 1em;
+        width: 100%;
+    }
+}
+
+.block-form-input {
+    background: @subtle-highlight;
+    border: none;
+    width: 100%;
+    padding: 0.5em 0.9em;
+    border-left: 0.5em solid @subtle-highlight;
+
+    .placeholder {
+        color: @subtle-highlight-text;
+        font-weight: @font-weight-medium;
+    }
+
+    /**
+     * Do not combine placeholder definitions otherwise they will not work.
+     */
+
+    &::-webkit-input-placeholder {
+        .placeholder;
+    }
+
+    &::-moz-placeholder {
+        .placeholder;
+    }
+
+    &:focus {
+        .block-form-focus;
+        outline: none;
+    }
+
+    &:disabled,
+    &.disabled {
+        opacity: 0.8;
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.block-form input {
+
+    &[type="text"],
+    &[type="password"] {
+        .block-form-input;
+    }
+
+    &[type="submit"] {
+        width: 100%;
+    }
+
+    &[type="radio"] {
+        margin-right: 1em;
+    }
+
+}
+
+.block-form-focus {
+    .animation(block-form-focus 1s infinite);
+}
+
+@keyframes block-form-focus {
+ 50% {
+    border-left-color: @emphasis-color;
+ }
+}
+
+@-moz-keyframes block-form-focus {
+ 50% {
+   border-left-color: @emphasis-color;
+ }
+}
+
+@-webkit-keyframes block-form-focus {
+ 50% {
+   border-left-color: @emphasis-color;
+ }
+}
+
+
+@keyframes loader-spin {
+    from { 
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes loader-spin {
+    from {  -moz-transform: rotate(0deg); }
+    to   {  -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes loader-spin {
+    from {  -webkit-transform: rotate(0deg); }
+    to   {  -webkit-transform: rotate(360deg); }
+}

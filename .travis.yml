@@ -1,0 +1,14 @@
+language: python
+python:
+ - "2.7"
+
+
+install:
+ - npm install -g grunt-cli
+ - npm install -g bower
+ - npm install
+ - bower install
+ - pip install pep8
+
+script:
+ - grunt test

@@ -1,0 +1,174 @@
+{#
+   terms-of-service
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Terms of Service | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight pad-medium highlight-first">
+    {% markdown %}
+        Terms of Service
+        ================
+
+        In short, we run this website called Volcanic Pixels and you are more
+        than welcome to use it and the products distributed through it. All we
+        ask is that you don't use it for things which are illegal or harmful.
+
+        ***
+
+        The long version
+        ----------------
+
+
+        ### 1. Introduction
+
+        The following terms and conditions govern use of the Volcanic
+        Pixels website or the products distributed on it (the "Service"). The
+        website is wholly owned and operated by Platinum Mirror LTD ("Platinum
+        Mirror", "We", "Us"). By using the Service you agree to these terms in
+        full. If you disagree with these terms, You must not use this service.
+
+        You must be at least 13 years of age to use this Service. By using
+        the Service, you warrant and represent that you are at least 13 years
+        of age.
+
+
+        ### 2. License to use the Service
+
+        Unless otherwise stated, We own the intellectual property rights to
+        the Service and all code contained within it. We reserve the right to
+        refuse the Service to any user.
+
+
+        ### 3. Warranty Disclaimer
+
+        We make no warrant of any kind, whether express, implied, statutory or
+        otherwise, including without limitation, merchantability fitness for a
+        particular use and noninfringement. The service is provided by Us and
+        Our Licensors "as is" and "as available". You assume all risk for your
+        use of the Service, including without limitation any harm caused by
+        viruses, works, or other damaging materials.
+
+
+        ### 4. Law and jurisdiction
+
+        These terms of use will be governed by and construed in accordance
+        with English law, and any disputes relating to these terms of use will
+        be subject to the non-exclusive jurisdiction of the courts of England
+        and Wales.
+
+
+        ### 5. Refunds
+
+        All payments are final and non-refundable, except at Our sole
+        discretion.
+
+
+        ### 6. Severability
+
+        If a provision of these terms of use is determined by any court or
+        other competent authority to be unlawful and/or unenforceable, the
+        other provisions will continue in effect. If any unlawful and/or
+        unenforceable provision would be lawful or enforceable if part of it
+        were deleted, that part will be deemed to be deleted, and the rest of
+        the provision will continue in effect.
+
+
+        ### 7. SSL Certificate Subscriber Agreement
+
+        #### 7.1 Definitions
+
+        **"Certificate Application"** means a request to a CA for the issuance
+        of a Certificate.
+
+        **"Certificate Authority"** or **"CA"** means an entity authorized to
+        issue, suspend, or revoke Certificates. For purposes of this
+        Agreement, CA shall mean Comodo.
+
+
+        ### 7.2 Use and Restrictions
+
+        You may install the Certificate only on servers that are accessible
+        at the domain(s) listed in the Certificate. You are prohibited from
+        using your Certificate;
+
+        - (i) for or on behalf of any other organization;
+        - (ii) to perform private or public key operations in connection with
+        any domain and/or organization name other than the one you submitted
+        on your Certificate Application; and
+        - (iii) with control equipment in hazardous circumstances or
+        for uses requiring fail-safe performance such as the operation of
+        nuclear facilities, aircraft navigation or communication systems,
+        air traffic control systems, or weapons control systems, where
+        failure could lead directly to death, personal injury, or severe
+        environmental damage. If you are using the Licensed Certificate
+        Option, you acknowledge and agree that this option can result in
+        increased security risks to your network and that both We and Comodo
+        expressly disclaims any liability for breaches of security that result
+        from the distribution of a single key across multiple devices.
+
+
+        ### 7.3 Reporting and Revocation
+
+        If you discover or have reason to believe there has been a compromise
+        of your private key, or the information within your Certificate is,
+        or has become, incorrect or inaccurate, or if your organization name
+        and/or domain name registration has changed, you must immediately
+        cease using the Certificate and its associated private key, and you
+        must notify Comodo (or Us, and we will notify Comodo on your
+        behalf). If We or Comodo discovers or has reason to believe that
+        there has been a compromise of your private key or misuse of your
+        Certificate, you must respond to Our or Comodo's instructions
+        within the time specified. Both Volcanic Pixels and Comodo retains
+        the right to revoke your Certificate at any time without notice if;
+
+        - (i) we discover that the information within your Certificate is no
+        longer valid;
+        - (ii) you violate or fail to perform your obligations under the
+        terms of this Agreement; or
+        - (iii) Comodo determines in its sole discretion that the continued
+        use of your Certificate may compromise the security or integrity of
+        the CA. We may also revoke your Certificate for non-payment.
+
+
+        ### 7.4 Comodo Representations and Warranties
+
+        Comodo represents and warrants that
+
+        - (i) there are no errors introduced by Comodo in the Certificate
+        information as a result of Comodo's failure to use reasonable care
+        in creating the Certificate;
+        - (ii) its issuance of Certificates shall comply in all material
+        respects with its CPS; and
+        - (iii) its revocation services and use of a Repository conform to
+        its CPS in all material aspects.
+
+
+        ### 8. Breaches of these terms of service
+
+        Without prejudice to Our other rights under these terms of use, if
+        You breach these terms of use in any way, we may take such action as
+        we deem appropriate to deal with the breach, including suspending Your
+        access to the Service, prohibiting You from accessing the Service,
+        blocking computers using Your IP address from accessing the Service,
+        contacting Your internet service provider to request that they block
+        Your access to the Service and/or bringing court proceedings against
+        You.
+
+        ### 9. Terms of Service reading
+
+        Congratulations, you are actually reading the terms of service. I
+        hope you have had a nice read.
+
+        ***
+
+
+        If you have any questions about the information contained within this
+        document please contact us at <hello@platinummirror.com>.
+    {% endmarkdown %}
+  </article>
+{% endblock %}

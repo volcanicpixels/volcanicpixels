@@ -1,0 +1,5 @@
+application: volcanicpixels
+
+dispatch:
+ - url: "*"
+   module: www

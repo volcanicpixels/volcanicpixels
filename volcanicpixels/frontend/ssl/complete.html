@@ -1,0 +1,122 @@
+{#
+   app-engine-ssl/complete
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block js %}ssl/complete{% endblock %}
+
+{% block title %}SSL Certificate Purchased | {{ super() }}{% endblock %}
+
+{% if certificate.status == "active" %}
+    {% set pending = 'hide' %}
+{% else %}
+    {% set configure = 'hide' %}
+{% endif %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <div class="block-form">
+            <header>
+                <h1 class="pending {{ pending }}">Certificate Purchased</h1>
+                <h1 class="configure {{ configure }}">Setup Certificate</h1>
+            </header>
+            <input type="hidden" class="order-id" value="{{ certificate.order_id }}" />
+
+                <p class="pending {{ pending }}">
+                    Congratulations, you have purchased an SSL certificate. Shortly you will receive an email to verify your identity. <span class="highlight">Click on the link in the email and enter the verification code.</span></span>
+                </p>
+                <p class="configure {{ configure }}">
+                    <span class="highlight">Follow the steps below to setup your SSL certificate with App Engine.</span> If you get stuck then submit an issue <a>here</a>.
+                </p>
+                <hr />
+            <span class="pending {{ pending }}">
+                <button class="button regular-button resend-email">Resend verification email</button>
+                <p class="hide positive resend-success">Verification email has been resent</p>
+                <p class="hide negative resend-error">Verification email could not be resent, contact support.</p>
+                <button class="button primary-button ive-verified">I've verified</button>
+                <p class="negative not-verified hide">
+                    Not verified (it can take up to 10 minutes after verifying, please be patient).
+                </p>
+            </span>
+            <span class="configure {{ configure }}">
+                <h2>Step 1</h2>
+                <p>
+                    Download your certificates. For now you only need the <em>App engine</em> certificates, the others will become useful if you move from app engine to another host.
+                </p>
+                <a target="_blank" class="button primary-button" href="{{ url_for('ssl.download', order_id=certificate.order_id, type="appengine") }}">Download App Engine Certs</a>
+                <a target="_blank" class="button regular-button" href="{{ url_for('ssl.download', order_id=certificate.order_id, type="unformatted") }}">Download Unformatted Certs</a>
+                <hr />
+                <h2>Step 2</h2>
+                <p>
+                    If you have not enabled SSL for your domain then do that now. Google has a <a target="_blank" href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">handy guide</a> to help you.
+                </p>
+                <hr />
+                <h2>Step 3</h2>
+                <p>
+                    Go to the <a href="https://admin.google.com">Google Apps Admin panel</a>.
+                </p>
+                <p>
+                    Click "Security" <em>(may be under "more controls" at the bottom)</em>.
+                </p>
+                <p>
+                    Click "SSL for Custom Domains" <em>(may need to click "show more")</em>.
+                </p>
+                <hr />
+                <h2>Step 4</h2>
+                <p>
+                    Click "Upload a new certificate".
+                </p>
+                <p>
+                    Select <code>certificate.crt</code> from the download for the field labelled "PEM encoded x.509 certificate."
+                </p>
+                <p>
+                    {% if certificate.keypair %}
+                    Select <code>privatekey.key</code> from the download for the field labelled "Unencrypted private key"
+                    {% else %}
+                    Select the private key that you used to generate the CSR for the field labelled "Unencrypted private key". <small>This won't work if the privatekey hasn't been decrypted.</small>
+                    {% endif %}
+                </p>
+                <p>
+                    Click "Upload".
+                </p>
+                <hr />
+                <h2>Step 5</h2>
+                <p>
+                    Assign the URLs that you want to protect
+                </p>
+                {#
+                <button class="button regular-button">Tell the world how great we are</button>
+                #}
+                <hr />
+                <h2>Step 6</h2>
+                <p>
+                    You are done, it may take up to an hour before the certificates work in your browser.
+                </p>
+                <a class="button regular-button" href="{{ url_for('ssl.buy') }}">Purchase another certificate</a>
+                <a class="button regular-button" href="mailto:hello@volcanicpixels.com">Submit feedback</a>
+            </span>
+        </div>
+    </section>
+    <!-- Google Code for SSL certificate sold Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 980120030;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "KEsGCILCwAcQ3uOt0wM";
+var google_conversion_value = 15;
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/980120030/?value=15&amp;label=KEsGCILCwAcQ3uOt0wM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+{% endblock %}

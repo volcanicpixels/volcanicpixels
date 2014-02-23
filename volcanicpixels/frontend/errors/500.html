@@ -1,0 +1,14 @@
+{#
+   errors/500
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout/error.html" %}
+
+{% block title %}Internal Server Error | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight">
+    <h1>500, Internal Server Error</h1>
+  </article>
+{% endblock %}

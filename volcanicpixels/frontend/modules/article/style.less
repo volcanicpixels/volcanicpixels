@@ -1,0 +1,85 @@
+/**
+ * modules/articles
+ * 
+ * Copyright (c) Daniel Chatfield
+ */
+
+@import (reference) "modules/constants/typography";
+@import (reference) "modules/constants/colors";
+@import "modules/fonts/essays-1743/normal";
+
+@article-body-font: 'Droid Serif', serif;
+@article-title-font: "Essays 1743", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+
+@article-padding: 2em;
+
+.article {
+    padding: 0 @article-padding;
+
+    p,
+    a:not(.button),
+    li,
+    blockquote {
+        font-family: @article-body-font;
+        line-height: 1.6em;
+        text-align: justify;
+    }
+
+    a:not(.button) {
+        .article-link;
+    }
+
+}
+
+.article-link {
+    color: @link-text;
+    border-bottom: 1px solid @lightest-gray;
+    text-decoration: none;
+    font-style: italic;
+
+    &:hover,
+    &:focus {
+        color: darken(@link-text, 10%);
+        border-bottom-color: @link-text;
+    }
+}
+
+.article-highlight {
+    margin-left: -1.5em;
+    margin-right: -1.5em;
+    font-size: @font-size-xlarge;
+    font-weight: @font-weight-semibold;
+}
+
+.highlight-first >section:first-child > p:first-of-type,
+.highlight-first > p:first-of-type {
+    .article-highlight;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.article-bleed {
+    margin-left: -@article-padding;
+    margin-right: -@article-padding;
+}
+
+.article-title {
+    font-family: @article-title-font;
+    text-align: center;
+    font-size: 3em;
+    color: @black;
+}
+
+.article > section:first-child > h1:first-of-type,
+.article > h1:first-of-type {
+    .article-title;
+    margin-top: 0.2em;
+}
+
+.article hr,
+.article-hr {
+    display: block;
+    width: 20%;
+    margin: 50px auto 40px auto;
+    border: 1px solid @lighter-gray;
+}

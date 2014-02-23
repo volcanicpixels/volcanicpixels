@@ -1,0 +1,23 @@
+{#
+   modules/header
+
+   Copyright (c) Daniel Chatfield
+#}
+
+{% from "modules/navigation" import navigation %}
+
+{% set links = get_links(
+  ['home', 'private-blog', 'ssl', 'customers', 'help', 'contact']) %}
+
+<header class="page-header">
+  {{ navigation(links) }}
+  <div class="account-box pull-right">
+    <div class="account-box-item">
+        {% if user %}
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">Login</a>
+        {% endif %}
+    </div>
+  </div>
+</header>

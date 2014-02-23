@@ -1,63 +1,52 @@
-application: volcanicpixels
-version: www
-runtime: python27
-api_version: 1
-threadsafe: yes
+application: volcanic-pixels
+version: live
 
+runtime: python27
+threadsafe: true
+api_version: 1
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: automatic  # default value
+  min_pending_latency: automatic  # default value
+  max_concurrent_requests: 50
 
 handlers:
+- url: /assets
+  static_dir: assets
 
-- url: /favicon.ico
-  static_files: application/static/img/favicon.ico
-  upload: application/static/img/favicon.ico
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
 
-- url: /robots.txt
-  static_files: application/static/robots.txt
-  upload: application/static/robots.txt
+- url: /robots\.txt
+  static_files: robots.txt
+  upload: robots\.txt
 
-- url: /gae_mini_profiler/static
-  static_dir: volcano/gae_mini_profiler/static
+- url: /api/1/.*
+  script: volcanicpixels.legacy.app
 
-- url: /gae_mini_profiler/.*
-  script: volcano.gae_mini_profiler.main.application
 
-- url: /static
-  static_dir: application/static
+- url: /ssl.*
+  script: volcanicpixels.frontend.app
+  secure: always
 
 - url: .*
-  script: volcano.app
-
-
-
-
-libraries:
-- name: webapp2
-  version: "2.5.2"
-- name: jinja2
-  version: "2.6"
-- name: markupsafe
-  version: "0.15"
-- name: yaml
-  version: "3.10"
-
-
-
-builtins:
-- remote_api: on
-- deferred: on
-- appstats: on
-
+  script: volcanicpixels.frontend.app
+  secure: optional
 
 inbound_services:
 - warmup
 
+builtins:
+- deferred: on
 
+libraries:
+- name: pycrypto
+  version: "2.6"
+- name: ssl
+  version: latest
 
-error_handlers:
-- file: error_pages/default_error.html
-- error_code: over_quota
-  file: error_pages/over_quota.html
-- error_code: dos_api_denial
-  file: error_pages/dos_api_denial.html
-- error_code: timeout
-  file: error_pages/timeout.html
+skip_files:
+- node_modules(.*)
+- node_modules
+- node_modules/

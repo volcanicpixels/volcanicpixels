@@ -1,0 +1,58 @@
+{#
+   security
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+{% from "modules/list" import list %}
+
+{% block title %}Security | {{ super() }}{% endblock %}
+
+{% block page %}
+  <article class="article container-very-tight pad-medium highlight-first">
+    {% markdown %}
+        Security
+        ========
+
+        In short, we use industry standard security measures to keep your data 
+        safe. We encourage responsible disclosure of security vulnerabilities 
+        and reward people for doing so.
+
+        ***
+
+        The long version
+        ----------------
+
+        ### Physical Security
+
+         - Data center access is limited to Google Data Center technicians.
+         - Security personnel are present 24 hours a day, 7 days a week.
+         - Files are stored with random file names and not in plain text so 
+           they are not humanly readable.
+         - When hard drives reach the end of their life they are crushed and 
+           shredded.
+
+
+        ### System security
+
+         - Distributed Denial of Service (DDoS) mitigation services
+         - No one has root access (VM instance are immutable, they can only be
+           created and destroyed)
+
+        ### SSL Encryption
+
+        All transactions are completed over SSL.
+
+        ### Responsible disclosure
+
+        If you have found a security vulnerability please contact us at 
+        <hello@platinummirror.com>. Please act in good faith towards our 
+        users' privacy and data during your disclosure.
+
+        ---
+
+        If you have any questions about the information contained within this 
+        document please contact us at <hello@platinummirror.com>.
+    {% endmarkdown %}
+  </article>
+{% endblock %}

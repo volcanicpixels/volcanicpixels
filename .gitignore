@@ -2,6 +2,10 @@
 ## This Project
 #################
 secret_keys.py
+newrelic.ini
+*.egg-info
+.idea
+node_modules
 
 #################
 ## Eclipse
@@ -10,7 +14,6 @@ secret_keys.py
 *.pydevproject
 .project
 .metadata
-bin/
 tmp/
 *.tmp
 *.bak
@@ -145,7 +148,6 @@ dist
 build
 eggs
 parts
-bin
 var
 sdist
 develop-eggs
