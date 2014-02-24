@@ -1,5 +1,5 @@
 application: volcanic-pixels
-version: live
+version: beta
 
 runtime: python27
 threadsafe: true
