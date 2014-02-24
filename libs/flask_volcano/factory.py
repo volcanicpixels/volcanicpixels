@@ -9,7 +9,7 @@
 from flask import Flask, Blueprint
 from flask.ext.modular_template_loader import register_loader
 
-from .helpers import register_blueprints, url_build_handler
+from .helpers import register_blueprints, url_build_handler, is_dev_server
 
 
 def create_app(package_name, package_path, config=None, **kwargs):
@@ -28,7 +28,10 @@ def create_app(package_name, package_path, config=None, **kwargs):
     app = Flask(package_name, **kwargs)
 
     app.config.from_object('volcanicpixels.settings')
-    app.config.from_object('volcanicpixels.secret_keys')
+    if is_dev_server():
+        app.config.from_object('volcanicpixels.dev_keys')
+    else:
+        app.config.from_object('volcanicpixels.secret_keys')
     app.config.from_pyfile('settings.cfg', silent=True)
     app.config.from_object(config)
 
