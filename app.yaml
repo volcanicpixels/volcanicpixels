@@ -32,7 +32,7 @@ handlers:
 
 - url: .*
   script: volcanicpixels.frontend.app
-  secure: optional
+  secure: always
 
 inbound_services:
 - warmup
