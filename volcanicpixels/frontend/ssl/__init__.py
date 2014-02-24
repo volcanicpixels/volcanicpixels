@@ -128,6 +128,22 @@ def complete_order():
     return render_template('ssl/complete', certificate=cert)
 
 
+@bp.route('/list')
+def list_orders():
+    """
+    Lists all orders for this account.
+    """
+    user = get_current_user()
+
+    if not user:
+        # TODO: fix redirect path to include args
+        return redirect(url_for('auth.login', redirect=request.path))
+
+    certs = get_user_certificates(limit=10)
+
+    return render_template('ssl/list', certificates=certs)
+
+
 @bp.route('/download')
 def download():
     """

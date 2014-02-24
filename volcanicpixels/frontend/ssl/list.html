@@ -1,0 +1,24 @@
+{#
+   app-engine-ssl/list
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}SSL Certificates | {{ super() }}{% endblock %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <div class="block-form">
+            <header>
+                <h1 class="pending {{ pending }}">Certificates Purchased</h1>
+            </header>
+            <span class="certificate-list">
+                {% for certificate in certificates if certificate.status != "created" %}
+                    <a class="button regular-button" href="{{ url_for('ssl.complete_order', order_id=certificate.order_id) }}">{{ certificate.domain }}</a>
+                {% endfor %}
+            </span>
+        </div>
+    </section>
+
+{% endblock %}
