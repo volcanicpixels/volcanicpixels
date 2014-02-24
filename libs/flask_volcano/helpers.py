@@ -92,6 +92,17 @@ def is_dev_server():
             get_application_id().endswith('staging'))
 
 
+def is_beta_server():
+    return os.environ.get('CURRENT_VERSION_ID', '').startswith('beta')
+
+
+def server_info():
+    if is_dev_server():
+        return "[DEV]"
+    elif is_beta_server():
+        return "[BETA]"
+
+
 def url_build_handler(error, endpoint, values):
     if endpoint.split('.')[-1] not in ['render', 'index']:
         for item in ['render', 'index']:

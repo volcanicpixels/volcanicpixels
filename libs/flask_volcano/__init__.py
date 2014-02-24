@@ -10,5 +10,5 @@
 
 from .helpers import (
     route, register_blueprints, register_views, is_dev_server, make_external,
-    canonical_url)
+    canonical_url, server_info)
 from .factory import create_app, create_blueprint
