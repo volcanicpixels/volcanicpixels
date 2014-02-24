@@ -101,6 +101,7 @@ def server_info():
         return "[DEV]"
     elif is_beta_server():
         return "[BETA]"
+    return ""
 
 
 def url_build_handler(error, endpoint, values):
