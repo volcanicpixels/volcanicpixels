@@ -4,7 +4,6 @@ python:
 
 
 install:
- - npm install
  - pip install pep8
 
 script:
