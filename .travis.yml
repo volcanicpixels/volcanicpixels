@@ -11,4 +11,4 @@ install:
  - pip install pep8
 
 script:
- - grunt test
+ - npm test

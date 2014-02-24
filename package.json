@@ -11,5 +11,8 @@
     "grunt-bower-requirejs": "~0.8.4",
     "grunt-contrib-requirejs": "~0.4.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "test": "grunt test"
+  }
 }
