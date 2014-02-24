@@ -10,8 +10,7 @@
     "grunt-es6-module-transpiler": "~0.4.1",
     "grunt-bower-requirejs": "~0.8.4",
     "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-cli": "~0.1.13",
-    "bower": "~1.2.8"
+    "grunt-cli": "~0.1.13"
   },
   "dependencies": {},
   "scripts": {
