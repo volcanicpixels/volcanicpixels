@@ -73,7 +73,7 @@ def process_order():
     for key in request.form:
         options[key] = request.form[key]
 
-    logging.error(options)
+    logging.info(options)
 
     try:
         options = check_request(options)

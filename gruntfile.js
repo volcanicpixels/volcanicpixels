@@ -108,7 +108,30 @@ module.exports = function(grunt) {
         files: ['assets/components/**.js', 'bower.json'],
         tasks: ['bower', 'requirejs']
       }
-    }
+    },
+    gae: {
+      staging: {
+        action: 'update',
+        options: {
+          application: "volcanicpixels-staging",
+          version: "live"
+        }
+      },
+      beta: {
+        action: 'update',
+        options: {
+          application: "volcanic-pixels",
+          version: "beta"
+        }
+      },
+      live: {
+        action: 'update',
+        options: {
+          application: "volcanic-pixels",
+          version: "live"
+        }
+      }
+    },
   });
 
   grunt.loadNpmTasks('grunt-bower-requirejs');
@@ -119,11 +142,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-es6-module-transpiler');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-gae');
 
   // Default task(s).
   grunt.registerTask('default', ['pep8','jshint', 'less', 'copy', 'transpile', 'bower', 'requirejs']);
   grunt.registerTask('pep8', ['shell:pep8']);
   grunt.registerTask('test', ['jshint', 'pep8']);
   grunt.registerTask('js', ['transpile', 'requirejs']);
+  grunt.registerTask('staging', ['gae:staging']);
+  grunt.registerTask('beta', ['gae:beta']);
+  grunt.registerTask('production', ['gae:live']);
 
 };

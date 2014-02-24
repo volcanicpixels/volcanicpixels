@@ -89,7 +89,6 @@ def find_package_path(import_name):
 
 def is_dev_server():
     return (os.environ.get('SERVER_SOFTWARE', '').startswith('Development') or
-            os.environ.get('CURRENT_VERSION_ID', '').startswith('beta') or
             get_application_id().endswith('staging'))
 
 
