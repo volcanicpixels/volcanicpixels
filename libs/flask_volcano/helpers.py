@@ -10,6 +10,8 @@ import importlib, logging, pkgutil, os, sys
 from urlparse import urljoin
 from functools import wraps
 
+from google.appengine.api.app_identity import get_application_id
+
 from flask import Blueprint, url_for, request, current_app
 from werkzeug.routing import BuildError
 
@@ -86,7 +88,9 @@ def find_package_path(import_name):
 
 
 def is_dev_server():
-    return os.environ.get('SERVER_SOFTWARE', '').startswith('Development') or os.environ.get('CURRENT_VERSION_ID', '').startswith('beta')
+    return (os.environ.get('SERVER_SOFTWARE', '').startswith('Development') or
+            os.environ.get('CURRENT_VERSION_ID', '').startswith('beta') or
+            get_application_id.endswith('staging'))
 
 
 def url_build_handler(error, endpoint, values):
