@@ -5,6 +5,7 @@ secret_keys.py
 newrelic.ini
 *.egg-info
 .idea
+node_modules
 
 
 #################
