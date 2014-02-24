@@ -254,8 +254,7 @@ def process_request(options):
     result = create_dv_ssl_order(
         csr,
         domain,
-        approver_email,
-        custom_order_id=ssl_certificate.key.id()
+        approver_email
     )
 
     ssl_certificate.order_id = result['TheSSLStoreOrderID']
