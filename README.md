@@ -3,8 +3,13 @@ This repository contains all the code for the Volcanic Pixels website.
 [![Build Status](https://travis-ci.org/volcanicpixels/volcanicpixels.png)](https://travis-ci.org/volcanicpixels/volcanicpixels)
 
 
-# Running application locally
+[Staging site](https://staging.volcanicpixels.com) - when a commit passes tests it gets pushed automatically to staging server. Staging is completely isolated from production environment and you can use test credit cards e.g. 4242 4242 4242 4242
 
+[Beta tier](https://beta.volcanicpixels.com) - 20% of traffic to www.volcanicpixels.com is transparently served from the beta tier. The beta tier is "live" and runs on production data and thus care must be taken before pushing to beta.
+
+[Live tier](https://www.volcanicpixels.com) - The main website, should be very stable.
+
+# Running application locally
 
 ## Requirements
 
