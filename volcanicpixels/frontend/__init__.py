@@ -8,7 +8,8 @@
 from flask.ext.links import links
 from flask.ext.markdown import markdown
 from flask.ext.volcano import (
-    route, create_app as _create_app, canonical_url, server_info)
+    route, create_app as _create_app, canonical_url, server_info,
+    make_external)
 from volcanicpixels.users import inject_user
 from raven_appengine import register_sentry
 from sslstore_api import flask_init
@@ -31,6 +32,7 @@ def create_app(settings_override=None):
 
     app.context_processor(inject_user)
     app.add_template_global(canonical_url)
+    app.add_template_global(make_external)
     app.add_template_global(server_info)
 
     register_error_handlers(app)
