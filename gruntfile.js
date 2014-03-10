@@ -36,6 +36,14 @@ module.exports = function(grunt) {
           dest: 'assets/fonts/'
         }]
       },
+      images: {
+        files: [{
+          expand: true,
+          cwd: "volcanicpixels/frontend/",
+          src: ['**/*.png'],
+          dest: 'assets/frontend/'
+        }]
+      },
       js: {
         files: [{
           src: 'volcanicpixels/frontend/config.js',
