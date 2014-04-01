@@ -5,7 +5,6 @@
 #}
 {% extends "ssl/buy" %}
 
-{% block title %}SSL Certificates | Volcanic Pixels{% endblock %}
 {% block title %}SSL Certificates for App Engine | Volcanic Pixels{% endblock %}
 
 {% block description%}The Quickest and easiest way to get SSL certificates for AppEngine.{% endblock %}
@@ -13,10 +12,8 @@
 {% block page %}
     <article class="article container ssl">
         <section class="intro container-tight">
-            <h1>SSL Certificates</h1>
             <h1>SSL Certificates for App Engine</h1>
             <p class="article-highlight align-center">
-                The quickest and easiest way to get SSL certificates for AppEngine. No messing about with the terminal or combining keys.
                 The quickest and easiest way to get SSL certificates for App Engine. No messing about with the terminal or combining keys.
             </p>
             {% if request.args.promotion is defined %}
@@ -33,7 +30,7 @@
                     <i class="li_banknote"></i>
                     <h1>Great pricing</h1>
                     <p>At just <span class="highlight">£{{ price | default(35)}}</span> a year we not only provide you with exceptional features, but also exceptional value.</p>
-                    <small>Note: You need to have <a href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">activated ssl</a>, which Google charges for.</small>
+                    <small>Note: You need to have <a href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">activated ssl</a>.</small>
                 </div>
             </section>
 
