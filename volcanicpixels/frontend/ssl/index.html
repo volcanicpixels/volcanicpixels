@@ -6,6 +6,7 @@
 {% extends "ssl/buy" %}
 
 {% block title %}SSL Certificates | Volcanic Pixels{% endblock %}
+{% block title %}SSL Certificates for App Engine | Volcanic Pixels{% endblock %}
 
 {% block description%}The Quickest and easiest way to get SSL certificates for AppEngine.{% endblock %}
 
@@ -13,8 +14,10 @@
     <article class="article container ssl">
         <section class="intro container-tight">
             <h1>SSL Certificates</h1>
+            <h1>SSL Certificates for App Engine</h1>
             <p class="article-highlight align-center">
                 The quickest and easiest way to get SSL certificates for AppEngine. No messing about with the terminal or combining keys.
+                The quickest and easiest way to get SSL certificates for App Engine. No messing about with the terminal or combining keys.
             </p>
             {% if request.args.promotion is defined %}
             <div class="align-center font-size-large"><a href="{{ url_for('.buy', promotion=request.args.promotion) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a></div>
