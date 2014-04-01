@@ -121,10 +121,6 @@ def complete_order():
             logging.error('Certificate not found')
             raise Exception("Certificate not found")
 
-    #if cert.status != 'pending':
-        # TODO: redirect to dashboard
-        #return "Already setup"
-
     return render_template('ssl/complete', certificate=cert)
 
 
