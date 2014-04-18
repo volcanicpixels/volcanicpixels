@@ -1,0 +1,39 @@
+{#
+   app-engine-ssl/coupon
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}%}
+
+{% block title %}SSL Coupons | {{ super() }}{% endblock %}
+
+{% block page %}
+    <section class="container-very-tight">
+        <form class="block-form" method="POST" action="{{ url_for('ssl.generate_coupon') }}">
+          {% if coupon_code %}
+            <fieldset>
+                <input name="coupon_code" type="text" value="{{ coupon_code }}" />
+                <p><a href="{{ make_external(url_for('ssl.buy', coupon=coupon_code)) }}">Link</a></p>
+                <p><a href="{{ make_external(url_for('ssl.upload_csr', coupon=coupon_code)) }}">Link</a></p>
+            </fieldset>
+          {% endif %}
+            <header>
+                <h1 class="">Generate Coupon</h1>
+            </header>
+            <fieldset>
+                <input name="name" id="name" type="text" placeholder="Name" />
+            </fieldset>
+            <fieldset>
+                <input name="domain" id="domain" type="text" placeholder="Domain" />
+            </fieldset>
+            <fieldset>
+                <input name="price" id="price" type="text" placeholder="Price" />
+            </fieldset>
+            <fieldset>
+                <input type="submit" class="button primary-button" value="Generate coupon" />
+            </fieldset>
+        </form>
+
+    </section>
+
+{% endblock %}

@@ -6,13 +6,18 @@
     :copyright: (c) 2013 by Daniel Chatfield
 """
 
-import importlib, logging, pkgutil, os, sys
+import importlib
+import logging
+import pkgutil
+import os
+import sys
 from urlparse import urljoin
 from functools import wraps
 
 from google.appengine.api.app_identity import get_application_id
+from google.appengine.api import users
 
-from flask import Blueprint, url_for, request, current_app
+from flask import Blueprint, url_for, request, current_app, redirect
 from werkzeug.routing import BuildError
 
 
@@ -63,7 +68,6 @@ def register_views(app, package_name, package_path=None):
         # ignore private modules
         if name[:1] != '_':
             importlib.import_module('%s.%s' % (package_name, name))
-
 
 
 def find_package_path(import_name):
@@ -121,3 +125,15 @@ def make_external(url, root=None):
 
 def canonical_url(url):
     return make_external(url, current_app.config.get('CANONICAL_URL_ROOT'))
+
+
+def admin_required(func):
+    """Requires App Engine admin credentials"""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if users.get_current_user():
+            if not users.is_current_user_admin():
+                abort(401)  # Unauthorized
+            return func(*args, **kwargs)
+        return redirect(users.create_login_url(request.url))
+    return decorated_view

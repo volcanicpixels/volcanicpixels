@@ -15,7 +15,7 @@ def is_academic(email):
         return False
     import logging
     logging.info(email[-9:])
-    return email[-9:] == "cam.ac.uk"
+    return email[-6:] == ".ac.uk" or email[-4:] == ".edu"
 
 
 def generate_keypair(bits=2048):

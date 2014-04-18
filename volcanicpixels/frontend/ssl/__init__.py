@@ -9,9 +9,11 @@ import sys
 from StringIO import StringIO
 import zipfile
 import stripe
+from itsdangerous import URLSafeSerializer, BadPayload, BadSignature
 from flask import (
-    jsonify, request, render_template, url_for, redirect, make_response)
-from flask.ext.volcano import create_blueprint
+    jsonify, request, render_template, url_for, redirect, make_response,
+    current_app)
+from flask.ext.volcano import create_blueprint, admin_required
 from sslstore_api.methods import (
     get_approver_emails as _get_approver_emails, get_order_status,
     get_certificates, resend_email as _resend_email, check_csr)
@@ -55,13 +57,114 @@ def buy(defaults=None, template="ssl/buy"):
         if country in REGIONS and region in REGIONS[country]:
             defaults['state'] = REGIONS[country][region]
 
+    defaults['coupon_code'] = coupon = request.args.get('coupon')
+    defaults['price'] = 35
+
+    promotion = request.args.get('promotion')
+
+    if promotion:
+        defaults['promotion'] = promotion
+        if promotion == 'academic':
+            defaults['price'] = 15
+            defaults['coupon_message'] = 'Academic discount applied'
+
+    if coupon:
+        s = URLSafeSerializer(
+            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+        # Load the coupon
+        try:
+            coupon = s.loads(coupon)
+            # coupon should contain price, domain
+            if 'price' in coupon:
+                defaults['price'] = coupon['price']
+
+            if 'domain' in coupon and coupon['domain'] != '':
+                defaults['domain'] = coupon['domain']
+                defaults['domain_locked'] = True
+
+            logging.info(coupon)
+
+            defaults['coupon_message'] = 'Coupon applied'
+        except BadPayload, e:
+            defaults['coupon_code'] = None
+            defaults['error'] = 'The coupon entered is not valid'
+        except BadSignature, e:
+            defaults['coupon_code'] = None
+            defaults['error'] = 'This coupon has been tampered with'
+
     return render_template(template, countries=COUNTRIES_BY_NAME, **defaults)
+
+
+@bp.route('/coupon')
+@bp.route('/coupon/generate')
+@bp.route('/coupon/decode')
+@admin_required
+def coupon():
+    return render_template('ssl/coupon')
+
+
+@bp.route('/coupon/generate', methods=['POST'])
+@admin_required
+def generate_coupon():
+    name = request.form.get('name', '')
+    domain = request.form.get('domain', '')
+    price = request.form.get('price')
+
+    logging.error(name)
+
+    s = URLSafeSerializer(
+        current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+
+    coupon = {
+        'name': name,
+        'price': price,
+        'domain': domain
+    }
+
+    coupon_code = s.dumps(coupon)
+
+    return render_template('ssl/coupon', coupon_code=coupon_code)
 
 
 @bp.route('/upload-csr')
 def upload_csr(defaults=None, template="ssl/buy"):
     if defaults is None:
         defaults = {}
+
+    defaults['coupon_code'] = coupon = request.args.get('coupon')
+    defaults['price'] = 35
+
+    promotion = request.args.get('promotion')
+
+    if promotion:
+        defaults['promotion'] = promotion
+        if promotion == 'academic':
+            defaults['price'] = 15
+            defaults['coupon_message'] = 'Academic discount applied'
+
+    if coupon:
+        s = URLSafeSerializer(
+            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+        # Load the coupon
+        try:
+            coupon = s.loads(coupon)
+            # coupon should contain price, domain
+            if 'price' in coupon:
+                defaults['price'] = coupon['price']
+
+            if 'domain' in coupon and coupon['domain'] != '':
+                defaults['domain'] = coupon['domain']
+                defaults['domain_locked'] = True
+
+            logging.info(coupon)
+
+            defaults['coupon_message'] = 'Coupon applied'
+        except BadPayload, e:
+            defaults['coupon_code'] = None
+            defaults['error'] = 'The coupon entered is not valid'
+        except BadSignature, e:
+            defaults['coupon_code'] = None
+            defaults['error'] = 'This coupon has been tampered with'
 
     return render_template(
         template, countries=COUNTRIES_BY_NAME, upload_csr=True, **defaults)

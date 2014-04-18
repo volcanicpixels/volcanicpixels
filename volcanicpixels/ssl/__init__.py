@@ -6,7 +6,9 @@
     The SSL Api.
 """
 import stripe
-from flask import session, request
+import logging
+from itsdangerous import URLSafeSerializer, BadPayload, BadSignature
+from flask import session, request, current_app
 from volcanicpixels.users import (
     get_current_user, get_user, authenticate_user, create_user,
     UserAuthenticationFailedError)
@@ -17,7 +19,7 @@ from .data import REGIONS
 from .helpers import get_keypair, is_academic
 from .errors import (
     CVCCheckFailedError, SSLCertificateNotFoundError,
-    UserNotProvidedError, NonAcademicEmailError)
+    UserNotProvidedError, NonAcademicEmailError, DomainCouponMismatchError)
 from .models import SSLCertificate
 
 
@@ -105,12 +107,41 @@ def normalize_request(options):
     credit_card = options.get('credit_card')
     country = options.get('country')
     state = options.get('state')
+    coupon_code = options.get('coupon_code')
+    domain = options.get('domain')
+
+    options['amount'] = 35
+
+    if coupon_code is not None:
+        s = URLSafeSerializer(
+            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+        # Load the coupon
+        try:
+            options['coupon'] = coupon = s.loads(coupon_code)
+            # coupon should contain price, domain
+
+            if 'domain' in coupon and coupon['domain'] != '':
+                if domain is not None and domain != coupon['domain']:
+                    raise DomainCouponMismatchError(coupon['domain'], domain)
+
+            if 'price' in coupon:
+                options['amount'] = coupon['price']
+
+            options['coupon_message'] = 'Coupon applied'
+        except BadPayload, e:
+            options['coupon_code'] = None
+            options['error'] = 'The coupon entered is not valid'
+        except BadSignature, e:
+            options['coupon_code'] = None
+            options['error'] = 'This coupon has been tampered with'
 
     if country in REGIONS and state in REGIONS[country]:
         options['state'] = REGIONS[country][state]
 
     def is_token(value):
         """Determines whether the passed argument is a stripe token or not"""
+        if value is None:
+            return False
         return (value[:3] == 'tok')
 
     if 'user' in options:
@@ -145,8 +176,9 @@ def normalize_request(options):
         )
 
         user.stripe_id = customer.id
-        card = customer.cards.create(card=credit_card)
-        credit_card = card.id
+        if is_token(credit_card):
+            card = customer.cards.create(card=credit_card)
+            credit_card = card.id
     else:
         # User has a stripe ID
         customer = stripe.Customer.retrieve(user.stripe_id)
@@ -186,6 +218,9 @@ def normalize_request(options):
     if request.args.get('promotion') == 'academic':
         options['academic'] = True
 
+    if options.get('promotion', '') == 'academic':
+        options['academic'] = True
+
     return options
 
 
@@ -196,6 +231,7 @@ def process_request(options):
     domain = options.get('domain', None)
     approver_email = options.get('approver_email', None)
     price = options.get('price')
+    coupon = options.get('coupon')
 
     # TODO: Consume nonce and regurgitate on exception
 
@@ -210,32 +246,43 @@ def process_request(options):
 
     card = options.get('credit_card', None)
     customer = user.stripe_id
-    amount = 3500
+    amount = options.get('amount', 35)
     description = "SSL certificate for %s" % domain
 
     if options.get('promotion') == 'academic':
-        amount = 1500
+        amount = 15
 
-    if amount != int(price) * 100:
+    amount = int(amount)
+    price = int(price)
+
+    if amount != price:
         do_error('Price sanity check failed, expected %s but got %s'
-                 % (amount/100, price))
+                 % (str(amount), str(price)))
 
     # TODO: BQ and datastore
 
-    try:
-        charge = stripe.Charge.create(
-            amount=amount,
-            currency="gbp",
-            card=card,
-            customer=customer,
-            description=description,
-            capture=False
-        )
-    except:
-        raise
+    logging.info('Checks passed')
+    logging.info('Amount: %s' % amount)
 
-    if charge.card.cvc_check == "fail":
-        raise CVCCheckFailedError()
+    if amount == 0:
+        charge_id = None
+    else:
+        try:
+            charge = stripe.Charge.create(
+                amount=amount * 100,
+                currency="gbp",
+                card=card,
+                customer=customer,
+                description=description,
+                capture=False
+            )
+        except:
+            raise
+
+        if charge.card.cvc_check == "fail":
+            raise CVCCheckFailedError()
+
+        charge_id = charge.id
 
     # Payment authorised, now let's get this certificate!
 
@@ -244,7 +291,7 @@ def process_request(options):
         csr=csr,
         keypair=keypair,
         domain=domain,
-        charge_id=charge.id,
+        charge_id=charge_id,
         provider="sslstore",
         status="created"
     )
@@ -273,6 +320,7 @@ def process_request(options):
     # Also this can be wrapped in a deferred to benefit from automatic
     # retrying.
 
-    charge.capture()
+    if amount != 0:
+        charge.capture()
 
     return ssl_certificate

@@ -21,3 +21,9 @@ class SSLCertificateNotFoundError(Exception):
 
 class NonAcademicEmailError(Exception):
     pass
+
+
+class DomainCouponMismatchError(Exception):
+    def __init__(self, coupon, domain):
+        self.message = "%s entered, but coupon only valid for %s" \
+            % (coupon, domain)
