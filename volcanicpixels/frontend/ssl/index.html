@@ -16,11 +16,16 @@
             <p class="article-highlight align-center">
                 The quickest and easiest way to get SSL certificates for App Engine. No messing about with the terminal or combining keys.
             </p>
+            <div class="align-center font-size-large">
             {% if request.args.promotion is defined %}
-            <div class="align-center font-size-large"><a href="{{ url_for('.buy', promotion=request.args.promotion) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a></div>
+            <a href="{{ url_for('.buy', promotion=request.args.promotion) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a>
             {% else %}
-            <div class="align-center font-size-large"><a href="{{ url_for('.buy') }}" class="button primary-button">Purchase an SSL certificate for £{{ price | default('35') }}</a></div>
+            <a href="{{ url_for('.buy') }}" class="button primary-button">Purchase an SSL certificate for £{{ price | default('35') }}</a>
             {% endif %}
+            {% if user %}
+            <a href="{{ url_for('.list_orders') }}" class="button regular-button">View certificates</a>
+            {% endif %}
+            </div>
             <hr />
         </section>
         <h2 class="list-heading">Features</h2>
