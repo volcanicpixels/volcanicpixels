@@ -133,44 +133,8 @@ def generate_coupon():
 def upload_csr(defaults=None, template="ssl/buy"):
     if defaults is None:
         defaults = {}
-
-    defaults['coupon_code'] = coupon = request.args.get('coupon')
-    defaults['price'] = 35
-
-    promotion = request.args.get('promotion')
-
-    if promotion:
-        defaults['promotion'] = promotion
-        if promotion == 'academic':
-            defaults['price'] = 15
-            defaults['coupon_message'] = 'Academic discount applied'
-
-    if coupon:
-        s = URLSafeSerializer(
-            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
-        # Load the coupon
-        try:
-            coupon = s.loads(coupon)
-            # coupon should contain price, domain
-            if 'price' in coupon:
-                defaults['price'] = coupon['price']
-
-            if 'domain' in coupon and coupon['domain'] != '':
-                defaults['domain'] = coupon['domain']
-                defaults['domain_locked'] = True
-
-            logging.info(coupon)
-
-            defaults['coupon_message'] = 'Coupon applied'
-        except BadPayload, e:
-            defaults['coupon_code'] = None
-            defaults['error'] = 'The coupon entered is not valid'
-        except BadSignature, e:
-            defaults['coupon_code'] = None
-            defaults['error'] = 'This coupon has been tampered with'
-
-    return render_template(
-        template, countries=COUNTRIES_BY_NAME, upload_csr=True, **defaults)
+    defaults['upload_csr'] = True
+    return buy(defaults)
 
 
 @bp.route('/buy', methods=['POST'])
