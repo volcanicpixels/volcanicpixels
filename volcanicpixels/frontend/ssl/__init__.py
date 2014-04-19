@@ -6,6 +6,7 @@
 
 import logging
 import sys
+import uuid
 from StringIO import StringIO
 import zipfile
 import stripe
@@ -76,7 +77,7 @@ def buy(defaults=None, template="ssl/buy"):
             coupon = s.loads(coupon)
             # coupon should contain price, domain
             if 'price' in coupon:
-                defaults['price'] = coupon['price']
+                defaults['price'] = int(coupon['price'])
 
             if 'domain' in coupon and coupon['domain'] != '':
                 defaults['domain'] = coupon['domain']
@@ -84,13 +85,14 @@ def buy(defaults=None, template="ssl/buy"):
 
             logging.info(coupon)
 
-            defaults['coupon_message'] = 'Coupon applied'
+            defaults['coupon_message'] = 'Coupon applied (price: £%d)' % \
+                defaults['price']
         except BadPayload, e:
             defaults['coupon_code'] = None
-            defaults['error'] = 'The coupon entered is not valid'
+            defaults['error'] = 'The coupon is malformed'
         except BadSignature, e:
             defaults['coupon_code'] = None
-            defaults['error'] = 'This coupon has been tampered with'
+            defaults['error'] = 'This coupon is not valid (signature mismatch)'
 
     return render_template(template, countries=COUNTRIES_BY_NAME, **defaults)
 
@@ -110,7 +112,7 @@ def generate_coupon():
     domain = request.form.get('domain', '')
     price = request.form.get('price')
 
-    logging.error(name)
+    salt = str(uuid.uuid4().get_hex().upper()[0:10])
 
     s = URLSafeSerializer(
         current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
@@ -118,7 +120,8 @@ def generate_coupon():
     coupon = {
         'name': name,
         'price': price,
-        'domain': domain
+        'domain': domain,
+        'salt': salt
     }
 
     coupon_code = s.dumps(coupon)

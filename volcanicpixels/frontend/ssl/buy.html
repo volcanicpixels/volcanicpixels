@@ -21,7 +21,7 @@
             {% endif %}
             {% if coupon_message %}
                 <p class="positive align-center">
-                    {{ coupon_message }}
+                    {{ coupon_message.decode('utf-8') }}
                 </p>
             {% endif %}
             <header>
