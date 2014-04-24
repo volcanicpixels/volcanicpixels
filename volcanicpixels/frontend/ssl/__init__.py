@@ -152,6 +152,10 @@ def process_order():
     except WildCardCSRError:
         options['error'] = "Wildcard domain not allowed"
         return buy(options)
+    except DomainCouponMismatchError, e:
+        logging.error("Domain coupon mismatch")
+        options['error'] = 'Error: %s' % e
+        return buy(options)
     except Exception, e:
         logging.exception("Uncaught exception while processing order")
         logging.error(e)

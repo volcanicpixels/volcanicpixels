@@ -24,6 +24,8 @@ class NonAcademicEmailError(Exception):
 
 
 class DomainCouponMismatchError(Exception):
-    def __init__(self, coupon, domain):
-        self.message = "%s entered, but coupon only valid for %s" \
-            % (coupon, domain)
+    def __init__(self, domain, coupon):
+        message = "%s entered, but coupon only valid for %s" \
+            % (domain, coupon)
+
+        Exception.__init__(self, message)
