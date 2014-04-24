@@ -26,6 +26,7 @@ from volcanicpixels.users import (
     get_user, UserAuthenticationFailedError, get_current_user, User)
 from volcanicpixels.ssl.data import COUNTRIES_BY_NAME, REGIONS
 from volcanicpixels.ssl.helpers import is_academic
+from volcanicpixels.ssl.errors import DomainCouponMismatchError
 from .helpers import fix_unicode
 
 bp = create_blueprint("ssl", __name__, url_prefix="/ssl")
@@ -146,8 +147,8 @@ def process_order():
     logging.info(options)
 
     try:
-        options = check_request(options)
-        options = normalize_request(options)
+        check_request(options)
+        normalize_request(options)
         cert = process_request(options)
     except WildCardCSRError:
         options['error'] = "Wildcard domain not allowed"

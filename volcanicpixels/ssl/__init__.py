@@ -112,29 +112,6 @@ def normalize_request(options):
 
     options['amount'] = 35
 
-    if coupon_code is not None:
-        s = URLSafeSerializer(
-            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
-        # Load the coupon
-        try:
-            options['coupon'] = coupon = s.loads(coupon_code)
-            # coupon should contain price, domain
-
-            if 'domain' in coupon and coupon['domain'] != '':
-                if domain is not None and domain != coupon['domain']:
-                    raise DomainCouponMismatchError(coupon['domain'], domain)
-
-            if 'price' in coupon:
-                options['amount'] = coupon['price']
-
-            options['coupon_message'] = 'Coupon applied'
-        except BadPayload, e:
-            options['coupon_code'] = None
-            options['error'] = 'The coupon entered is not valid'
-        except BadSignature, e:
-            options['coupon_code'] = None
-            options['error'] = 'This coupon has been tampered with'
-
     if country in REGIONS and state in REGIONS[country]:
         options['state'] = REGIONS[country][state]
 
@@ -230,21 +207,48 @@ def normalize_request(options):
 
 def process_request(options):
     keypair = options.get('keypair', None)
-    csr = options.get('csr', 'NO_CSR')
+    csr = options.get('csr', None)
     user = options.get('user', None)
     domain = options.get('domain', None)
     approver_email = options.get('approver_email', None)
     price = options.get('price')
-    coupon = options.get('coupon')
+    coupon_code = options.get('coupon_code')
 
     # TODO: Consume nonce and regurgitate on exception
 
-    try:
-        result = check_csr(csr)
-        if result['isWildcardCSR']:
-            raise WildCardCSRError()
-    except:
-        raise
+    result = check_csr(csr)
+    if result['isWildcardCSR']:
+        raise WildCardCSRError()
+
+    if domain is None:
+        # this was a CSR request so we need to find out the domain
+        if 'DominName' in result:
+            domain = result['DominName']
+        else:
+            domain = result['DomainName']
+
+    if coupon_code is not None:
+        s = URLSafeSerializer(
+            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+        # Load the coupon
+        try:
+            options['coupon'] = coupon = s.loads(coupon_code)
+            # coupon should contain price, domain
+
+            if 'domain' in coupon and coupon['domain'] != '':
+                if domain is not None and domain != coupon['domain']:
+                    raise DomainCouponMismatchError(domain, coupon['domain'])
+
+            if 'price' in coupon:
+                options['amount'] = coupon['price']
+
+            options['coupon_message'] = 'Coupon applied'
+        except BadPayload, e:
+            options['coupon_code'] = None
+            options['error'] = 'The coupon entered is not valid'
+        except BadSignature, e:
+            options['coupon_code'] = None
+            options['error'] = 'This coupon has been tampered with'
 
     # Now let's authorise a stripe payment
 
