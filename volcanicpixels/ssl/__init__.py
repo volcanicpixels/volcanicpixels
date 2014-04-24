@@ -168,6 +168,10 @@ def normalize_request(options):
             user = create_user(email, password, name=name)
             session['user'] = user.key.id()
 
+    if not user.name:
+        name = options.get('name')
+        user.name = name
+
     if not user.stripe_id:
         # User doesn't have a stripe customer ID
         customer = stripe.Customer.create(
