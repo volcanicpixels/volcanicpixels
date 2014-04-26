@@ -405,7 +405,6 @@ define("ssl/buy",
         var purchase = function(e) {
             // check that a domain has been selected
             if (formProcessed) {
-                console.log('Form Processed');
                 return;
             }
 
