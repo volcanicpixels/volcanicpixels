@@ -30,7 +30,6 @@ define("ssl/complete",
                 $('.ive-verified').removeClass('loading').text("I've verified").prop('disabled', false);
                 if (showError) {
                     NProgress.done();
-                    showError = false;
                 }
                 if (doError(response)) {
                     showError = false;
