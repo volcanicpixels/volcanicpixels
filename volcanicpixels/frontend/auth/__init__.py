@@ -8,6 +8,8 @@ import logging
 
 from flask import render_template, url_for, request, redirect
 
+from google.appengine.api.users import create_logout_url
+
 from flask.ext.volcano import create_blueprint
 from volcanicpixels.users import (
     authenticate_user, UserNotFoundError, UserAuthenticationFailedError,
@@ -44,3 +46,9 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+@bp.route('/logout_appengine')
+def logout_appengine():
+    url = create_logout_url(url_for('home'))
+    return redirect(url)
