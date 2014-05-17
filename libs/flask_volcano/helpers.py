@@ -17,7 +17,7 @@ from functools import wraps
 from google.appengine.api.app_identity import get_application_id
 from google.appengine.api import users
 
-from flask import Blueprint, url_for, request, current_app, redirect
+from flask import Blueprint, url_for, request, current_app, redirect, abort
 from werkzeug.routing import BuildError
 
 
