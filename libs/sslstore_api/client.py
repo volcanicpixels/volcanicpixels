@@ -40,6 +40,7 @@ def checkForError(result, endpoint):
         parseError(result)
     return False
 
+
 class Client():
     def __init__(self, partner_code, auth_token, sandbox=True):
         self.partner_code = str(partner_code)
@@ -52,7 +53,7 @@ class Client():
             self.api_url = "https://api.thesslstore.com/rest/"
 
     def api_call(self, endpoint, fields):
-        url = self.api_url + endpoint;
+        url = self.api_url + endpoint
         fields['AuthRequest'] = {
             "PartnerCode": self.partner_code,
             "AuthToken": self.auth_token
@@ -62,11 +63,11 @@ class Client():
         headers = {
             'Content-Type': 'application/json'
         }
-        #BQ (tag to remind me that this data could be streamed to Big Query)
+        # BQ (tag to remind me that this data could be streamed to Big Query)
         logging.info('SSLStore API request')
         logging.info(payload)
 
-        result = urlfetch.fetch(url, payload, 'POST', headers)
+        result = urlfetch.fetch(url, payload, 'POST', headers, deadline=30)
 
         if result.status_code != 200:
             raise SSLStoreApiError()
@@ -75,7 +76,6 @@ class Client():
         logging.info(pp.pformat(result))
         checkForError(result, endpoint)
         return result
-
 
     def get_approver_emails(self, domain, product_code='positivessl'):
         fields = {
@@ -94,8 +94,9 @@ class Client():
         return self.api_call('csr', fields)
 
     def create_dv_ssl_order(
-        self, csr, domain, approver_email, product_code='positivessl',
-        web_server_type="Other", custom_order_id=None, technical_contact=None):
+            self, csr, domain, approver_email, product_code='positivessl',
+            web_server_type="Other", custom_order_id=None,
+            technical_contact=None):
 
         csr = escape(csr)
 
