@@ -88,10 +88,10 @@ def buy(defaults=None, template="ssl/buy"):
 
             defaults['coupon_message'] = 'Coupon applied (price: £%d)' % \
                 defaults['price']
-        except BadPayload, e:
+        except BadPayload:
             defaults['coupon_code'] = None
             defaults['error'] = 'The coupon is malformed'
-        except BadSignature, e:
+        except BadSignature:
             defaults['coupon_code'] = None
             defaults['error'] = 'This coupon is not valid (signature mismatch)'
 
@@ -160,7 +160,7 @@ def process_order():
     except Exception, e:
         logging.exception("Uncaught exception while processing order")
         logging.error(e)
-        options['error'] = 'Error: %s' % e
+        options['error'] = 'Error: %s. You have not been charged.' % e
         return buy(options)
 
     return redirect(url_for('.complete_order', order_id=cert.order_id))
