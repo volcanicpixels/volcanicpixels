@@ -254,11 +254,11 @@ def process_request(options):
 
     card = options.get('credit_card', None)
     customer = user.stripe_id
-    amount = options.get('amount', 35)
+    amount = options.get('amount', 50)
     description = "SSL certificate for %s" % domain
 
     if options.get('promotion') == 'academic':
-        amount = 15
+        amount = 25
 
     amount = int(amount)
     price = int(price)
@@ -278,7 +278,7 @@ def process_request(options):
         try:
             charge = stripe.Charge.create(
                 amount=amount * 100,
-                currency="gbp",
+                currency="usd",
                 card=card,
                 customer=customer,
                 description=description,

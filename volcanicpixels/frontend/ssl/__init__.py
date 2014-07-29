@@ -60,19 +60,19 @@ def buy(defaults=None, template="ssl/buy"):
             defaults['state'] = REGIONS[country][region]
 
     defaults['coupon_code'] = coupon = request.args.get('coupon')
-    defaults['price'] = 35
+    defaults['price'] = 50
 
     promotion = request.args.get('promotion')
 
     if promotion:
         defaults['promotion'] = promotion
         if promotion == 'academic':
-            defaults['price'] = 15
+            defaults['price'] = 25
             defaults['coupon_message'] = 'Academic discount applied'
 
     if coupon:
         s = URLSafeSerializer(
-            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON_USD')
         # Load the coupon
         try:
             coupon = s.loads(coupon)
@@ -86,14 +86,14 @@ def buy(defaults=None, template="ssl/buy"):
 
             logging.info(coupon)
 
-            defaults['coupon_message'] = 'Coupon applied (price: £%d)' % \
+            defaults['coupon_message'] = 'Coupon applied (price: $%d)' % \
                 defaults['price']
         except BadPayload:
             defaults['coupon_code'] = None
             defaults['error'] = 'The coupon is malformed'
         except BadSignature:
             defaults['coupon_code'] = None
-            defaults['error'] = 'This coupon is not valid (signature mismatch)'
+            defaults['error'] = 'This coupon is no longer valid'
 
     return render_template(template, countries=COUNTRIES_BY_NAME, **defaults)
 
@@ -122,7 +122,8 @@ def generate_coupon():
         'name': name,
         'price': price,
         'domain': domain,
-        'salt': salt
+        'salt': salt,
+        'currency': 'USD'
     }
 
     coupon_code = s.dumps(coupon)
