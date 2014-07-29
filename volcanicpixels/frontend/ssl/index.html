@@ -18,9 +18,9 @@
             </p>
             <div class="align-center font-size-large">
             {% if request.args.promotion is defined %}
-            <a href="{{ url_for('.buy', promotion=request.args.promotion) }}" class="button primary-button">Purchase an SSL certificate for <del>£35</del> £{{ price | default('35') }}</a>
+            <a href="{{ url_for('.buy', promotion=request.args.promotion) }}" class="button primary-button">Purchase an SSL certificate for <del>$50</del> ${{ price | default('25') }}</a>
             {% else %}
-            <a href="{{ url_for('.buy') }}" class="button primary-button">Purchase an SSL certificate for £{{ price | default('35') }}</a>
+            <a href="{{ url_for('.buy') }}" class="button primary-button">Purchase an SSL certificate for ${{ price | default('50') }}</a>
             {% endif %}
             {% if user %}
             <a href="{{ url_for('.list_orders') }}" class="button regular-button">View certificates</a>
@@ -34,7 +34,7 @@
                 <div class="feature-description with-icon">
                     <i class="li_banknote"></i>
                     <h1>Great pricing</h1>
-                    <p>At just <span class="highlight">£{{ price | default(35)}}</span> a year we not only provide you with exceptional features, but also exceptional value.</p>
+                    <p>At just <span class="highlight">${{ price | default(50)}}</span> a year we not only provide you with exceptional features, but also exceptional value.</p>
                     <small>Note: You need to have <a href="https://developers.google.com/appengine/docs/ssl#activating_ssl_for_your_domain">activated ssl</a>.</small>
                 </div>
             </section>
