@@ -110,7 +110,7 @@ def normalize_request(options):
     coupon_code = options.get('coupon_code')
     domain = options.get('domain')
 
-    options['amount'] = 35
+    options['amount'] = 50
 
     if country in REGIONS and state in REGIONS[country]:
         options['state'] = REGIONS[country][state]
