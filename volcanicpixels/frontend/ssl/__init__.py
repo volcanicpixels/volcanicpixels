@@ -121,7 +121,7 @@ def generate_coupon():
     salt = str(uuid.uuid4().get_hex().upper()[0:10])
 
     s = URLSafeSerializer(
-        current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+        current_app.config.get('SECRET_KEY'), salt='SSL_COUPON_USD')
 
     coupon = {
         'name': name,

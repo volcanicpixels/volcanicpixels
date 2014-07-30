@@ -229,7 +229,7 @@ def process_request(options):
 
     if coupon_code is not None:
         s = URLSafeSerializer(
-            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON')
+            current_app.config.get('SECRET_KEY'), salt='SSL_COUPON_USD')
         # Load the coupon
         try:
             options['coupon'] = coupon = s.loads(coupon_code)
