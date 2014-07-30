@@ -1,0 +1,254 @@
+{#
+   app-engine-ssl/buy
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block js_scripts %}
+<script src="/assets/crypto.js"></script>
+{% endblock %}
+
+{% block js %}ssl/new_buy{% endblock %}
+
+{% block title %}Purchase SSL Certificate | {{ super() }}{% endblock %}
+
+
+{% block page %}
+
+    {% include "modules/credit-card/key" %}
+
+    <section class="container-very-tight">
+        <form id="form" class="block-form" method="POST" action="{{ url_for('ssl.process_order') }}">
+
+            {% if error %}
+                <p class="negative align-center">
+                    {{ error }}
+                </p>
+            {% endif %}
+
+            {% if coupon_message %}
+                <p class="positive align-center">
+                    {{ coupon_message.decode('utf-8') }}
+                </p>
+            {% endif %}
+
+            <header>
+                <h1>Get your SSL certificate now</h1>
+            </header>
+
+            {# PRICE/PROMOTION Section #}
+
+            {#
+                Just before the transaction is processed the server calculated
+                price is compared with this to make sure that the price that
+                was displayed to the user is the price that is charged.
+            #}
+            <input type="hidden" name="price" value="{{ price }}"/>
+
+            {#
+                This is used if the academic page is accessed.
+            #}
+            {% if promotion %}
+                 <input class="promotion" type="hidden" name="promotion"
+                    value="{{ promotion }}" />
+            {% endif %}
+
+            {#
+                Contains the coupon specified in the url_arg
+            #}
+            {% if coupon_code %}
+                 <input class="coupon" type="hidden" name="coupon_code"
+                    value="{{ coupon_code }}" />
+            {% endif %}
+
+            <div class="csr-upload {% if not upload_csr %}invisible{% endif %}">
+                <fieldset>
+                    <p>
+                        <span class="highlight">Paste or drop your CSR below.</span>
+                    </p>
+                    <textarea name="csr" autocorrect="off" class="csr"></textarea>
+                </fieldset>
+
+                {# TODO: display CSR content #}
+                <p class="csr-loaded positive hide">
+                    CSR passed preliminary checks
+                </p>
+                <fieldset>
+                    <div class="load-csr button regular-button">Load Certificate Signing Request</div>
+                </fieldset>
+            </div>
+
+            {% if not upload_csr %}
+                <fieldset>
+                    {#
+                        domain_locked is set if a coupon is used that is locked
+                        to a domain
+                    #}
+                    <input name="domain"
+                        {% if domain_locked %}readonly="readonly"{% endif %}
+                        spellcheck="false" class="domain" type="text"
+                        placeholder="Domain" value="{{ domain | escape }}" />
+
+                    <div class="align-center wildcard-message hide">
+                        <p>Wildcard certificates cost $120 and are currently
+                            processed manually. Please email us at
+                            <a href="mailto:hello@volcanicpixels.com">hello@volcanicpixels.com</a>
+                            and we will process this quickly.
+                        </p>
+                    </div>
+                    <div class="align-center naked-domain hide">
+                        <p>Do you mean <span class="alternate-font"><span class="highlight">www.</span><span class="hostname"></span></span>? If you are not sure then <a href="https://platinummirror.zendesk.com/hc/en-gb/articles/200328598-What-domain-should-I-enter-for-my-certificate" target="_blank">read this</a>
+                        </p>
+                        <div class="font-size-xsmall">
+                            <div class="button primary-button yes">Yes, thanks</div>
+                            <div class="button regular-button no">Nope, I'm sure</div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <input autocomplete="off" class="organization" id="org" type="text" x-autocompletetype="organization" placeholder="Business/individual name" value="{{ organization }}" />
+                </fieldset>
+                <fieldset>
+                    <input autocomplete="off" class="city" type="text" placeholder="City/Town" value="{{ city }}" />
+                </fieldset>
+                <fieldset>
+                    <input autocomplete="off" class="state" type="text" placeholder="{% if country == 'GB'%}County{% else %}State{% endif %}" value="{{ state }}" />
+                </fieldset>
+                <fieldset>
+                    <select class="country" name="country" data-stripe="address_country">
+                    {% for name, _country in countries|dictsort %}
+                        <option value="{{ _country.alpha2 }}" {% if _country.alpha2 == country %}selected{% endif %}>{{ _country.name }}</option>
+                    {% endfor %}
+                    </select>
+                </fieldset>
+            {% endif %}
+
+
+
+            <hr />
+
+            <h2>Domain Verification</h2>
+            <p class="align-center">
+                To issue a certificate we need to verify that you manage the domain. <span class="highlight">Select an email address to send the verification email to.</span> If none of these email addresses exist you need to <a tabindex="-1" href="http://stps.co/r/ldzjy2S/" target="_blank" title="Guide opens in new tab">add one as an alias</a> before purchasing.
+            </p>
+            <fieldset>
+                <select name="approver_email" class="verification-email-address" data-default="{{ approver_email }}">
+                    <option>Enter {% if upload_csr %}CSR{% else %}domain{% endif%} first</option>
+                </select>
+            </fieldset>
+
+            <hr />
+
+            <fieldset class="align-center">
+                <div class="generate-keypair button primary-button full-width">Generate encryption key in browser</div>
+                <p class="message hide"><span class="highlight">Key generation may take up to 30 secs.</span></p>
+            </fieldset>
+
+            <fieldset class="download hide">
+
+                <p>
+                    This key has been generated inside your browser, we cannot replace it if you delete it so please <span class="highlight">keep it safe</span>.
+                    <span class="safari hide">Safari does not support direct downloads yet, you will need to right click the button, click "download linked file as" and then save it as private_key.pem</span>
+                </p>
+                <a download="private_key.pem" target="_blank" class="button primary-button full-width"  style="margin-bottom: 1em">Download encryption key</a>
+
+                <div class="button regular-button full-width have-downloaded">I have downloaded the key</div>
+            </fieldset>
+
+            <hr />
+
+            <div class="payment disabled">
+
+                {% if not user.name %}
+
+                <fieldset>
+                    <input name="name" id="name" type="text" x-autocompletetype="name-full" data-stripe="name" placeholder="Your name" value="{{ name }}" />
+                </fieldset>
+
+                {% endif %}
+
+                {% if not user.email %}
+
+                <fieldset>
+                    {% if request.args.promotion == 'academic' or academic %}
+                    <p class="align-center">
+                        <span class="highlight">Enter your academic email address</span>
+                    </p>
+                    {% endif %}
+                    <input name="email" id="username" class="email" type="text" x-autocompletetype="email" placeholder="Email address" value="{{ email }}" />
+                </fieldset>
+
+
+                {% endif %}
+
+                {% if not user %}
+
+                {% if request.args.promotion == 'academic' or academic %}
+
+                    <p class="align-center hide negative non-academic-user">
+                        For academic pricing you must enter an accepted academic email.
+                    </p>
+
+                    <p class="align-center hide positive academic-user">
+                        That email address looks good :)
+                    </p>
+
+                {% endif %}
+
+                <p class="align-center hide existing-user">
+                    The email address you entered is linked to an account, <span class="highlight">enter your password below</span>.
+                </p>
+
+                <p class="align-center hide new-user">
+                    It looks like you're new here, <span class="highlight">enter a password below</span>.
+                </p>
+
+                <fieldset>
+                    <input name="password" id="password" type="password" class="password" placeholder="Password" value="{{ password }}" />
+                </fieldset>
+
+                <p class="align-center hide negative incorrect-password">
+                    <i class="ss-alert"></i> That password is wrong
+                </p>
+
+                <p class="align-center hide positive correct-password">
+                    <i class="li_like"></i> That password is correct
+                </p>
+
+
+                <hr />
+
+                {% endif %}
+
+                {% if price != 0 %}
+
+
+                <p class="align-center loading-cards hide">
+                    <span class="highlight">We are just loading your credits cards now.</span>
+                </p>
+
+
+                <fieldset class="hide">
+                    <legend>Select a credit card to use</legend>
+                    <select name="credit_card" class="chosen-card">
+                        <option selected class="new-card stripe-token">New credit card</option>
+                    </select>
+                </fieldset>
+
+                {% include "modules/credit-card" %}
+
+                {% endif %}
+
+                <p class="pad-medium align-center">
+                    Submitting this form signifies that you've read and agree to our <a title="Terms of Service" href="{{ url_for('terms-of-service') }}" target="_blank">Terms of Service</a>, <a title="Privacy Policy" href="{{ url_for('privacy-policy') }}" target="_blank">Privacy Policy</a> and Comodo's <a href="http://www.comodo.com/repository/docs/ssl_certificate_subscriber_agreement.pdf" target="_blank">SSL Subscriber Agreement</a>.
+                </p>
+
+                <fieldset>
+                    <div class="button primary-button purchase full-width">Purchase certificate for ${{ price | default("50") }}</div>
+                </fieldset>
+            </div>
+        </form>
+    </section>
+{% endblock %}

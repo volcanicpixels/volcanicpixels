@@ -34,11 +34,16 @@ bp = create_blueprint("ssl", __name__, url_prefix="/ssl")
 
 @bp.route('/')
 def render():
-    return buy(template="ssl")
+    return buy_worker(template="ssl")
 
 
 @bp.route('/buy')
-def buy(defaults=None, template="ssl/buy"):
+def buy(defaults=None):
+    return buy_worker(template="ssl/new_buy")
+
+
+@bp.route('/buy-old')
+def buy_worker(defaults=None, template="ssl/buy"):
     if defaults is None:
         defaults = {}
     country = request.headers.get('X-Appengine-Country', '').upper()
@@ -136,7 +141,7 @@ def upload_csr(defaults=None, template="ssl/buy"):
     if defaults is None:
         defaults = {}
     defaults['upload_csr'] = True
-    return buy(defaults)
+    return buy_worker(defaults)
 
 
 @bp.route('/buy', methods=['POST'])
@@ -153,18 +158,47 @@ def process_order():
         cert = process_request(options)
     except WildCardCSRError:
         options['error'] = "Wildcard domain not allowed"
-        return buy(options)
+        return buy_worker(options)
     except DomainCouponMismatchError, e:
         logging.error("Domain coupon mismatch")
         options['error'] = 'Error: %s' % e
-        return buy(options)
+        return buy_worker(options)
     except Exception, e:
         logging.exception("Uncaught exception while processing order")
         logging.error(e)
         options['error'] = 'Error: %s. You have not been charged.' % e
-        return buy(options)
+        return buy_worker(options)
 
     return redirect(url_for('.complete_order', order_id=cert.order_id))
+
+
+@bp.route('/purchase_certificate', methods=['POST'])
+def purchase_certificate():
+    options = {}
+    for key in request.form:
+        options[key] = request.form[key]
+
+    logging.info(options)
+
+    try:
+        check_request(options)
+        normalize_request(options)
+        cert = process_request(options)
+    except WildCardCSRError:
+        msg = "Wildcard domain not allowed"
+        return jsonify(status='ERROR', msg=msg)
+    except DomainCouponMismatchError, e:
+        logging.error("Domain coupon mismatch")
+        msg = 'Error: %s' % e
+        return jsonify(status='ERROR', msg=msg)
+    except Exception, e:
+        logging.exception("Uncaught exception while processing order")
+        logging.error(e)
+        msg = 'Error: %s. You have not been charged.' % e
+        return jsonify(status='ERROR', msg=msg)
+
+    return jsonify(status='SUCCESS', data=url_for(
+        '.complete_order', order_id=cert.order_id, _external=True))
 
 
 @bp.route('/complete')

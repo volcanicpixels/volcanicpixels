@@ -37,7 +37,7 @@
                 <p class="hide negative resend-error">Verification email could not be resent, contact support.</p>
                 <button class="button primary-button ive-verified">I've verified</button>
                 <p class="negative not-verified hide">
-                    Not verified (it can take up to 10 minutes after verifying, please be patient).
+                    Not verified (it can take up to 10 minutes after verifying for it to register, please be patient).
                 </p>
             </span>
             <span class="configure {{ configure }}">
@@ -75,7 +75,7 @@
                     {% if certificate.keypair %}
                     Select <code>privatekey.key</code> from the download for the field labelled "Unencrypted private key"
                     {% else %}
-                    Select the private key that you used to generate the CSR for the field labelled "Unencrypted private key". <small>This won't work if the privatekey hasn't been decrypted.</small>
+                    Select the private key that you downloaded earlier for the field labelled "Unencrypted private key".
                     {% endif %}
                 </p>
                 <p>

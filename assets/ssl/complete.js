@@ -75,7 +75,8 @@ define("ssl/complete",
             });
         };
 
-        checkStatusRunner();
+        // don't check for first 90 secs
+        setTimeout(checkStatusRunner, 1000 * 90);
 
         var isRunning = false;
 
