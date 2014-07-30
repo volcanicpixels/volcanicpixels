@@ -473,11 +473,9 @@ def get_cards():
 
         return jsonify(
             status='SUCCESS', data={'cards': cards})
-    except:
+    except Exception as e:
         if msg is None:
             msg = "An error occured whilst retrieving your details from stripe"
 
-            msg += "\n\n" + sys.exc_info()[0]
-
-        logging.exception(msg)
+        logging.exception(e)
         return jsonify(status='ERROR', msg=msg)
