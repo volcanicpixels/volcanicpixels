@@ -25,7 +25,7 @@ def create_app(settings_override=None):
 
     markdown(app)
     links(app)
-    register_sentry(app)
+    #register_sentry(app)
     flask_init(app)
 
     logging.info(app.config)
