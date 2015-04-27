@@ -11,7 +11,6 @@ from flask.ext.volcano import (
     route, create_app as _create_app, canonical_url, server_info,
     make_external)
 from volcanicpixels.users import inject_user
-from raven_appengine import register_sentry
 from sslstore_api import flask_init
 from .errors import register_error_handlers
 import stripe
@@ -25,7 +24,6 @@ def create_app(settings_override=None):
 
     markdown(app)
     links(app)
-    #register_sentry(app)
     flask_init(app)
 
     logging.info(app.config)

@@ -1,0 +1,77 @@
+{#
+   domain-changer
+
+   Copyright (c) Daniel Chatfield
+#}
+{% extends "modules/layout" %}
+
+{% block title %}WordPress Domain Changer Plugin | {{ super() }}{% endblock %}
+
+{% block description%}The easiest way to change the web address of your WordPress site.{% endblock %}
+
+{% block page %}
+    <article class="article highlight-first container">
+        <section class="intro container-tight">
+            <h1>Domain Changer </h1>
+            <p>
+                Want to change the web address of your WordPress site but don't fancy messing around with the database? With this plugin you can migrate a large site with thousands of pages in just seconds.
+            </p>
+            <script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
+            <div class="align-center">
+                <a class="gumroad-button align-center" href="https://gumroad.com/l/QRKc?wanted=true">Purchase for $10</a>
+            </div>
+            <hr />
+        </section>
+
+
+        <h2 class="list-heading">Features</h2>
+
+        <div class="container article-bleed">
+
+            <section class="feature">
+                <div class="feature-item">
+                    <figure class="screenshot">
+                        <img src="/assets/frontend/domain-changer/intuitive_interface.png" />
+                    </figure>
+                </div>
+                <div class="feature-item feature-description">
+                    <h1>Intuitive interface</h1>
+                    <p>Could not be easier, we only show the options that are relevant to your site.</p>
+                </div>
+            </section>
+
+            <hr />
+
+            <section class="no-image">
+                <div class="feature-description with-icon">
+                    <h1>Full database search and replace</h1>
+                    <p>The plugin carefully searches through the entire WordPress database, including serialized values to make sure that no old links remain.</p>
+                </div>
+            </section>
+
+            <hr />
+
+
+            <section class="no-image">
+                <div class="feature-description with-icon">
+                    <i class="li_clock"></i>
+                    <h1>Lightning fast</h1>
+                    <p>The database search and replace uses optimized SQL queries when it can and automatically falls back to slower manual processing when the values are serialized objects.</p>
+                </div>
+            </section>
+
+            <hr />
+
+            <section class="feature">
+                <div class="feature-item feature-description align-center no-pad">
+                    <h1>Great Support</h1>
+                    <p style="text-align: center">Need help with setting something up? We are just an email away.</p>
+                    <a class="button regular-button small-button" href="http://platinummirror.zendesk.com">Go to Help</a>
+                </div>
+            </section>
+
+            <hr />
+        </div>
+
+    </article>
+{% endblock %}

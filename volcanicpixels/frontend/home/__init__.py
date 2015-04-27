@@ -30,6 +30,13 @@ def render():
                       "with the terminal or chaining certificates.",
             "icon": "li_key",
             "url": url_for('ssl')
+        },
+        {
+            "name": "WordPress Domain Changer Plugin",
+            "teaser": "The easiest and most reliable way change the address "
+                      "of your WordPress site.",
+            "icon": "li_world",
+            "url": url_for('domain-changer')
         }
     ]
     """
