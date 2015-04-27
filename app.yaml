@@ -6,7 +6,7 @@ threadsafe: true
 api_version: 1
 automatic_scaling:
   max_idle_instances: 1  # default value
-  min_pending_latency: automatic  # default value
+  min_pending_latency: 2s  # default value
   max_concurrent_requests: 20
 
 handlers:
